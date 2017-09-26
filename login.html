@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>login Page</title>
+		<link rel="stylesheet" type="text/css" href="./login/login.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="col-md-12">
+			<div class="col-md-3"></div>
+			<div class="col-md-6 loginform">
+				<div class="center col-md-12 ">
+					<form action="./login/login.php" method="post">
+						<div class="col-md-12" align="center" style="border: 3px solid #f1f1f1;">
+							<div class="imgcontainer col-md-12">
+								<img src="./login/img_avatar2.png" alt="Avatar" class="avatar">
+							</div>
+							<div class="container col-md-12"><h1 >Slack Login Page</h1></div>
+							<div class="container col-md-12">
+								<label><b>Email Id:</b></label>
+								<input type="text" placeholder="Enter your email id" name="email" autofocus="autofocus" autocomplete="off"  required>
+							</div>
+							<div class="container col-md-12">
+								<label><b>Password:</b></label>
+								<input type="password" placeholder="Enter Password" name="psw"  autocomplete="off" required>
+							</div>
+							<div class="container col-md-12">
+								<button  style="border-radius: 25px;" type="submit">Login</button>
+								<input type="checkbox" checked="checked"> Remember me
+							</div>
+						</div>					
+					</form>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</body>
+</html>
