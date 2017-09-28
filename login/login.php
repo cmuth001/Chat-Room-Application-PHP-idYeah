@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 	session_unset(); 
 	include_once "validate.php";
 ?>
@@ -33,3 +34,32 @@
 	</div>
 	</body>
 </html>
+=======
+include("../connect.php");
+
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+$email = $_REQUEST['email'];
+$psw = $_REQUEST['psw'];
+$sql = "SELECT * FROM register where email= '".$email."'";
+
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+	if($row = $result->fetch_assoc()) {
+		if($psw===$row['password']){
+			header('Location: ../index.html');
+		
+		}else {
+			header('Location: ../login.html');
+			
+		}
+	}
+}else {
+			header('Location: ../login.html');
+}
+$conn->close();
+?>
+>>>>>>> d3fd1aa1a8a79b1035c541ce92a92c3adc5f837a
