@@ -1,0 +1,48 @@
+.container{
+	width: 30%;
+	/*height: 30%;*/
+	border: 3px solid #73AD21;
+	padding: 1%;
+	margin:0 auto;
+	text-align: center;
+	/*border-radius: 25px;*/
+
+}
+.loginform{
+	padding: 10%;
+	border: 3px solid #f1f1f1;
+	border-radius: 25px;
+}
+.inputfield{
+	width: 100%; 
+	padding: .5em 1em;
+	border-radius: 5px;
+}
+.label{
+	font-size: 100%;
+}
+.btn{
+	font-size:0.875em;
+	margin:0.35em;
+	border-radius: 25px;
+	background-color: #4CAF50;
+    color: white;
+    padding: .5em .5em;
+    border: none;
+    cursor: pointer;
+    width: 25%;
+}
+.btn:hover {
+    opacity: 0.8;
+}
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 1px 0;
+}
+h3{
+	margin-top: 5px;
+}
+img.avatar {
+    width: 20%;
+    border-radius: 50%;
+}
