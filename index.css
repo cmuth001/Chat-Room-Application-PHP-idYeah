@@ -1,0 +1,75 @@
+.headrow{
+	padding: 15px;
+	border:1px solid green;
+}
+li>*{
+	/*margin: 1px;*/
+	/*background-color: #008080 !important;*/
+	/*border:1px solid green;*/
+	text-align: center;
+}
+.listbg:hover{
+	background-color: green ;
+}
+head,body{
+	width: 100%; margin: 0 auto; overflow: hidden;
+
+}
+.nopadding{
+	padding: 0px !important;
+}
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   min-height:8% !important;
+}
+.listheader{
+	padding: 12%;
+}
+.starredList{
+	margin-top: 10%;
+}
+ui{
+	padding: 0px;
+	
+}
+.channeldiv{
+	text-align: center;
+	background-color:  #66467B ;
+	padding-bottom: 5%;
+	padding-top: 5%;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	letter-spacing: 0.3em;
+}
+.Starreddiv{
+	text-align: center;
+	background-color:  #66467B ;
+	padding-bottom: 4%;
+	padding-top: 4%;
+	color: white;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	letter-spacing: 0.3em;
+}
+.directmsgdiv{
+	text-align: center;
+	background-color:  #66467B;
+	padding-bottom: 5%;
+	padding-top: 5%;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	letter-spacing: 0.3em;
+}
+.btnadj{
+    margin-top: 0.3em;
+    padding-left: 0.3em;
+}
+.link{
+	color:white;
+}
+.link:hover{
+	color:white;
+	text-decoration: none;
+}
+.directmsgList{
+	margin-top: 10%;
+}

@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	session_unset(); 
 	include_once "validate.php";
 ?>
@@ -12,7 +13,7 @@
 	<body>
 		<div class = "container">
 			<div class="imgcontainer">
-				<img src="img_avatar2.png" alt="Avatar" class="avatar">
+				<img src="img_avatar4.png" alt="Avatar" class="avatar">
 			</div>
 			<h3>Slack Login Page</h3>
 			<div class ="loginform">
