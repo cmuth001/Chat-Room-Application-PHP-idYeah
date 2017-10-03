@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 
 CREATE DATABASE web-programming_db;
 
-use web-programming_db;
+use web_programming_db;
 --
 -- Database: `web-programming_db`
 --
