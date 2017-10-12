@@ -20,7 +20,7 @@
 				<form method="post" action="login.php">
 
 					<label class = "label" for="email">Email</label>
-					<input class="inputfield" type="text" name="email"  />
+					<input class="inputfield" type="text" name="email"  autofocus/>
 					<br>
 					<label class = "label" for="password">Password</label>
 					<input class="inputfield" type="password" name="password" />

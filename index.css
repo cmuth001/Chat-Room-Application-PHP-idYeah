@@ -1,15 +1,38 @@
+
 .headrow{
-	padding: 15px;
-	border:1px solid green;
+	    height: 70px;
 }
+.userInfo{
+	background-color: #404040;width: 13%;height: 70px;color: white;padding: 1% !important;
+}
+.leftSideMenu{
+	background-color: #404040;
+	width:13% !important;
+	padding: 0px 0;
+	overflow-y: auto; 
+	overflow-x: hidden;
+	height: 93%;
+}
+
 li>*{
 	/*margin: 1px;*/
 	/*background-color: #008080 !important;*/
 	/*border:1px solid green;*/
 	text-align: center;
 }
+
 .listbg:hover{
-	background-color: green ;
+	box-shadow: 0 0 6px rgba(35, 173, 255, 1);
+	   background-color: #333 !important;
+    color: white;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	letter-spacing: 0.05em;
+}
+.listbg{
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	letter-spacing: 0.05em;
+	margin-bottom: 5px;
+    padding: 5px 1px !important;
 }
 head,body{
 	width: 100%; margin: 0 auto; overflow: hidden;
@@ -22,7 +45,7 @@ head,body{
    position:absolute;
    bottom:0;
    width:100%;
-   min-height:8% !important;
+   min-height:9% !important;
 }
 .listheader{
 	padding: 12%;
@@ -35,29 +58,68 @@ ui{
 	
 }
 .channeldiv{
-	text-align: center;
-	background-color:  #66467B ;
+	/*text-align: center;*/
+	background-color: transparent;
 	padding-bottom: 5%;
 	padding-top: 5%;
 	font-family: "Comic Sans MS", cursive, sans-serif;
-	letter-spacing: 0.3em;
+	letter-spacing: 0.2em;
+	
+}
+.channeldiv:hover{
+	/*text-align: center;*/
+	background-color: #383836;
+	/*background-color: transparent;*/
+	padding-bottom: 5%;
+	padding-top: 5%;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	letter-spacing: 0.2em;
+
+	
 }
 .Starreddiv{
-	text-align: center;
-	background-color:  #66467B ;
+	/*text-align: center;*/
+	background-color: transparent;
 	padding-bottom: 4%;
 	padding-top: 4%;
 	color: white;
 	font-family: "Comic Sans MS", cursive, sans-serif;
-	letter-spacing: 0.3em;
+	letter-spacing: 0.2em;
+	
+}
+.Starreddiv:hover{
+	/*text-align: center;*/
+	background-color: #383836;
+	/*background-color: transparent;*/
+	padding-bottom: 4%;
+	padding-top: 4%;
+	color: white;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	letter-spacing: 0.2em;
+	
 }
 .directmsgdiv{
-	text-align: center;
-	background-color:  #66467B;
+	/*text-align: center;*/
+	background-color: transparent;
 	padding-bottom: 5%;
 	padding-top: 5%;
 	font-family: "Comic Sans MS", cursive, sans-serif;
-	letter-spacing: 0.3em;
+	letter-spacing: 0.2em;
+	
+}
+.directmsgdiv:hover{
+	/*text-align: center;*/
+	background-color: #383836;
+	/*background-color: transparent;*/
+	padding-bottom: 5%;
+	padding-top: 5%;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	letter-spacing: 0.2em;
+	
+}
+.textinput{
+	    padding-left: 11px;
+	    margin-left: 18px;
 }
 .btnadj{
     margin-top: 0.3em;
@@ -72,4 +134,55 @@ ui{
 }
 .directmsgList{
 	margin-top: 10%;
+	
+}
+.textinput{
+	/*padding-left: 25px;
+    padding-right: 25px;*/
+}
+
+.icon-plus {
+background-color: #404040;
+border-radius:8px;
+-webkit-border-radius:8px;
+-moz-border-radius:8px;
+width: 16px;
+height: 16px;
+position: relative;
+top:0;
+left:0;
+    margin-top: 3px;
+}
+.icon-plus:after {
+background-color: #fff;
+width: 8px;
+height: 2px;
+border-radius: 1px;
+-webkit-border-radius: 1px;
+-moz-border-radius: 1px;
+position: absolute;
+top:7px;
+left: 4px;
+  content:"";
+      
+}
+.icon-plus:before {
+background-color: #fff;
+width: 2px;
+height: 8px;
+border-radius: 1px;
+-webkit-border-radius: 1px;
+-moz-border-radius: 1px;
+position: absolute;
+top:4px;
+left: 7px;
+  content:"";
+
+}
+.btnsend{
+padding: 13px !important;
+border-top-right-radius: 10px !important;
+border-bottom-right-radius: 10px !important;  
+border-top-left-radius: 0px !important;
+border-bottom-left-radius: 0px !important;
 }
