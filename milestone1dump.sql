@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 15, 2017 at 11:38 PM
+-- Generation Time: Oct 15, 2017 at 11:55 PM
 -- Server version: 10.0.19-MariaDB-1~trusty-log
 -- PHP Version: 5.5.9-1ubuntu4.9
 
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `web_programming_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `web_programming_db`;
-
 --
 -- Database: `web-programming_db`
 --
@@ -35,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `channels` (
   `channel_name` varchar(20) NOT NULL,
   `purpose` varchar(50) NOT NULL,
   `created_by_user_email` varchar(20) NOT NULL,
-  `createdon` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `createdon` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `access_specifiers` tinyint(1) NOT NULL,
   `channel_starred` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -45,8 +44,8 @@ CREATE TABLE IF NOT EXISTS `channels` (
 --
 
 INSERT INTO `channels` (`channel_id`, `channel_name`, `purpose`, `created_by_user_email`, `createdon`, `access_specifiers`, `channel_starred`) VALUES
-(1, 'milestone-1', 'milestone-1', 'cmuth001@odu.edu', '2017-10-03 04:00:00.000000', 1, 0),
-(2, 'milestone-2', 'milestone-2', 'cmuth001@odu.edu', '2017-10-04 04:00:00.000000', 1, 0);
+(1, 'milestone-1', 'milestone-1', 'cmuth001@odu.edu', '2017-10-03 04:00:00', 1, 0),
+(2, 'milestone-2', 'milestone-2', 'cmuth001@odu.edu', '2017-10-04 04:00:00', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -111,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `direct_message` (
   `from_email` varchar(20) NOT NULL,
   `to_email` varchar(20) NOT NULL,
   `direct_message` varchar(2000) NOT NULL,
-  `dm_timestamp` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+  `dm_timestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -184,7 +183,7 @@ INSERT INTO `register` (`email`, `password`, `user_name`, `display_name`) VALUES
 CREATE TABLE IF NOT EXISTS `status` (
   `user_email` varchar(50) NOT NULL,
   `status_txt` varchar(100) NOT NULL,
-  `status_timestamp` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+  `status_timestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
