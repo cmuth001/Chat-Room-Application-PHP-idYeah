@@ -41,8 +41,9 @@ if(!$_SESSION['loggedIn']){
 						<label><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></label>
 				</div>
 
-				<div class="col-md-9 nopadding">	
-					<label><?php $result = getChannelName($_GET["channel"]); echo "#" .$result['channel_name']?></label>
+				<div class="col-md-9 nopadding" style="width: 87%;height: 74px;color: white;padding: 1% !important;
+">	
+					<label><?php $result = getChannelName($_GET["channel"]); echo $result['channel_name']?></label>
 				</div>
 			</div>
 

@@ -49,8 +49,10 @@ function getChannelMessages($channel_id){
     $string = "<div class = 'message_wrapper'>";
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
+		$date = date_create($row['cmsg_timestamp']);
+		$time = date_format($date, 'Y-m-d l g:ia');
     	$string=$string."<div class='right'>
-    						<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$row['cuser_email']."</a><label class = 'timeStamp'>".$row['cmsg_timestamp']."</label>  					
+    						<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$row['cuser_email']."</a><label class = 'timeStamp'>".$time."</label>  					
     						<div class= 'textMessage'><span>".$row['channel_message']."</span></div>
     					</div>";
 
