@@ -14,8 +14,10 @@
     $row = $result->fetch_assoc();
     return($row['email']==$u && $row['password']==$p); 
   }
-  if($_POST && check_login($_POST['email'],$_POST['password'])){
-     $_SESSION['email'] = $_POST['email'];
+  $email = htmlspecialchars($_POST['email']);
+  $password = htmlspecialchars($_POST['password']);
+  if($_POST && check_login($email,$password)){
+     $_SESSION['email'] = $email;
     // echo "session value:".$_SESSION['email'];
      $_SESSION['loggedIn'] = True; 
      header("location: ../index.php");

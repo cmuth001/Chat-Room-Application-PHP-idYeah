@@ -22,9 +22,9 @@ function getChannelName($channel_id){
 	$row = $result->fetch_assoc();
 	return $row;
 }
-function getAllChannels(){
+function getAllChannels($email){
 	global $conn;
-	$sql = "SELECT * FROM channels";
+	$sql = "SELECT * FROM userChannels where user_email="."'$email'";;
     $result = mysqli_query($conn, $sql);
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
