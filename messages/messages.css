@@ -19,4 +19,5 @@ margin-right: 15px;
 .textMessage{
   margin-left: 55px;
   font-family: "Comic Sans MS", cursive, sans-serif;
+  word-wrap: break-word;
 }

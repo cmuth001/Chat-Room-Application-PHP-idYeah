@@ -28,7 +28,7 @@ function getAllChannels(){
     $result = mysqli_query($conn, $sql);
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
-    	$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id'].">#".$row['channel_name']."</a></li>";
+    	$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='ffont-size: 126%;padding-right: 3%;' class='fa'>&#xf09c;</i>".$row['channel_name']."</a></li>";
 	}
 	return $string;
 }
@@ -38,10 +38,13 @@ function getAllUsers(){
     $result = mysqli_query($conn, $sql);
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
-    	$string=$string."<li ><a class= 'listbg' href=''>".$row['user_name']."</a></li>";
+    	$string=$string."<li ><a class= 'listbg' href=''><i class ='fa' style = 'padding-right: 3%;'>&#xf2be;</i>".$row['user_name']."</a></li>";
 	}
 	return $string;
 }
+
+
+
 function getChannelMessages($channel_id){
 	global $conn;
 	$sql = "SELECT * FROM channel_messages where channel_id="."'$channel_id'";
@@ -51,13 +54,14 @@ function getChannelMessages($channel_id){
 	{ 
 		$date = date_create($row['cmsg_timestamp']);
 		$time = date_format($date, 'Y-m-d l g:ia');
+		$message = htmlspecialchars($row['channel_message']);
     	$string=$string."<div class='right'>
     						<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$row['cuser_email']."</a><label class = 'timeStamp'>".$time."</label>  					
-    						<div class= 'textMessage'><span>".$row['channel_message']."</span></div>
+    						<div class= 'textMessage'><span>".$message."</span></div>
     					</div>";
 
 	}
-	$string = $string."</div>";
+	$string = $string."<div id = 'scrollBottom'></div></div>";
 	return $string;
 }
 

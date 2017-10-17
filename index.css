@@ -15,10 +15,10 @@
 }
 
 li>*{
-	/*margin: 1px;*/
-	/*background-color: #008080 !important;*/
-	/*border:1px solid green;*/
-	text-align: center;
+	/*padding-left: 7%;*/
+}
+.channel{
+	padding-left: 6% ;
 }
 
 .listbg:hover{
@@ -32,7 +32,7 @@ li>*{
 	font-family: "Comic Sans MS", cursive, sans-serif;
 	letter-spacing: 0.05em;
 	margin-bottom: 5px;
-    padding: 5px 1px !important;
+    padding: 2% 12% !important;
 }
 head,body{
 	width: 100%; margin: 0 auto; overflow: hidden;
@@ -42,10 +42,10 @@ head,body{
 	padding: 0px !important;
 }
 #footer {
-   position:absolute;
-   bottom:0;
-   width:100%;
-   min-height:9% !important;
+   position: fixed;
+   bottom: 0;
+   width: 87%;
+   min-height: 4.8em !important;
 }
 .listheader{
 	padding: 12%;
@@ -82,6 +82,7 @@ ui{
 	background-color: transparent;
 	padding-bottom: 4%;
 	padding-top: 4%;
+	padding-left: 11% !important;
 	color: white;
 	font-family: "Comic Sans MS", cursive, sans-serif;
 	letter-spacing: 0.2em;
@@ -127,10 +128,12 @@ ui{
 }
 .link{
 	color:white;
+	padding-left: 6%;
 }
 .link:hover{
 	color:white;
 	text-decoration: none;
+	padding-left: 6%;
 }
 .directmsgList{
 	margin-top: 10%;
@@ -185,4 +188,23 @@ border-top-right-radius: 10px !important;
 border-bottom-right-radius: 10px !important;  
 border-top-left-radius: 0px !important;
 border-bottom-left-radius: 0px !important;
+}
+.channel_title{
+	font-size: 154%;
+    color: #706c6c;
+}
+.checked {
+    color: orange;
+    font-size: 141% !important;
+}
+.divider{
+	font-size: 140%;
+	color: #706c6c;
+}
+.purposeChannel{
+	font-size: 110%;
+	color: #706c6c;
+}
+.detailsOfChannel{
+
 }

@@ -23,7 +23,7 @@ if($message != "")
  	if (mysqli_query($conn, $sql)) {
  		echo "$sql";
     	echo "New record created successfully";
-    	header("Location: ../index.php?channel=".$channel_id);
+    	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
     	exit;
 	}else {
     	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
