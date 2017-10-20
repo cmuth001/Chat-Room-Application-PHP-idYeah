@@ -10,19 +10,19 @@ if ($conn->connect_error) {
 }
 
 $message = mysqli_real_escape_string($conn,$_POST['message']);
-$channel_id = $_POST['channel'];
-$user = getUserDetails($_POST['email']);
+$channel_id = mysqli_real_escape_string($conn,$_POST['channel']);
+$user = getUserDetails(mysqli_real_escape_string($conn,$_POST['email']));
 $user = $user['display_name'];
-echo"message:". $message;
-echo"channel_id:".$channel_id;
-echo "user:".$user;
+// echo"message:". $message;
+// echo"channel_id:".$channel_id;
+// echo "user:".$user;
 if($message != "")
 {	
  	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',CURRENT_TIMESTAMP)";
- 	echo $sql;
+ 	// echo $sql;
  	if (mysqli_query($conn, $sql)) {
- 		echo "$sql";
-    	echo "New record created successfully";
+ 		// echo "$sql";
+    	// echo "New record created successfully";
     	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
     	exit;
 	}else {
