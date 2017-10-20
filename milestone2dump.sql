@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `channel_messages` (
   `cmessage_id` int(10) NOT NULL,
   `channel_id` int(10) NOT NULL,
   `cuser_email` varchar(20) CHARACTER SET latin1 NOT NULL,
-  `channel_message` varchar(2000) CHARACTER SET latin1 NOT NULL,
+  `channel_message` text CHARACTER SET latin1 NOT NULL,
   `cmsg_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
 
