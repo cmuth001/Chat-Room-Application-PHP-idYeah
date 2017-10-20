@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 15, 2017 at 11:55 PM
+-- Generation Time: Oct 17, 2017 at 03:49 AM
 -- Server version: 10.0.19-MariaDB-1~trusty-log
 -- PHP Version: 5.5.9-1ubuntu4.9
 
@@ -44,8 +44,10 @@ CREATE TABLE IF NOT EXISTS `channels` (
 --
 
 INSERT INTO `channels` (`channel_id`, `channel_name`, `purpose`, `created_by_user_email`, `createdon`, `access_specifiers`, `channel_starred`) VALUES
-(1, 'milestone-1', 'milestone-1', 'cmuth001@odu.edu', '2017-10-03 04:00:00', 1, 0),
-(2, 'milestone-2', 'milestone-2', 'cmuth001@odu.edu', '2017-10-04 04:00:00', 1, 0);
+(1, 'milestone-1', 'mileStone one tasks...', 'cmuth001@odu.edu', '2017-10-16 14:40:04', 1, 0),
+(2, 'milestone-2', 'mileStone Two tasks...', 'cmuth001@odu.edu', '2017-10-16 14:40:16', 1, 0),
+(3, 'general', 'General ideas...', 'cmuth001@odu.edu', '2017-10-01 04:00:00', 0, 0),
+(4, 'random', 'Random ideas...', 'cmuth001@odu.edu', '2017-10-17 07:30:36', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -59,29 +61,13 @@ CREATE TABLE IF NOT EXISTS `channel_messages` (
   `cuser_email` varchar(20) CHARACTER SET latin1 NOT NULL,
   `channel_message` varchar(2000) CHARACTER SET latin1 NOT NULL,
   `cmsg_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `channel_messages`
 --
 
 INSERT INTO `channel_messages` (`cmessage_id`, `channel_id`, `cuser_email`, `channel_message`, `cmsg_timestamp`) VALUES
-(42, 2, 'porsche@rsprings.gov', 'I''m Sally !', '2017-10-08 04:07:17'),
-(43, 2, 'porsche@rsprings.gov', 'whatsup', '2017-10-08 04:07:34'),
-(44, 2, 'porsche@rsprings.gov', 'hello', '2017-10-08 04:27:05'),
-(45, 1, 'porsche@rsprings.gov', 'hello hai', '2017-10-08 04:27:29'),
-(46, 1, 'porsche@rsprings.gov', 'yes', '2017-10-08 04:27:37'),
-(47, 1, 'porsche@rsprings.gov', 'asdf', '2017-10-08 04:27:47'),
-(50, 2, 'porsche@rsprings.gov', 'Recommended quick reference resource for PHP. Also has documents for HTML, JS, and CSS (edited)', '2017-10-08 04:42:00'),
-(51, 2, 'porsche@rsprings.gov', 'Hello Folks, I just did setup a debugging environment to make my coding on PHP easy.  Hope the followings links might be useful to some of you :point_down:', '2017-10-08 04:42:09'),
-(52, 2, 'porsche@rsprings.gov', 'great resource from Dr. Weigle: https://graduate.cs.odu.edu/wp-content/uploads/2017/09/2017-09-phd-gathering.pdf', '2017-10-08 04:42:26'),
-(53, 2, 'porsche@rsprings.gov', 'The docker toolbox works instead of docker for windows.', '2017-10-08 04:43:28'),
-(54, 2, 'cmuth001@odu.edu', 'I tried docker for windows first but it has some issues. It doesn''t work properly. Docker toolbox is better', '2017-10-08 04:44:07'),
-(55, 2, 'cmuth001@odu.edu', 'So should our site as it is allow for messages to be submitted or will we have a sort of "sample page" with some pre-populated messages, the submission interface, and sample channels to flip from?', '2017-10-08 04:44:44'),
-(56, 2, 'cmuth001@odu.edu', 'Ah I figured out the last thing preventing my system from logging in was the "session_register" line which I also presume was some sort of relic left inside of the tutorial. But now I can get logged in and redirected to my index and have the logged in user be displayed.  Now I can start working on how messaging will work and how to store those and also display them. I had a friend who mentioned that programs like discord and probably slack both use websocket to handle real-time events but I presume that this isn''t something we''d use and that there''s another way to do so   [11:23]  also I should probably throw down what I finally used https://stackoverflow.com/questions/38831162/cant-get-login-page-to-redirect-when-user-credentials-are-entered which, funnily enough, used pretty much exactly what the tutorial I used was but removed the relics that was breaking everything', '2017-10-08 04:45:12'),
-(57, 2, 'cmuth001@odu.edu', 'Alright, I''ll fix that up and then try and figure out what that $active line from the tutorial I was reading refers to exactly along with viewing the additional error messages. Again, thank you so much for helping!', '2017-10-08 04:45:29'),
-(58, 2, 'cmuth001@odu.edu', 'np -- it''s what i''m here for :slightly_smiling_face:. good luck! as a note to the rest of the class -- good debugging tips throughout this discussion. please read and refer back to this as you debug your software!', '2017-10-08 04:45:39'),
-(59, 1, 'Array', 'whatsup', '2017-10-09 02:57:19'),
 (60, 1, 'chandu_muthyala', 'hai', '2017-10-09 02:58:54'),
 (61, 2, 'chandu_muthyala', 'Mid way report...', '2017-10-09 02:59:53'),
 (62, 2, 'chandu_muthyala', 'hi', '2017-10-09 03:40:17'),
@@ -97,7 +83,30 @@ INSERT INTO `channel_messages` (`cmessage_id`, `channel_id`, `cuser_email`, `cha
 (72, 1, '', 'hi', '2017-10-14 04:58:18'),
 (73, 1, 'chandu_muthyala', 'hello', '2017-10-15 01:39:36'),
 (74, 2, 'chandu_muthyala', 'hi bro', '2017-10-15 01:41:14'),
-(75, 1, 'chandu_muthyala', 'hi', '2017-10-16 03:07:04');
+(75, 1, 'chandu_muthyala', 'hi', '2017-10-16 03:07:04'),
+(76, 2, 'chandu_muthyala', '<!-- hello -->', '2017-10-16 14:56:06'),
+(77, 0, 'chandu_muthyala', '&lt;!-- hello --&gt;', '2017-10-16 20:10:25'),
+(78, 1, 'chandu_muthyala', '&lt;!-- hello --&gt;', '2017-10-16 20:10:54'),
+(79, 1, 'chandu_muthyala', '&lt;a&gt;hello&lt;/a&gt;', '2017-10-16 20:11:11'),
+(80, 1, 'chandu_muthyala', 'Im there !', '2017-10-16 20:11:50'),
+(81, 1, 'chandu_muthyala', 'I''m here', '2017-10-16 20:15:24'),
+(82, 1, 'chandu_muthyala', '<a>', '2017-10-16 20:21:26'),
+(83, 1, 'chandu_muthyala', 'hey ... I''m here', '2017-10-16 20:21:41'),
+(84, 1, 'chandu_muthyala', '"\\ = / < > ! @ # $ % & * ( ) _ - + +"', '2017-10-16 20:22:13'),
+(85, 1, 'chandu_muthyala', '@lt', '2017-10-16 20:22:22'),
+(86, 1, 'chandu_muthyala', 'Jane & ''Tarzan''', '2017-10-16 20:23:18'),
+(87, 1, 'chandu_muthyala', '[\\x00\\x0A\\x0D\\x1A\\x22\\x27\\x5C]', '2017-10-16 20:24:55'),
+(88, 2, 'chandu_muthyala', '<!-- hello -->', '2017-10-16 20:49:28'),
+(89, 2, 'chandu_muthyala', '~!@#$%&^&**()_+{}":?:>M<', '2017-10-16 20:51:06'),
+(90, 2, 'chandu_muthyala', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa222222222222222222222222222222222222222222222qqqqqqqqqqqqqqqqqqqqqqqqqqqqaaaaaaaaaaaaaaxxxxx', '2017-10-16 20:56:05'),
+(91, 2, 'chandu_muthyala', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa222222222222222222222222222222222222222222222qqqqqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa222222222222222222222222222222222222222222222qqqqqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa222222222222222222222222222222222222222222222qqqqqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa222222222222222222222222222222222222222222222qqqqqgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg', '2017-10-16 20:56:32'),
+(92, 2, 'chandu_muthyala', 'hey ', '2017-10-16 21:06:26'),
+(93, 2, 'chandu_muthyala', 'hello', '2017-10-16 21:07:21'),
+(94, 1, 'chandu_muthyala', 'this is awsome', '2017-10-16 21:07:38'),
+(95, 1, 'chandu_muthyala', 'yup', '2017-10-16 22:29:04'),
+(96, 2, 'chandu_muthyala', 'hi ''m', '2017-10-16 23:27:45'),
+(97, 1, 'chandu_muthyala', 'hello', '2017-10-17 02:34:49'),
+(98, 1, 'chandu_muthyala', 'Yoo', '2017-10-17 06:25:32');
 
 -- --------------------------------------------------------
 
@@ -172,7 +181,9 @@ INSERT INTO `register` (`email`, `password`, `user_name`, `display_name`) VALUES
 ('topsecret@agent.org', '@mcmissile', 'Finn McMissile', 'Finn McMissile'),
 ('kachow@rusteze.com', '@mcqueen', 'Lightning McQueen', 'Lightning McQueen'),
 ('chinga@cars.com', '@chick', 'Chick Hicks', 'Chick Hicks'),
-('cmuth001@odu.edu', '@cmuth001', 'chandu_muthyala', 'chandu_muthyala');
+('cmuth001@odu.edu', '@cmuth001', 'chandu_muthyala', 'chandu_muthyala'),
+('npabb001@odu.edu', 'Neutral@123', 'vamsi', 'vamsi'),
+('skand001@odu.edu', 'She3ple!', 'yashkandukuri', 'whaike');
 
 -- --------------------------------------------------------
 
@@ -185,6 +196,39 @@ CREATE TABLE IF NOT EXISTS `status` (
   `status_txt` varchar(100) NOT NULL,
   `status_timestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userChannels`
+--
+
+CREATE TABLE IF NOT EXISTS `userChannels` (
+  `id` int(10) NOT NULL,
+  `user_email` varchar(20) NOT NULL,
+  `channel_id` int(10) NOT NULL,
+  `channel_name` varchar(20) NOT NULL,
+  `join_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `starred` tinyint(1) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userChannels`
+--
+
+INSERT INTO `userChannels` (`id`, `user_email`, `channel_id`, `channel_name`, `join_time`, `starred`) VALUES
+(1, 'mater@rsprings.gov', 1, 'milestone-1', '2017-10-17 07:19:19', 0),
+(2, 'chinga@cars.com', 1, 'milestone-1', '2017-10-17 07:19:22', 0),
+(3, 'cmuth001@odu.edu', 1, 'milestone-1', '2017-10-17 07:19:25', 0),
+(4, 'cmuth001@odu.edu', 2, 'milestone-2', '2017-10-17 07:19:31', 0),
+(5, 'mater@rsprings.gov', 2, 'milestone-2', '2017-10-17 07:19:35', 0),
+(6, 'skand001@odu.edu', 1, 'milestone-1', '2017-10-17 07:26:40', 0),
+(7, 'npabb001@odu.edu', 2, 'milestone-2', '2017-10-17 07:26:46', 0),
+(8, 'skand001@odu.edu', 3, 'general', '2017-10-01 04:00:00', 0),
+(9, 'cmuth001@odu.edu', 3, 'general', '2017-10-17 07:33:55', 0),
+(10, 'skand001@odu.edu', 4, 'random', '2017-10-08 04:00:00', 0),
+(11, 'npabb001@odu.edu', 4, 'random', '2017-10-01 04:00:00', 0),
+(12, 'npabb001@odu.edu', 3, 'general', '2017-10-01 04:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -281,6 +325,15 @@ ALTER TABLE `status`
   ADD KEY `user_email` (`user_email`);
 
 --
+-- Indexes for table `userChannels`
+--
+ALTER TABLE `userChannels`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_email`),
+  ADD KEY `user_id_2` (`user_email`),
+  ADD KEY `id` (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -307,12 +360,17 @@ ALTER TABLE `workspace`
 -- AUTO_INCREMENT for table `channel_messages`
 --
 ALTER TABLE `channel_messages`
-  MODIFY `cmessage_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=76;
+  MODIFY `cmessage_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=99;
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
   MODIFY `message_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `userChannels`
+--
+ALTER TABLE `userChannels`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
 --

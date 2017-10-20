@@ -116,8 +116,11 @@ if(!$_SESSION['loggedIn']){
 	        					</br>
 	        					<div id="Channel">
 				                        <ul class="nav nav-list tree starredList">
-				                 
-				                            <?php $result =getAllChannels();echo $result ?>
+				                 			<?php 
+				                 				$user_array = getUserDetails($_SESSION['email']); 				                 				 
+				                            	$result =getAllChannels($user_array['email']);
+				                            	echo $result
+				                            ?>
 				                        </ul>
 		                    	</div>
 		                    </li>
@@ -156,7 +159,7 @@ if(!$_SESSION['loggedIn']){
 			        		echo $result 
 			        	?>				        	
 		        	</div>
-		        	 <form action = "messages/messages.php" method = "post">
+		        	 <form action = "<?php echo htmlspecialchars("messages/messages.php") ?>" method = "post">
 			        	<div id="footer" class ="col-xs-12 nopadding "><!-- <input type="text" name="msgbox" style="width:100%;height: 100%;"> -->
 			        		<div class="input-group input-group-lg textinput">
 		  						<span class="input-group-addon" id="sizing-addon1"><a style="text-decoration: none" href="">+</a></span>
