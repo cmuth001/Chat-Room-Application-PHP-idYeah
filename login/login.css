@@ -1,4 +1,4 @@
-.container{
+.container1{
 	width: 30%;
 	/*height: 30%;*/
 	border: 3px solid #73AD21;
@@ -18,10 +18,11 @@
 	padding: .5em 1em;
 	border-radius: 5px;
 }
-.label{
+.label1{
 	font-size: 100%;
+	color:black;
 }
-.btn{
+.btn1{
 	font-size:0.875em;
 	margin:0.35em;
 	border-radius: 25px;
@@ -32,7 +33,7 @@
     cursor: pointer;
     width: 25%;
 }
-.btn:hover {
+.btn1:hover {
     opacity: 0.8;
 }
 .imgcontainer {
