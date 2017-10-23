@@ -74,7 +74,7 @@ if(!$_SESSION['loggedIn']){
 
 					</div>
 					<div class = "logout">
-						<a href="./login/login.php">
+						<a href="./signOut.php">
           					<span class="glyphicon glyphicon-log-out">LogOut</span>
         				</a>
 					</div>
