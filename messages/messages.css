@@ -21,3 +21,8 @@ margin-right: 15px;
   font-family: "Comic Sans MS", cursive, sans-serif;
   word-wrap: break-word;
 }
+.logout{
+    float: right;
+    margin-right: 4%;
+    margin-top: 1.7em;
+}

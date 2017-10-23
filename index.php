@@ -37,9 +37,9 @@ if(!$_SESSION['loggedIn']){
 			<div class = "col-xs-12 nopadding ">
 				<div  class = " col-xs-3 nopadding" style="background-color: #404040;width: 13%;height: 74px;color: white;padding: 1% !important;
 ">
-					<label>ODUCS518F17</label>
+					<div><label>ODUCS518F17</label></div>
 					
-						<label><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></label>
+						<div><label><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></label></div>
 				</div>
 
 				<div class="col-xs-9 nopadding" style="width: 87%;height: 74px;border-bottom: 0.15em solid #706c6c;background-color: #dae2c7;padding-left: 2% !important; padding-top: 4px !important;;
@@ -72,6 +72,11 @@ if(!$_SESSION['loggedIn']){
 							</span>
 						</div>
 
+					</div>
+					<div class = "logout">
+						<a href="./login/login.php">
+          					<span class="glyphicon glyphicon-log-out">LogOut</span>
+        				</a>
 					</div>
 					
 				</div>

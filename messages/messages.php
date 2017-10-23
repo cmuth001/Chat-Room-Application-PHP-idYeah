@@ -21,7 +21,7 @@ if($message != "")
  	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',CURRENT_TIMESTAMP)";
  	// echo $sql;
  	if (mysqli_query($conn, $sql)) {
- 		// echo "$sql";
+ 		echo "$sql";
     	// echo "New record created successfully";
     	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
     	exit;
