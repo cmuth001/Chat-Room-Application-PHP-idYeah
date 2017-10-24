@@ -87,7 +87,7 @@ if(!$_SESSION['loggedIn']){
 		        <div class="col-xs-3  leftSideMenu nopadding">
 		            <div >
 		                <ul class="col-xs-12 nav nav-list nopadding">
-		                    <li>
+		                    <!-- <li>
 		                    	<div class="col-xs-12 Starreddiv ">
 		                    		<div class="col-xs-12 nopadding">
 		                    			<label><span>&#x2606;</span>Starred</label>
@@ -104,19 +104,50 @@ if(!$_SESSION['loggedIn']){
 			                            
 			                        </ul>
 		                    	</div>
-		                    </li>
+		                    </li> -->
 		                    
 		                    <li class="divider"></li>
 		                    <li>
 		                    	<div class="col-xs-12 channeldiv">
 		                    		<div class="col-xs-11 nopadding">
 		                    			<b><a class ="link" href= "">Channels</a></b>
+		                    			<button class="btn  btn-sm  btn-circle addChannel" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button>
+		                    			<!-- Modal -->
+										  <div class="modal fade" id="myModal" role="dialog">
+										    <div class="modal-dialog modal-lg">
+										      <div class="modal-content">
+										        <div class="modal-header">
+										          <button type="button" class="close" data-dismiss="modal">&times;</button>
+										          <h4 class="modal-title">Create a Channel</h4>
+										        </div>
+										        <div class="modal-body">
+										          <!-- <h5>Create a Channel</h5> -->
+										          <p>organise a topic</p>
+										          <form action = "<?php echo htmlspecialchars("createChannel.php") ?>" method = "post">
+										          <div class="form-group">
+										            <label for="recipient-name" class="form-control-label">Name:</label>
+										            <input type="text" class="form-control" name = "channelName" id="recipient-name" placeholder= "Name of the channel" autofocus required>
+										          </div>
+										          <div class="form-group">
+										            <label for="message-text" class="form-control-label">Purpose</label>
+										            <textarea class="form-control" name = "purpose" id="message-text" placeholder= "Purpose of the channel"></textarea>
+										          </div>
+										          <div class="modal-footer">
+										          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										           <button type="submit" name = "submit" class="btn btn-default" >Create Channel</button>
+										        </div>
+										        </form>
+										        </div>
+										        
+										      </div>
+										    </div>
+										  </div>
 		                    		</div>
-		                    		<div class="col-xs-1  icon-plus nopadding">
+		                    		<!-- <div class="col-xs-1  icon-plus nopadding">
 			                    	
- 										<!-- <a href="#"><span class="name"></span></a> -->
+ 										<a href="#"><span class="name"></span></a>
 										
-	        						</div>
+	        						</div> -->
 	        					</div>
 	        					</br>
 	        					<div id="Channel">

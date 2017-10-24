@@ -208,3 +208,13 @@ border-bottom-left-radius: 0px !important;
 .detailsOfChannel{
 
 }
+.addChannel{
+	background-color: #404040;
+    color: white;
+    padding: 0px !important;
+}
+.addChannel:active{
+	background-color: #404040;
+    color: white !important;;
+    padding: 0px !important;
+}
