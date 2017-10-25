@@ -10,18 +10,22 @@ $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD,DB_NAME)
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-if(isset($_POST['submit']))
-{
-	$channelName = mysqli_real_escape_string($conn,$_POST['channelName']);
-    $purpose = mysqli_real_escape_string($conn,$_POST['purpose']);
+$data = $_POST['data'];
+
+	$channelName = mysqli_real_escape_string($conn,$data['channelName']);
+    $purpose = mysqli_real_escape_string($conn,$data['purpose']);
+    $radioButtonValue = mysqli_real_escape_string($conn,$data['radioButtonValue']);
+    
     $user = $_SESSION['email'];
-	$sql = "INSERT INTO `channels` VALUES(DEFAULT,'$channelName','$purpose','$user',CURRENT_TIMESTAMP,DEFAULT,DEFAULT)";
+	$sql = "INSERT INTO `channels` VALUES(DEFAULT,'$channelName','$purpose','$user',CURRENT_TIMESTAMP,'$radioButtonValue',DEFAULT)";
     // $result = $conn->query($sql);
     if (mysqli_query($conn, $sql)) {
-        echo "<br><br><p style='text-align:center;color:green;'>**** Channel created successfully ***</p>";
+        // echo "<br><br><p style='text-align:center;color:green;'>**** Channel created successfully ***</p>";
+        echo "**** Channel created successfully ***";
     }else{
-        echo "<br><br><p style='text-align:center;color:red;'>**** failed creating channel***</p>";
+        // echo "<br><br><p style='text-align:center;color:red;'>**** failed creating channel***</p>";
+        echo "**** failed creating channel***";
     }
+    mysqli_close($conn);
 
-}
  ?>

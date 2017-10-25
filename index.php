@@ -31,6 +31,7 @@ if(!$_SESSION['loggedIn']){
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="slackScripts.js"></script>
 	</head>
 	<body>
 		<div class="container nopadding col-xs-12" >
@@ -123,22 +124,28 @@ if(!$_SESSION['loggedIn']){
 										        <div class="modal-body">
 										          <!-- <h5>Create a Channel</h5> -->
 										          <p>organise a topic</p>
-										          <form action = "<?php echo htmlspecialchars("createChannel.php") ?>" method = "post">
+										          <form id= "channelForm" method = "post">
 										          <div class="form-group">
 										            <label for="recipient-name" class="form-control-label">Name:</label>
-										            <input type="text" class="form-control" name = "channelName" id="recipient-name" placeholder= "Name of the channel" autofocus required>
+										            <input type="text" class="form-control" name = "channelName" id="channelName" placeholder= "Name of the channel" autofocus required>
 										          </div>
 										          <div class="form-group">
 										            <label for="message-text" class="form-control-label">Purpose</label>
-										            <textarea class="form-control" name = "purpose" id="message-text" placeholder= "Purpose of the channel"></textarea>
+										            <textarea class="form-control" name = "purpose" id="purpose" placeholder= "Purpose of the channel"></textarea>
+										          </div>
+										          <div class="form-group">
+										          	<input type="radio" name="colors" id="private">Private
+										          	<input type="radio" name="colors" id="public">Public
 										          </div>
 										          <div class="modal-footer">
 										          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										           <button type="submit" name = "submit" class="btn btn-default" >Create Channel</button>
+										           <button type="submit" name = "submit"  class="btn btn-success channelButton" >Create Channel</button>
 										        </div>
 										        </form>
 										        </div>
-										        
+										        <div class = "modal-body-result">
+										        	<p class = "para" style='text-align:center;'></p>
+										        </div>
 										      </div>
 										    </div>
 										  </div>
