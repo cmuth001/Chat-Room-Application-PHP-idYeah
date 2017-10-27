@@ -221,17 +221,20 @@ border-bottom-left-radius: 0px !important;
 .likeIcon{
 	font-size: 25px;
     /* padding: 7px; */
-    padding-left: 15px;
+    margin-left: 55px;
     padding-right: 5px;
+    margin-top: 7px;
     /* color: #5a49e3; */
 }
 .likeIcon:hover{
 	font-size: 25px;
     /* padding: 7px; */
-    padding-left: 15px;
+   margin-left: 55px;
     padding-right: 5px;
+    margin-top: 7px;
     color: #5a49e3;
     cursor: pointer;
+    text-align: center;
 }
 .dislikeIcon{
 	font-size: 25px;
@@ -244,4 +247,5 @@ border-bottom-left-radius: 0px !important;
 	color: #5a49e3;
 	padding-left: 10px;
 	cursor: pointer;
+	text-align: center;
 }

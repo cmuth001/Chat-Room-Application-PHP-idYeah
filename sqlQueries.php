@@ -60,13 +60,26 @@ function getChannelMessages($channel_id){
 	{ 
 		$likeCountQuery = "SELECT COUNT(*) as likeCount FROM `channel_message_reaction` where message_id=".$row['cmessage_id']." and emoji_id=1";
 		$dislikeCountQuery = "SELECT COUNT(*) as dislikeCount FROM `channel_message_reaction` where message_id=".$row['cmessage_id']." and emoji_id=2";
-		
+		$likeList = "SELECT *  FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=1";
+		$dislikeList = "SELECT * FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=2";
+
 		$likeResult = mysqli_query($conn,$likeCountQuery);
 		$dislikeResult = mysqli_query($conn,$dislikeCountQuery);
+		$likeUsersList = mysqli_query($conn,$likeList);
+		$dislikeUsersList = mysqli_query($conn,$dislikeList);
 		
 		$likeCount = mysqli_fetch_assoc($likeResult);
 		$dislikeCount = mysqli_fetch_assoc($dislikeResult);
-
+		$likeStr='';
+		$dislikeStr='';
+		while(($likeUser = mysqli_fetch_assoc($likeUsersList))) 
+		{ 
+			$likeStr=$likeStr.$likeUser['display_name'].",";
+		}
+		while(($dislikeUser = mysqli_fetch_assoc($dislikeUsersList))) 
+		{ 
+			$dislikeStr=$dislikeStr.$dislikeUser['display_name'].",";
+		}
 		$date = date_create($row['cmsg_timestamp']);
 		$time = date_format($date, 'Y-m-d l g:ia');
 		$message = htmlspecialchars($row['channel_message']);
@@ -74,8 +87,8 @@ function getChannelMessages($channel_id){
     						<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$row['display_name']."</a><label class = 'timeStamp'>".$time."</label>  					
     						<div class= 'textMessage'><span>".$message."</span></div>
     						<div class = 'reaction'>
-    							<label class='likeIcon' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
-    							<label class = 'dislikeIcon' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
+    							<label class='likeIcon' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
+    							<label class = 'dislikeIcon'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
     						</div>
     					</div>";
     	

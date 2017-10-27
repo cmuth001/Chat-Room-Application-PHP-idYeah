@@ -1,5 +1,6 @@
 $(document).ready(function () {
- $(".modal-body-result").hide();
+ 	$(".modal-body-result").hide();
+  	$('[data-toggle="tooltip"]').tooltip();
 	$( ".channelButton" ).on("click",function(e) {
 
 	    var channelName = document.getElementById("channelName").value;
@@ -33,7 +34,6 @@ function reactionFunction(msg_id,user_email,emoji_id){
 
 	 	var data1 = {'msg_id':msg_id,'user_email':user_email,'emoji_id':emoji_id};
 	 	
-
 	    $.ajax({
 	        url: 'sqlQueries.php',
 	        type: 'post',
