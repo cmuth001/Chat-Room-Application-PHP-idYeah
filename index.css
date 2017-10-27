@@ -119,8 +119,9 @@ ui{
 	
 }
 .textinput{
-	    padding-left: 11px;
-	    margin-left: 18px;
+
+	margin-left: 18px;
+	width: 100%;
 }
 .btnadj{
     margin-top: 0.3em;
@@ -138,10 +139,6 @@ ui{
 .directmsgList{
 	margin-top: 10%;
 	
-}
-.textinput{
-	/*padding-left: 25px;
-    padding-right: 25px;*/
 }
 
 .icon-plus {
@@ -188,6 +185,7 @@ border-top-right-radius: 10px !important;
 border-bottom-right-radius: 10px !important;  
 border-top-left-radius: 0px !important;
 border-bottom-left-radius: 0px !important;
+width: 4%;
 }
 .channel_title{
 	font-size: 154%;

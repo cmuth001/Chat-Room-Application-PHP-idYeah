@@ -208,15 +208,15 @@ if(!$_SESSION['loggedIn']){
 			        		}	
 			        		echo $result 
 			        	?>
-			        					        	
+
 		        	</div>
 		        	 <form action = "<?php echo htmlspecialchars("messages/messages.php") ?>" method = "post">
 			        	<div id="footer" class ="col-xs-12 nopadding "><!-- <input type="text" name="msgbox" style="width:100%;height: 100%;"> -->
 			        		<div class="input-group input-group-lg textinput">
-		  						<span class="input-group-addon" id="sizing-addon1"><a style="text-decoration: none" href="">+</a></span>
+		  						<!-- <span class="input-group-addon" id="sizing-addon1"><a style="text-decoration: none" href="">+</a></span> -->
 		  							<input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
 		  							<input type="hidden" name="email" value=<?php echo '"'.$_SESSION['email'].'"';?>>
-		  							<input type="text" class="form-control " name = "message" style  = "width: 94%;" placeholder= "Type Some message ...." aria-describedby="sizing-addon1" autofocus required>
+		  							<input type="text" class="form-control " name = "message" style  = "width: 94%;border-top-left-radius: 10px;border-bottom-left-radius: 10px;" placeholder= "Type Some message ...." aria-describedby="sizing-addon1" autofocus required>
 		  							<button type="submit" class="btn btn-info btn-lg btnsend"><span class="glyphicon glyphicon-send"></span> </button>
 		  							
 							</div>
