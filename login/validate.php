@@ -9,7 +9,7 @@
   }
   function check_login($u,$p){
     global $conn;
-    $sql = "SELECT * FROM register where email= '".$u."'";
+    $sql = "SELECT * FROM users where email= '".$u."'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     return($row['email']==$u && $row['password']==$p); 

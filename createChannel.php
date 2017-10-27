@@ -17,7 +17,7 @@ $data = $_POST['data'];
     $radioButtonValue = mysqli_real_escape_string($conn,$data['radioButtonValue']);
     
     $user = $_SESSION['email'];
-	$sql = "INSERT INTO `channels` VALUES(DEFAULT,'$channelName','$purpose','$user',CURRENT_TIMESTAMP,'$radioButtonValue',DEFAULT)";
+	$sql = "INSERT INTO `channels` VALUES(DEFAULT,'$channelName','$purpose','$user',CURRENT_TIMESTAMP,'$radioButtonValue')";
     // $result = $conn->query($sql);
     if (mysqli_query($conn, $sql)) {
         // echo "<br><br><p style='text-align:center;color:green;'>**** Channel created successfully ***</p>";
@@ -25,6 +25,19 @@ $data = $_POST['data'];
     }else{
         // echo "<br><br><p style='text-align:center;color:red;'>**** failed creating channel***</p>";
         echo "**** failed creating channel***";
+    }
+    $sql = "SELECT MAX(channel_id) as last_id FROM `channels`";
+    $result = mysqli_query($conn, $sql);
+    $row = $result->fetch_assoc();
+     $last_id = $row['last_id'];
+     echo $last_id;
+    $sql = "INSERT INTO `userChannels` VALUES(DEFAULT,'$user','$last_id','$channelName',CURRENT_TIMESTAMP,DEFAULT)";
+    if (mysqli_query($conn, $sql)) {
+        // echo "<br><br><p style='text-align:center;color:green;'>**** Channel created successfully ***</p>";
+        echo "**** userChannels created successfully ***";
+    }else{
+        // echo "<br><br><p style='text-align:center;color:red;'>**** failed creating channel***</p>";
+        echo "**** failed creating userChannels***";
     }
     mysqli_close($conn);
 

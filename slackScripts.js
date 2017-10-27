@@ -1,6 +1,5 @@
 $(document).ready(function () {
  $(".modal-body-result").hide();
-
 	$( ".channelButton" ).on("click",function(e) {
 
 	    var channelName = document.getElementById("channelName").value;
@@ -15,15 +14,35 @@ $(document).ready(function () {
 	        data: {'data':dataString},
 	        dataType: 'text',
 	        success: function (data) {
-	        	// console.log(data);
+	        	console.log(data);
 	        	// $(".modal-body").hide();
 	        	// $('.modal-body-result.para').text(data);
 	        	// $(".modal-body-result").show();
-	        	// console.log(data);
+	        	console.log(data);
 	          
 	        }
 	        
 	    });
 	 });
 
+
+
 });
+
+function reactionFunction(msg_id,user_email,emoji_id){
+
+	 	var data1 = {'msg_id':msg_id,'user_email':user_email,'emoji_id':emoji_id};
+	 	
+
+	    $.ajax({
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'reactions':data1},
+	        dataType: 'json',
+	        success: function (data) {	
+        		$('div.reaction label.likeCount'+msg_id).text(data[0]);
+        		$('div.reaction label.dislikeCount'+msg_id).text(data[1]);      
+	        }
+	        
+	    });
+	 }

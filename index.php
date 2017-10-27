@@ -32,6 +32,10 @@ if(!$_SESSION['loggedIn']){
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script src="slackScripts.js"></script>
+		<!-- multi select -->
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+		    <!-- multi select -->
 	</head>
 	<body>
 		<div class="container nopadding col-xs-12" >
@@ -137,6 +141,9 @@ if(!$_SESSION['loggedIn']){
 										          	<input type="radio" name="colors" id="private">Private
 										          	<input type="radio" name="colors" id="public">Public
 										          </div>
+										          <div id="framework_form">
+													    
+										          </div>	
 										          <div class="modal-footer">
 										          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 										           <button type="submit" name = "submit"  class="btn btn-success channelButton" >Create Channel</button>
@@ -200,7 +207,8 @@ if(!$_SESSION['loggedIn']){
 			        			$result =getChannelMessages(1);
 			        		}	
 			        		echo $result 
-			        	?>				        	
+			        	?>
+			        					        	
 		        	</div>
 		        	 <form action = "<?php echo htmlspecialchars("messages/messages.php") ?>" method = "post">
 			        	<div id="footer" class ="col-xs-12 nopadding "><!-- <input type="text" name="msgbox" style="width:100%;height: 100%;"> -->
@@ -208,7 +216,7 @@ if(!$_SESSION['loggedIn']){
 		  						<span class="input-group-addon" id="sizing-addon1"><a style="text-decoration: none" href="">+</a></span>
 		  							<input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
 		  							<input type="hidden" name="email" value=<?php echo '"'.$_SESSION['email'].'"';?>>
-		  							<input type="text" class="form-control " name = "message" style  = "width: 94%;" placeholder= "Type Some message ...." aria-describedby="sizing-addon1" required>
+		  							<input type="text" class="form-control " name = "message" style  = "width: 94%;" placeholder= "Type Some message ...." aria-describedby="sizing-addon1" autofocus required>
 		  							<button type="submit" class="btn btn-info btn-lg btnsend"><span class="glyphicon glyphicon-send"></span> </button>
 		  							
 							</div>

@@ -218,3 +218,30 @@ border-bottom-left-radius: 0px !important;
     color: white !important;;
     padding: 0px !important;
 }
+.likeIcon{
+	font-size: 25px;
+    /* padding: 7px; */
+    padding-left: 15px;
+    padding-right: 5px;
+    /* color: #5a49e3; */
+}
+.likeIcon:hover{
+	font-size: 25px;
+    /* padding: 7px; */
+    padding-left: 15px;
+    padding-right: 5px;
+    color: #5a49e3;
+    cursor: pointer;
+}
+.dislikeIcon{
+	font-size: 25px;
+	padding-right: 5px;
+	padding-left: 10px;
+}
+.dislikeIcon:hover{
+	font-size: 25px;
+	padding-right: 5px;
+	color: #5a49e3;
+	padding-left: 10px;
+	cursor: pointer;
+}
