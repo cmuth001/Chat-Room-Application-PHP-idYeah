@@ -93,6 +93,8 @@ function getChannelMessages($channel_id){
 		$time = date_format($date, 'Y-m-d l g:ia');
 		$message = htmlspecialchars($row['channel_message']);
 		$replyMsg = "replyMsg".$row['cmessage_id'];
+		$myForm = "myForm".$row['cmessage_id'];
+
     	$string=$string."<div class='right'>
     						<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$row['display_name']."</a><label class = 'timeStamp'>".$time."</label>  					
     						<div class= 'textMessage'><span>".$message."</span></div>
@@ -102,19 +104,60 @@ function getChannelMessages($channel_id){
     							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>
     						</div>
     						<div class = '$replyMsg input-group input-group-lg textinput' style='display:none;'>
-    							<form method ='post'>
-    								<input type='hidden' name='channel' value='$channel_id' >
+    							<form id = '$myForm' class = '' method ='post'>
+    								<input type='hidden' name='user' id='user' value=".$_SESSION['email']." >
+    								<input type='hidden' name='msgId' id='msgId' value=".$row['cmessage_id']." >
+    								<input type='hidden' name='channel' id='channel' value='$channel_id' >
     								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
-    								<button type='submit' class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
+    								<button type='submit' id = ".$row['cmessage_id']." class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
     							</form>
     						</div>
     					</div>";
     	
+    	$stringThread = "<div class = 'thread_wrapper'>";
+    	if($row['has_thread']==1){
+    		$threadsql = "SELECT * FROM `threaded_messages` join users on users.email=threaded_messages.user_email where message_id=".$row['cmessage_id'];
+			$threadResult = mysqli_query($conn, $threadsql);
 
+			
+			while(($threadrow = mysqli_fetch_assoc($threadResult))) 
+			{ 
+				$ThreadDate = date_create($threadrow['createdon']);
+				$threadTime = date_format($ThreadDate, 'Y-m-d l g:ia');
+				$threadMessage = htmlspecialchars($threadrow['message']);
+				$stringThread=$stringThread."<div class='thread'>
+												<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>  					
+					    						<div class= 'textMessage'><span>".$threadMessage."</span></div>		
+											</div>";
+			}
+			$stringThread = $stringThread."</div>";
+			$string=$string.$stringThread;
+		}
 
 	}
 	$string = $string."<div id = 'scrollBottom'></div></div>";
 	return $string;
+}
+if(isset($_POST['thread']))
+{
+	$thread = $_POST['thread'];
+	$channel_id = intval($thread['channel']);
+	$message = $thread['message'];
+	$msgId = intval($thread['msgId']);
+	$user_email = $thread['user'];
+	$sql = "INSERT INTO `threaded_messages` VALUES(DEFAULT,'$msgId','$user_email','$message',CURRENT_TIMESTAMP)";
+
+	if (mysqli_query($conn, $sql)) {       
+        echo "**** thread message inserted successfully ***";
+    }else{
+        echo "**** failed inserting thread message ***";
+    }
+	$updateHasthread = "UPDATE channel_messages SET has_thread=1 where cmessage_id='$msgId'";
+	if (mysqli_query($conn, $updateHasthread)) {       
+        echo "**** thread updated successfully in channel_messages ***";
+    }else{
+        echo "**** failed thread updating in channel_messages***";
+    }
 }
 if(isset($_POST['reactions']))
 {

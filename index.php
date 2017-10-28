@@ -47,7 +47,7 @@ if(!$_SESSION['loggedIn']){
 						<div><label><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></label></div>
 				</div>
 
-				<div class="col-xs-9 nopadding" style="width: 87%;height: 74px;border-bottom: 0.15em solid #706c6c;background-color: #dae2c7;padding-left: 2% !important; padding-top: 4px !important;;
+				<div class="col-xs-9 nopadding" style="width: 87%;height: 74px;border-bottom: 0.15em solid #706c6c;background-color: white;padding-left: 2% !important; padding-top: 4px !important;;
 ">					<div class ="col-xs-5 nopadding ">
 						<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa'>&#xf09c;</i><label class = 'channel_title'><b>
 							<?php
@@ -198,7 +198,7 @@ if(!$_SESSION['loggedIn']){
 		                </ul>
 		            </div>
 		        </div>
-		        <div id="message_container" class ="col-xs-10 headrow nopadding" style="width:87%;min-height:93%;background-color: #dae2c7; ">
+		        <div id="message_container" class ="col-xs-10 headrow nopadding" style="width:87%;min-height:93%;background-color: white; ">
 		        	<div class ="col-xs-12 nopadding " style="height:91%;overflow-y: auto; overflow-x: hidden;position:relative;">
 			        	<?php 
 			        		if (isset($_GET["channel"])){

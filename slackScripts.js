@@ -29,12 +29,40 @@ $(document).ready(function () {
 	$(document).on('click','.replyMsgIcon',function(e){
 
 		$(".replyMsg"+e.currentTarget.id).show();
+		// $("#message_container").css({
+  //           width:"60%"
+  //       });
+  //       $("#footer").css({
+  //           width:"60%"
+  //       });
+  //       document.body.innerHTML += '<div style="float:right;width:30%;height:90%;opacity:0.3;z-index:100;background:#000;">Thread</div>';
+
+
 	});
-	// $('#txt').keydown(function (e){
- //    	if(e.keyCode == 13){
- //        alert('you pressed enter ^_^');
- //    }
-	// })
+	$(document).on('click','.replyButton',function(e){	
+		e.preventDefault();
+	  	var myForm = document.getElementById('myForm'+e.currentTarget.id);
+	   	var formData = new FormData(myForm),
+	   	convertedJSON = {},
+	   	it = formData.entries(),
+	   	n;
+	   	while(n = it.next()) {
+	      	if(!n || n.done) break;
+	      	convertedJSON[n.value[0]] = n.value[1];
+	    }
+	  	$.ajax({
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'thread':convertedJSON},
+	        dataType: 'text',
+	        success: function (data) {
+	        	console.log(data);
+	            
+	            /// Send Email to professor
+	        }
+    	});
+	    console.log(convertedJSON);
+	});
 
 });
 
