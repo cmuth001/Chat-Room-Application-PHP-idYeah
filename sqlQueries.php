@@ -74,11 +74,20 @@ function getChannelMessages($channel_id){
 		$dislikeStr='';
 		while(($likeUser = mysqli_fetch_assoc($likeUsersList))) 
 		{ 
-			$likeStr=$likeStr.$likeUser['display_name'].",";
+			if($likeUser['email']===$_SESSION['email']){
+				$likeStr=$likeStr."You, ";
+			}else{
+				$likeStr=$likeStr.$likeUser['display_name'].",";
+			}
 		}
 		while(($dislikeUser = mysqli_fetch_assoc($dislikeUsersList))) 
 		{ 
-			$dislikeStr=$dislikeStr.$dislikeUser['display_name'].",";
+			if($dislikeUser['email']===$_SESSION['email']){
+				$dislikeStr=$dislikeStr."You, ";
+			}else{
+				$dislikeStr=$dislikeStr.$dislikeUser['display_name'].",";
+			}
+		
 		}
 		$date = date_create($row['cmsg_timestamp']);
 		$time = date_format($date, 'Y-m-d l g:ia');
