@@ -92,12 +92,21 @@ function getChannelMessages($channel_id){
 		$date = date_create($row['cmsg_timestamp']);
 		$time = date_format($date, 'Y-m-d l g:ia');
 		$message = htmlspecialchars($row['channel_message']);
+		$replyMsg = "replyMsg".$row['cmessage_id'];
     	$string=$string."<div class='right'>
     						<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$row['display_name']."</a><label class = 'timeStamp'>".$time."</label>  					
     						<div class= 'textMessage'><span>".$message."</span></div>
     						<div class = 'reaction'>
     							<label class='likeIcon' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
     							<label class = 'dislikeIcon'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
+    							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>
+    						</div>
+    						<div class = '$replyMsg input-group input-group-lg textinput' style='display:none;'>
+    							<form method ='post'>
+    								<input type='hidden' name='channel' value='$channel_id' >
+    								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
+    								<button type='submit' class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
+    							</form>
     						</div>
     					</div>";
     	
@@ -131,7 +140,33 @@ if(isset($_POST['reactions']))
 			$dislikeCountQuery = "SELECT COUNT(*) as dislikeCount FROM `channel_message_reaction` where message_id='$msg_id' and emoji_id=2";
 			$Result = mysqli_query($conn,$dislikeCountQuery);
 			$dislikeCount = mysqli_fetch_assoc($Result);
-			echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount']]);
+			
+			//extracting liked and disliked users list
+			$likeList = "SELECT *  FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=1";
+			$dislikeList = "SELECT * FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=2";
+			$likeUsersList = mysqli_query($conn,$likeList);
+			$dislikeUsersList = mysqli_query($conn,$dislikeList);
+			$likeStr='';
+			$dislikeStr='';
+			while(($likeUser = mysqli_fetch_assoc($likeUsersList))) 
+			{ 
+				if($likeUser['email']===$_SESSION['email']){
+					$likeStr=$likeStr."You, ";
+				}else{
+					$likeStr=$likeStr.$likeUser['display_name'].",";
+				}
+			}
+			while(($dislikeUser = mysqli_fetch_assoc($dislikeUsersList))) 
+			{ 
+				if($dislikeUser['email']===$_SESSION['email']){
+					$dislikeStr=$dislikeStr."You, ";
+				}else{
+					$dislikeStr=$dislikeStr.$dislikeUser['display_name'].",";
+				}
+			
+			}
+
+			echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount'],$likeStr,$dislikeStr]);
 		}else{
 			$updateReaction = "UPDATE channel_message_reaction SET emoji_id='$emoji_id' where message_id='$msg_id' and user_email ='$user_email'";
 			mysqli_query($conn,$updateReaction);
@@ -143,7 +178,33 @@ if(isset($_POST['reactions']))
 			$dislikeCountQuery = "SELECT COUNT(*) as dislikeCount FROM `channel_message_reaction` where message_id='$msg_id' and emoji_id=2";
 			$Result = mysqli_query($conn,$dislikeCountQuery);
 			$dislikeCount = mysqli_fetch_assoc($Result);
-			echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount']]);
+
+			//extracting liked and disliked users list
+			$likeList = "SELECT *  FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=1";
+			$dislikeList = "SELECT * FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=2";
+			$likeUsersList = mysqli_query($conn,$likeList);
+			$dislikeUsersList = mysqli_query($conn,$dislikeList);
+			$likeStr='';
+			$dislikeStr='';
+			while(($likeUser = mysqli_fetch_assoc($likeUsersList))) 
+			{ 
+				if($likeUser['email']===$_SESSION['email']){
+					$likeStr=$likeStr."You, ";
+				}else{
+					$likeStr=$likeStr.$likeUser['display_name'].",";
+				}
+			}
+			while(($dislikeUser = mysqli_fetch_assoc($dislikeUsersList))) 
+			{ 
+				if($dislikeUser['email']===$_SESSION['email']){
+					$dislikeStr=$dislikeStr."You, ";
+				}else{
+					$dislikeStr=$dislikeStr.$dislikeUser['display_name'].",";
+				}
+			
+			}
+			
+			echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount'],$likeStr,$dislikeStr]);
 			// echo "update",$checkReactionQueryArray['emoji_id'];
 		}
 	}
@@ -158,8 +219,32 @@ if(isset($_POST['reactions']))
 		$dislikeCountQuery = "SELECT COUNT(*) as dislikeCount FROM `channel_message_reaction` where message_id='$msg_id' and emoji_id=2";
 		$Result = mysqli_query($conn,$dislikeCountQuery);
 		$dislikeCount = mysqli_fetch_assoc($Result);
-		echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount']]);
 		
+		//extracting liked and disliked users list
+			$likeList = "SELECT *  FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=1";
+			$dislikeList = "SELECT * FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=2";
+			$likeUsersList = mysqli_query($conn,$likeList);
+			$dislikeUsersList = mysqli_query($conn,$dislikeList);
+			$likeStr='';
+			$dislikeStr='';
+			while(($likeUser = mysqli_fetch_assoc($likeUsersList))) 
+			{ 
+				if($likeUser['email']===$_SESSION['email']){
+					$likeStr=$likeStr."You, ";
+				}else{
+					$likeStr=$likeStr.$likeUser['display_name'].",";
+				}
+			}
+			while(($dislikeUser = mysqli_fetch_assoc($dislikeUsersList))) 
+			{ 
+				if($dislikeUser['email']===$_SESSION['email']){
+					$dislikeStr=$dislikeStr."You, ";
+				}else{
+					$dislikeStr=$dislikeStr.$dislikeUser['display_name'].",";
+				}
+			
+			}
+		echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount'],$likeStr,$dislikeStr]);
 		//echo "insert";
 	}
 	

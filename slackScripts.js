@@ -26,7 +26,15 @@ $(document).ready(function () {
 	    });
 	 });
 
+	$(document).on('click','.replyMsgIcon',function(e){
 
+		$(".replyMsg"+e.currentTarget.id).show();
+	});
+	// $('#txt').keydown(function (e){
+ //    	if(e.keyCode == 13){
+ //        alert('you pressed enter ^_^');
+ //    }
+	// })
 
 });
 
@@ -45,4 +53,4 @@ function reactionFunction(msg_id,user_email,emoji_id){
 	        }
 	        
 	    });
-	 }
+}
