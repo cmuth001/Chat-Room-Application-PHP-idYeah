@@ -108,7 +108,7 @@ function getChannelMessages($channel_id){
     								<input type='hidden' name='user' id='user' value=".$_SESSION['email']." >
     								<input type='hidden' name='msgId' id='msgId' value=".$row['cmessage_id']." >
     								<input type='hidden' name='channel' id='channel' value='$channel_id' >
-    								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
+    								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
     								<button type='submit' id = ".$row['cmessage_id']." class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
     							</form>
     						</div>
@@ -125,7 +125,7 @@ function getChannelMessages($channel_id){
 				$ThreadDate = date_create($threadrow['createdon']);
 				$threadTime = date_format($ThreadDate, 'Y-m-d l g:ia');
 				$threadMessage = htmlspecialchars($threadrow['message']);
-				$stringThread=$stringThread."<div class='thread'>
+				$stringThread=$stringThread."<div id =".$row['cmessage_id']." class='thread'>
 												<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>  					
 					    						<div class= 'textMessage'><span>".$threadMessage."</span></div>		
 											</div>";

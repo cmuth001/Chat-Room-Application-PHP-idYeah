@@ -57,7 +57,8 @@ $(document).ready(function () {
 	        dataType: 'text',
 	        success: function (data) {
 	        	console.log(data);
-	            
+	        	var url = "./index.php?channel="+convertedJSON['channel'];
+	             window.location.href = url;
 	            /// Send Email to professor
 	        }
     	});

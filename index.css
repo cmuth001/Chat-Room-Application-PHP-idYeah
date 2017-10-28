@@ -254,5 +254,9 @@ width: 4%;
 }
 .replyButton{
 	padding: 9px !important;
-    border-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: -41px;
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
 }

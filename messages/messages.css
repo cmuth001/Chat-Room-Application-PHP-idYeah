@@ -1,9 +1,9 @@
 .right {
-  margin-left: 10px; 
+  margin-left: 0px; 
   padding: 5px 5px;
   background-color: white;
   /*border-radius: 10px;*/
-  /*border: 1px solid #ccc;*/
+      border-top: 2px solid #ccc;
 }
 .thread{
   margin-left: 4%; 
