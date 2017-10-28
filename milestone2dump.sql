@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 28, 2017 at 03:05 AM
+-- Generation Time: Oct 28, 2017 at 05:42 PM
 -- Server version: 10.0.19-MariaDB-1~trusty-log
 -- PHP Version: 5.5.9-1ubuntu4.9
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `channel_messages` (
   `channel_message` text CHARACTER SET latin1 NOT NULL,
   `has_thread` tinyint(4) NOT NULL DEFAULT '0',
   `cmsg_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `channel_messages`
@@ -75,17 +75,18 @@ INSERT INTO `channel_messages` (`cmessage_id`, `channel_id`, `cuser_email`, `cha
 (4, 2, 'cmuth001@odu.edu', 'yup', 0, '2017-10-27 01:45:05'),
 (5, 2, 'cmuth001@odu.edu', 'looks cool', 0, '2017-10-27 01:45:16'),
 (7, 1, 'cmuth001@odu.edu', 'yup', 0, '2017-10-27 01:51:16'),
-(8, 1, 'cmuth001@odu.edu', 'ha ha ha ha ', 0, '2017-10-27 01:51:24'),
-(9, 1, 'cmuth001@odu.edu', 'hjk', 0, '2017-10-27 03:11:58'),
+(8, 1, 'cmuth001@odu.edu', 'ha ha ha ha ', 1, '2017-10-28 21:31:20'),
+(9, 1, 'cmuth001@odu.edu', 'hjk', 1, '2017-10-28 21:28:25'),
 (10, 1, 'cmuth001@odu.edu', 'say something', 0, '2017-10-27 03:30:52'),
-(12, 1, 'chinga@cars.com', 'hello chiiii', 0, '2017-10-27 04:43:43'),
-(13, 1, 'chinga@cars.com', 'good one guysss', 0, '2017-10-27 04:44:07'),
+(12, 1, 'chinga@cars.com', 'hello chiiii', 1, '2017-10-28 21:24:49'),
+(13, 1, 'chinga@cars.com', 'good one guysss', 1, '2017-10-28 21:02:55'),
 (14, 2, 'mater@rsprings.gov', 'likes command', 0, '2017-10-27 15:23:06'),
 (15, 2, 'mater@rsprings.gov', '<--! hello world -->', 0, '2017-10-27 15:23:21'),
 (17, 2, 'cmuth001@odu.edu', 'whatsapp', 0, '2017-10-27 18:37:40'),
-(18, 1, 'cmuth001@odu.edu', 'JavaScript HTML DOM Events Examples.', 0, '2017-10-27 18:41:33'),
+(18, 1, 'cmuth001@odu.edu', 'JavaScript HTML DOM Events Examples.', 1, '2017-10-28 19:56:33'),
 (19, 2, 'cmuth001@odu.edu', '<--! hello world ', 0, '2017-10-28 04:40:09'),
-(20, 2, 'cmuth001@odu.edu', '<!-- hello world ', 0, '2017-10-28 04:40:23');
+(20, 2, 'cmuth001@odu.edu', '<!-- hello world ', 0, '2017-10-28 04:40:23'),
+(23, 1, 'cmuth001@odu.edu', 'lets chat', 0, '2017-10-28 20:31:18');
 
 -- --------------------------------------------------------
 
@@ -99,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `channel_message_reaction` (
   `user_email` varchar(200) NOT NULL,
   `emoji_id` bigint(100) NOT NULL DEFAULT '0',
   `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `channel_message_reaction`
@@ -125,9 +126,9 @@ INSERT INTO `channel_message_reaction` (`id`, `message_id`, `user_email`, `emoji
 (101, 15, 'mater@rsprings.gov', 1, '2017-10-28 03:36:36'),
 (102, 8, 'cmuth001@odu.edu', 1, '2017-10-28 03:37:05'),
 (107, 7, 'cmuth001@odu.edu', 1, '2017-10-28 04:19:03'),
-(108, 1, 'cmuth001@odu.edu', 1, '2017-10-28 04:19:49'),
 (110, 17, 'cmuth001@odu.edu', 2, '2017-10-28 04:39:25'),
-(111, 4, 'cmuth001@odu.edu', 1, '2017-10-28 06:29:23');
+(111, 4, 'cmuth001@odu.edu', 1, '2017-10-28 06:29:23'),
+(113, 1, 'cmuth001@odu.edu', 1, '2017-10-28 07:31:05');
 
 -- --------------------------------------------------------
 
@@ -260,8 +261,29 @@ CREATE TABLE IF NOT EXISTS `threaded_messages` (
   `thread_id` bigint(100) NOT NULL,
   `message_id` int(100) NOT NULL,
   `user_email` varchar(50) NOT NULL,
-  `message` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `message` text NOT NULL,
+  `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `threaded_messages`
+--
+
+INSERT INTO `threaded_messages` (`thread_id`, `message_id`, `user_email`, `message`, `createdon`) VALUES
+(3, 18, 'cmuth001@odu.edu', 'i know that dude', '2017-10-28 19:56:33'),
+(4, 18, 'cmuth001@odu.edu', 'sare raaa', '2017-10-28 20:27:53'),
+(5, 18, 'cmuth001@odu.edu', 'its working', '2017-10-28 21:02:34'),
+(6, 13, 'cmuth001@odu.edu', 'different thread message', '2017-10-28 21:02:55'),
+(7, 18, 'mater@rsprings.gov', 'cool thread is working', '2017-10-28 21:16:30'),
+(8, 13, 'mater@rsprings.gov', 'fine', '2017-10-28 21:23:02'),
+(9, 13, 'mater@rsprings.gov', 'kk', '2017-10-28 21:23:57'),
+(10, 12, 'mater@rsprings.gov', 'yup', '2017-10-28 21:24:49'),
+(11, 9, 'mater@rsprings.gov', 'fff', '2017-10-28 21:28:25'),
+(12, 9, 'mater@rsprings.gov', 'cool', '2017-10-28 21:30:33'),
+(13, 8, 'mater@rsprings.gov', 'looks better', '2017-10-28 21:31:20'),
+(14, 8, 'mater@rsprings.gov', 'looks better', '2017-10-28 21:32:01'),
+(15, 8, 'mater@rsprings.gov', 'looks better', '2017-10-28 21:32:10'),
+(16, 8, 'mater@rsprings.gov', 'loos pretty good', '2017-10-28 21:34:04');
 
 -- --------------------------------------------------------
 
@@ -482,12 +504,12 @@ ALTER TABLE `channels`
 -- AUTO_INCREMENT for table `channel_messages`
 --
 ALTER TABLE `channel_messages`
-  MODIFY `cmessage_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+  MODIFY `cmessage_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `channel_message_reaction`
 --
 ALTER TABLE `channel_message_reaction`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=112;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=115;
 --
 -- AUTO_INCREMENT for table `emojis`
 --
@@ -507,7 +529,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `threaded_messages`
 --
 ALTER TABLE `threaded_messages`
-  MODIFY `thread_id` bigint(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `thread_id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- Constraints for dumped tables
 --
@@ -556,7 +578,8 @@ ALTER TABLE `status`
 -- Constraints for table `threaded_messages`
 --
 ALTER TABLE `threaded_messages`
-  ADD CONSTRAINT `threaded_messages_ibfk_1` FOREIGN KEY (`message_id`) REFERENCES `channel_messages` (`cmessage_id`);
+  ADD CONSTRAINT `threaded_messages_ibfk_1` FOREIGN KEY (`message_id`) REFERENCES `channel_messages` (`cmessage_id`),
+  ADD CONSTRAINT `threaded_messages_ibfk_2` FOREIGN KEY (`user_email`) REFERENCES `users` (`email`);
 
 --
 -- Constraints for table `userChannels`
