@@ -125,9 +125,12 @@ function getChannelMessages($channel_id){
 					    						<div class= 'textMessage'><span>".$threadMessage."</span></div>		
 											</div>";
 			}
-			$stringThread = $stringThread."</div>";
-			$string=$string.$stringThread."
-									<div class = '$replyMsg input-group input-group-lg textinput' style='display:none;'>
+			$stringThread = $stringThread."</div>";//thread_wrapper
+			
+		}
+		$string=$string.$stringThread."
+
+							<div class = '$replyMsg input-group input-group-lg textinput' style='display:none;'>
     							<form id = '$myForm' class = '' method ='post'>
     								<input type='hidden' name='user' id='user' value=".$_SESSION['email']." >
     								<input type='hidden' name='msgId' id='msgId' value=".$row['cmessage_id']." >
@@ -136,8 +139,7 @@ function getChannelMessages($channel_id){
     								<button type='submit' id = ".$row['cmessage_id']." class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
     							</form>
     						</div>
-										</div>";
-		}
+    						</div>";
 
 	}
 	$string = $string."<div id = 'scrollBottom'></div></div>";
