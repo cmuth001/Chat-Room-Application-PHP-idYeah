@@ -8,6 +8,7 @@ $(document).ready(function () {
 		var private1 = document.getElementById("private").checked ;
 		var public1 = document.getElementById("public").checked ;
 		var radioButtonValue = (private1===false)?0:1;
+		var Selected = document.getElementById("langopt").value;
 		var dataString = {'channelName':channelName, 'purpose':purpose, 'radioButtonValue':radioButtonValue};
 	    $.ajax({
 	        url: 'createChannel.php',
@@ -28,7 +29,8 @@ $(document).ready(function () {
 
 	$(document).on('click','.replyMsgIcon',function(e){
 
-		$(".replyMsg"+e.currentTarget.id).show();
+		//$(".replyMsg"+e.currentTarget.id).show();
+		 $(".replyMsg"+e.currentTarget.id).toggle();
 		// $("#message_container").css({
   //           width:"60%"
   //       });

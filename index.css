@@ -247,7 +247,7 @@ width: 4%;
 	cursor: pointer;
 	text-align: center;
 }
-.replyMsg{
+.replyMsgIcon{
 	font-size: 140%;
     cursor: pointer;
     margin-left: 1%;
@@ -259,4 +259,12 @@ width: 4%;
     border-top-right-radius: -41px;
     border-top-right-radius: 10px !important;
     border-bottom-right-radius: 10px !important;
+}
+
+.emptyChannel{
+	margin-left: 37%;
+    margin-top: 22%;
+    opacity: 0.4;
+    /* color: green; */
+    font-family: "Comic Sans MS", cursive, sans-serif;
 }

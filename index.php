@@ -33,8 +33,9 @@ if(!$_SESSION['loggedIn']){
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script src="slackScripts.js"></script>
 		<!-- multi select -->
-		  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
-		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.css">
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.js"></script>
 		    <!-- multi select -->
 	</head>
 	<body>
@@ -54,7 +55,7 @@ if(!$_SESSION['loggedIn']){
 								if (isset($_GET["channel"])){
 									$result = getChannelName($_GET["channel"]);
 								}else{
-									$result = getChannelName(1);
+									$result ="";
 								}
 								echo $result['channel_name']
 							?>
@@ -70,7 +71,7 @@ if(!$_SESSION['loggedIn']){
 								if (isset($_GET["channel"])){
 									$result = getChannelName($_GET["channel"]);
 								}else{
-									$result = getChannelName(1);
+									$result = "";
 								}
 								echo $result['purpose']
 							?>
@@ -147,7 +148,10 @@ if(!$_SESSION['loggedIn']){
 										          <div class="modal-footer">
 										          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 										           <button type="submit" name = "submit"  class="btn btn-success channelButton" >Create Channel</button>
-										        </div>
+										          </div>
+										          <div>
+														
+										          </div>		
 										        </form>
 										        </div>
 										        <div class = "modal-body-result">
@@ -177,16 +181,16 @@ if(!$_SESSION['loggedIn']){
 		                    
 		                    
 		                    <li class="divider"></li>
-		                    <li>
+		                    <!-- <li>
 		                    	<div class="col-xs-12 directmsgdiv ">
 		                    		<div class="col-xs-11 nopadding">
 		                    			<b><a class ="link" href= "">DirectMesssages</a></b>
 		                    		</div>
-		                    		<div class="col-xs-1  icon-plus nopadding">
+		                    		<div class="col-xs-1  icon-plus nopadding"> -->
 			                    		
  										<!-- <a href="#"><span class="name"></span></a> -->
 										
-	        						</div>
+	        						<!-- </div>
 	        					</div>
 	        					</br>
         						<div id="directmsg">
@@ -194,7 +198,7 @@ if(!$_SESSION['loggedIn']){
 			                            <?php $result =getAllUsers();echo $result ?>
 			                        </ul>
 	                    		</div>
-		                    </li>
+		                    </li> -->
 		                </ul>
 		            </div>
 		        </div>
@@ -204,7 +208,7 @@ if(!$_SESSION['loggedIn']){
 			        		if (isset($_GET["channel"])){
 			        			$result =getChannelMessages($_GET["channel"]);
 			        		}else{
-			        			$result =getChannelMessages(1);
+			        			$result ="<h1 class ='emptyChannel'>Please select channel</h1>";
 			        		}	
 			        		echo $result 
 			        	?>

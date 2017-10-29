@@ -21,7 +21,7 @@ h2{
     box-sizing: border-box;
     border-radius: .5em;
 }
-
+.error {color: #FF0000;}
 /* Set a style for all buttons */
 button {
     background-color: #4CAF50;

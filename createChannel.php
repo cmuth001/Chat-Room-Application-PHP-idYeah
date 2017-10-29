@@ -31,7 +31,7 @@ $data = $_POST['data'];
     $row = $result->fetch_assoc();
      $last_id = $row['last_id'];
      echo $last_id;
-    $sql = "INSERT INTO `userChannels` VALUES(DEFAULT,'$user','$last_id','$channelName',CURRENT_TIMESTAMP,DEFAULT)";
+    $sql = "INSERT INTO `userChannels` VALUES('$user','$last_id','$channelName',CURRENT_TIMESTAMP,DEFAULT)";
     if (mysqli_query($conn, $sql)) {
         // echo "<br><br><p style='text-align:center;color:green;'>**** Channel created successfully ***</p>";
         echo "**** userChannels created successfully ***";

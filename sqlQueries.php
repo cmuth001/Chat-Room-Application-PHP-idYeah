@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 
 function getUserDetails($email){
 	global $conn;
-	$sql = "SELECT * FROM register where email= '".$email."'";
+	$sql = "SELECT * FROM users where email= '".$email."'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     return $row;
@@ -94,25 +94,20 @@ function getChannelMessages($channel_id){
 		$message = htmlspecialchars($row['channel_message']);
 		$replyMsg = "replyMsg".$row['cmessage_id'];
 		$myForm = "myForm".$row['cmessage_id'];
-
+		$contactImg = "./assets/images/".$row['email'].".jpg";
     	$string=$string."<div class='right'>
-    						<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$row['display_name']."</a><label class = 'timeStamp'>".$time."</label>  					
-    						<div class= 'textMessage'><span>".$message."</span></div>
+    						<img src='$contactImg' alt='Contact_Img' class='contact_Img'>
+    						<a href= ''>".$row['display_name']."</a>
+    						<label class = 'timeStamp'>".$time."</label>  					
+    						<div class= 'textMessage'>
+    							<span>".$message."</span>
+    						</div>
     						<div class = 'reaction'>
     							<label class='likeIcon' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
     							<label class = 'dislikeIcon'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
     							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>
     						</div>
-    						<div class = '$replyMsg input-group input-group-lg textinput' style='display:none;'>
-    							<form id = '$myForm' class = '' method ='post'>
-    								<input type='hidden' name='user' id='user' value=".$_SESSION['email']." >
-    								<input type='hidden' name='msgId' id='msgId' value=".$row['cmessage_id']." >
-    								<input type='hidden' name='channel' id='channel' value='$channel_id' >
-    								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
-    								<button type='submit' id = ".$row['cmessage_id']." class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
-    							</form>
-    						</div>
-    					</div>";
+    						";
     	
     	$stringThread = "<div class = 'thread_wrapper'>";
     	if($row['has_thread']==1){
@@ -126,12 +121,22 @@ function getChannelMessages($channel_id){
 				$threadTime = date_format($ThreadDate, 'Y-m-d l g:ia');
 				$threadMessage = htmlspecialchars($threadrow['message']);
 				$stringThread=$stringThread."<div id =".$row['cmessage_id']." class='thread'>
-												<img src='contact.PNG' alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>  					
+												<img src='$contactImg' alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>  					
 					    						<div class= 'textMessage'><span>".$threadMessage."</span></div>		
 											</div>";
 			}
 			$stringThread = $stringThread."</div>";
-			$string=$string.$stringThread;
+			$string=$string.$stringThread."
+									<div class = '$replyMsg input-group input-group-lg textinput' style='display:none;'>
+    							<form id = '$myForm' class = '' method ='post'>
+    								<input type='hidden' name='user' id='user' value=".$_SESSION['email']." >
+    								<input type='hidden' name='msgId' id='msgId' value=".$row['cmessage_id']." >
+    								<input type='hidden' name='channel' id='channel' value='$channel_id' >
+    								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
+    								<button type='submit' id = ".$row['cmessage_id']." class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
+    							</form>
+    						</div>
+										</div>";
 		}
 
 	}
