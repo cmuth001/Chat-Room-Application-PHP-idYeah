@@ -14,11 +14,15 @@ color:black;
 h2{
     text-align: center;
     padding: 2%;
+    border-bottom: 3px solid #ededed;
 }
+.noUser{
+    margin-top: 21%;
+    margin-left: 32%;
+    opacity: 0.5;
+        font-size: 250%;
 
-
-
-
+}
 /* Add padding to container elements */
 .container {
     padding: 16px;

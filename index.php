@@ -92,7 +92,7 @@ if(!$_SESSION['loggedIn']){
 			<div class="col-xs-12 nopadding">
 		        <div class="col-xs-3  leftSideMenu nopadding">
 		        	<div class = "profileView">
-		        		<a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" >ProfileView</a>
+		        		<b><a class= 'link' href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" ><i class="fa fa-user" aria-hidden="true" style ='font-size: 126%;padding-right: 3%;'></i>ProfileView</a></b>
 
 		        	</div>
 		            <div >
@@ -185,6 +185,16 @@ if(!$_SESSION['loggedIn']){
 		                    
 		                    
 		                    <li class="divider"></li>
+
+		                   	<li> 
+			                   	<form action="./uploadImage.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
+			     
+			                        <div style="background-color: #404040;color: white;padding: 1% !important;"><label>Select image to upload:</label></div>
+			                        <input type="file" name="fileToUpload" id="fileToUpload">
+			                        <input type="submit" value="Upload Image" name="submit">
+			                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
+			                    </form>
+		                	</li>
 		                    <!-- <li>
 		                    	<div class="col-xs-12 directmsgdiv ">
 		                    		<div class="col-xs-11 nopadding">

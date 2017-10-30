@@ -33,7 +33,7 @@ $data = $_POST['data'];
      echo $last_id;
     $sql = "INSERT INTO `userChannels` VALUES('$user','$last_id','$channelName','$radioButtonValue',CURRENT_TIMESTAMP,DEFAULT)";
     if (mysqli_query($conn, $sql)) {
-        // echo "<br><br><p style='text-align:center;color:green;'>**** Channel created successfully ***</p>";
+        
         echo "**** userChannels created successfully ***";
     }else{
         // echo "<br><br><p style='text-align:center;color:red;'>**** failed creating channel***</p>";

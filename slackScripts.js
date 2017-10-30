@@ -40,6 +40,31 @@ $(document).ready(function () {
 
 
 	});
+	// $(document).on('click','.imgUpload',function(e){
+	// 	var myForm = document.getElementById('imgForm');
+	//    	var formData = new FormData(myForm),
+	//    	convertedJSON = {},
+	//    	it = formData.entries(),
+	//    	n;
+	//    	while(n = it.next()) {
+	//       	if(!n || n.done) break;
+	//       	convertedJSON[n.value[0]] = n.value[1];
+	//     }
+	//   	$.ajax({
+	//         url: 'uploadImage.php',
+	//         type: 'post',
+	//         data: {'image':convertedJSON},
+	//         dataType: 'text',
+	//         success: function (data) {
+	//         	console.log(data);
+	//         	//var url = "./index.php?channel="+convertedJSON['channel'];
+	//              //window.location.href = url;
+	//             /// Send Email to professor
+	//         }
+ //    	});
+
+	// });
+	
 	$(document).on('click','.replyButton',function(e){	
 		e.preventDefault();
 	  	var myForm = document.getElementById('myForm'+e.currentTarget.id);

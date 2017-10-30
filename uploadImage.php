@@ -1,8 +1,8 @@
 <?php
-$email = htmlspecialchars($_POST['email']);
-echo $email;
-$target_dir = "./assets/";
-$target_file = $target_dir .$email.".png" ;
+$channel = htmlspecialchars($_POST['channel']);
+echo $channel;
+$target_dir = "./assets/images/";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 echo"file name:". $target_file;
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -40,7 +40,7 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        header('location: profilePage.php?email='.$email);
+        header('location: index.php?channel='.$channel.'#scrollBottom');
     } else {
         echo "Sorry, there was an error uploading your file.";
     }

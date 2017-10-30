@@ -18,6 +18,16 @@ function getUserDetails($email){
     return $row;
 
 }
+function existOrNot($email){
+	global $conn;
+	$sql = "SELECT COUNT(*) as count1 FROM users where email= '".$email."'";
+    $count1 = mysqli_query($conn,$sql);
+    $count = mysqli_fetch_assoc($count1);
+    $count = $count['count1'];
+    return $count;
+
+}
+
 function getChannelName($channel_id){
 	global $conn;
 	$sql = "SELECT * FROM channels where channel_id="."'$channel_id'";
