@@ -91,6 +91,10 @@ if(!$_SESSION['loggedIn']){
 
 			<div class="col-xs-12 nopadding">
 		        <div class="col-xs-3  leftSideMenu nopadding">
+		        	<div class = "profileView">
+		        		<a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" >ProfileView</a>
+
+		        	</div>
 		            <div >
 		                <ul class="col-xs-12 nav nav-list nopadding">
 		                    <!-- <li>
