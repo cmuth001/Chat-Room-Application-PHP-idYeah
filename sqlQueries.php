@@ -115,9 +115,9 @@ function getChannelMessages($channel_id){
 		$message = htmlspecialchars($row['channel_message']);
 		$replyMsg = "replyMsg".$row['cmessage_id'];
 		$myForm = "myForm".$row['cmessage_id'];
-		$contactImg = "./assets/images/".$row['email'].".jpg";
+		$contactImg = "./assets/images/";
     	$string=$string."<div class='right'>
-    						<img src='$contactImg' alt='Contact_Img' class='contact_Img'>
+    						<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>
     						<a href= ''>".$row['display_name']."</a>
     						<label class = 'timeStamp'>".$time."</label>  					
     						<div class= 'textMessage'>
@@ -142,7 +142,7 @@ function getChannelMessages($channel_id){
 				$threadTime = date_format($ThreadDate, 'Y-m-d l g:ia');
 				$threadMessage = htmlspecialchars($threadrow['message']);
 				$stringThread=$stringThread."<div id =".$row['cmessage_id']." class='thread'>
-												<img src='$contactImg' alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>  					
+												<img src=".$contactImg.$threadrow['email'].".png"." alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>  					
 					    						<div class= 'textMessage'><span>".$threadMessage."</span></div>		
 											</div>";
 			}

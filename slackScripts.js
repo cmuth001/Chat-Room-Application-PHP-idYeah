@@ -100,22 +100,7 @@ $(document).ready(function () {
 	});
 
 
-function reactionFunction(msg_id,user_email,emoji_id){
 
-	 	var data1 = {'msg_id':msg_id,'user_email':user_email,'emoji_id':emoji_id};
-	 	
-	    $.ajax({
-	        url: 'sqlQueries.php',
-	        type: 'post',
-	        data: {'reactions':data1},
-	        dataType: 'json',
-	        success: function (data) {	
-        		$('div.reaction label.likeCount'+msg_id).text(data[0]);
-        		$('div.reaction label.dislikeCount'+msg_id).text(data[1]);      
-	        }
-	        
-	    });
-}
 $.ajax({
 	  url: 'sqlQueries.php',
 	        type: 'post',
@@ -151,3 +136,19 @@ $.ajax({
     //     $('.form-data').text( $('#tokenfield').val());
     // });
 });
+function reactionFunction(msg_id,user_email,emoji_id){
+
+	 	var data1 = {'msg_id':msg_id,'user_email':user_email,'emoji_id':emoji_id};
+	 	
+	    $.ajax({
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'reactions':data1},
+	        dataType: 'json',
+	        success: function (data) {	
+        		$('div.reaction label.likeCount'+msg_id).text(data[0]);
+        		$('div.reaction label.dislikeCount'+msg_id).text(data[1]);      
+	        }
+	        
+	    });
+}
