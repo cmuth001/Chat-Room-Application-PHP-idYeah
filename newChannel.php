@@ -44,7 +44,7 @@
 				  	</div>
 				  	<div class="form-group">
 				  		<input type="radio" name="colors" id="private">Private
-				  		<input type="radio" name="colors" id="public">Public
+				  		<input type="radio" name="colors" id="public" checked="checked">Public
 				  	</div>
 				  	<div id="framework_form">
 					  		<label for="recipient-name" class="form-control-label">Users List:</label>
