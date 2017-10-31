@@ -16,6 +16,11 @@ h2{
     padding: 2%;
     border-bottom: 3px solid #ededed;
 }
+.arrowLeft{
+    font-size: 230% !important;   
+    margin-left: 2%;
+    cursor: pointer;
+}
 .noUser{
     margin-top: 21%;
     margin-left: 32%;

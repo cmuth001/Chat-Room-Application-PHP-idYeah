@@ -37,7 +37,7 @@ function getChannelName($channel_id){
 }
 function getAllPublicChannels($email){
 	global $conn;
-	$sql = "SELECT * FROM userChannels where user_email='$email' and isPublic =0";
+	$sql = "SELECT channels.channel_name FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email='$email' and access_specifiers=0";
     $result = mysqli_query($conn, $sql);
     $string = "";
     while(($row = mysqli_fetch_assoc($result))) 
@@ -48,7 +48,7 @@ function getAllPublicChannels($email){
 }
 function getAllChannels($email){
 	global $conn;
-	$sql = "SELECT * FROM userChannels where user_email="."'$email'";;
+	$sql = "SELECT channels.channel_id,channels.channel_name FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email="."'$email'";
     $result = mysqli_query($conn, $sql);
     $string = "";
     while(($row = mysqli_fetch_assoc($result))) 
@@ -56,6 +56,36 @@ function getAllChannels($email){
     	$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa'>&#xf09c;</i>".$row['channel_name']."</a></li>";
 	}
 	return $string;
+}
+function channelList($email){
+	global $conn;
+	$publicChannelsql = "SELECT * FROM channels where access_specifiers=0";
+	$privateChannelsql = "SELECT * FROM channels where access_specifiers=1 and 	created_by_user_email = '$email'";
+    $publicResult = mysqli_query($conn, $publicChannelsql);
+    $privateResult = mysqli_query($conn, $privateChannelsql);
+    $publicChannel = "<select name ='selValue' id = 'channelId' class='selectpicker' data-show-subtext='true' data-live-search='true'>";
+    $privateChannel ="";
+
+    while(($row = mysqli_fetch_assoc($publicResult))) 
+	{ 	$channelName = $row['channel_name'];
+		$channel_id = $row['channel_id'];
+    	$publicChannel=$publicChannel."
+    						<option value='$channel_id' >$channel_id-$channelName</option>
+    					";
+	}
+	while(($row = mysqli_fetch_assoc($privateResult))) 
+	{ 	$channelName = $row['channel_name'];
+		$channel_id = $row['channel_id'];
+    	$privateChannel=$privateChannel."
+    						<option value='$channel_id'>$channel_id-$channelName</option>
+    					";
+	}
+	$publicChannel = $publicChannel.$privateChannel;
+	$publicChannel = $publicChannel."
+									</select>
+									";
+
+	return $publicChannel;
 }
 function getAllUsers(){
 	global $conn;
@@ -167,6 +197,18 @@ function getChannelMessages($channel_id){
 	return $string;
 }
 if(isset($_POST['usersList']))
+{
+	$sql = "SELECT * FROM users";
+    $result = mysqli_query($conn, $sql);
+    $userList = [];
+    while(($row = mysqli_fetch_assoc($result))) 
+	{ 
+    	array_push($userList,$row['email']);
+	}
+	echo json_encode($userList);
+	
+	}
+if(isset($_POST['usersList1']))
 {
 	$sql = "SELECT * FROM users";
     $result = mysqli_query($conn, $sql);

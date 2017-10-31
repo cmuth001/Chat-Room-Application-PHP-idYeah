@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 include_once "sqlQueries.php";
-$image_url = $_SESSION['email'];
+$image_url = "./assets/images/".$_GET['email'].'.png';
 $result = getUserDetails(mysqli_real_escape_string($conn,$_GET['email']));
 $count = existOrNot(mysqli_real_escape_string($conn,$_GET['email']));
 // echo $count;
@@ -39,7 +39,10 @@ $profile = "<!DOCTYPE html>
 
         $profile = $profile. "
 								<div class = 'formDiv'>
-								            <h2 >Profile Page</h2>
+												<div class =''>
+									            	<a href ='index.php'><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' ></i></a>
+									            	<h2 >Profile Page</h2>
+									            </div>
 								                <div class='container' style = 'height:100%; width:95%;'>
 									                <div class = 'leftside' style='float:left;width: 70%;'>
 									                	<label><b>User Name:</b></label><span class='profileStyle'>$userName</span><br>
@@ -48,7 +51,7 @@ $profile = "<!DOCTYPE html>
 										             </div>
 									                <div class ='profilePic' style='width:30%;height:100%;float:right;margin-top: -3%;' >
 									                    <label class='notifyImgResult'></label>
-									                    <img src='./assets/images/$image_url.png' width='100%'' height='40%'' alt='Avatar' class='avatar'>
+									                    <img src='$image_url' width='100%'' height='40%'' alt='Avatar' class='avatar'>
 									                    <div class = 'channels'>
 									                        <label>Public Channels</label>
 									                        	$publicChannels

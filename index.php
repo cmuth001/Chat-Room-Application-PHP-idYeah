@@ -129,10 +129,11 @@ if(!$_SESSION['loggedIn']){
 		                    <li>
 		                    	<div class="col-xs-12 channeldiv">
 		                    		<div class="col-xs-11 nopadding">
-		                    			<b><a class ="link" href= "">Channels</a></b>
-		                    			<button class="btn  btn-sm  btn-circle addChannel" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button>
+		                    			<b><a class ="link" href= "inviteMembersToChannel.php">Channels</a></b>
+		                    			<a href = 'newChannel.php' class = 'newChannel'><i class="fa fa-plus"></i></a>
+		                    			<!-- <button class="btn  btn-sm  btn-circle addChannel" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button> -->
 		                    			<!-- Modal -->
-										  <div class="modal fade" id="myModal" role="dialog">
+										<!--   <div class="modal fade" id="myModal" role="dialog">
 										    <div class="modal-dialog modal-lg">
 										      <div class="modal-content">
 										        <div class="modal-header">
@@ -141,7 +142,7 @@ if(!$_SESSION['loggedIn']){
 										        </div>
 										        <div class="modal-body">
 										          <!-- <h5>Create a Channel</h5> -->
-										          <p>organise a topic</p>
+										          <!-- <p>organise a topic</p>
 										          <form id= "channelForm" method = "post">
 										          <div class="form-group">
 										            <label for="recipient-name" class="form-control-label">Name:</label>
@@ -162,7 +163,7 @@ if(!$_SESSION['loggedIn']){
 														</form>
 														<br>
 														<!-- <div class="form-data"></div>   -->
-										          </div>	
+										        <!--   </div>	
 										          <div class="modal-footer">
 										          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 										           <button type="submit" name = "submit"  class="btn btn-success channelButton" >Create Channel</button>
@@ -177,7 +178,7 @@ if(!$_SESSION['loggedIn']){
 										        </div>
 										      </div>
 										    </div>
-										  </div>
+										  </div> --> --> -->
 		                    		</div>
 		                    		<!-- <div class="col-xs-1  icon-plus nopadding">
 			                    	
@@ -209,7 +210,7 @@ if(!$_SESSION['loggedIn']){
 			                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
 			                    </form>
 		                	</li>
-		                	<a href = 'newChannel.php'>new channel</a>
+		                	<!-- <a href = 'newChannel.php'>new channel</a> -->
 		                    <!-- <li>
 		                    	<div class="col-xs-12 directmsgdiv ">
 		                    		<div class="col-xs-11 nopadding">

@@ -11,7 +11,7 @@ $(document).ready(function () {
 		var radioButtonValue = (private1===false)?0:1;
 		
 		
-	    var token = $('#tokenfield').val();
+	    var token = $('#tokenfield1').val();
 	    token = token.split(",");
 	    var trimSpace = token.map(function(e){return e.trim();});
 	    token = jQuery.unique(trimSpace);
@@ -20,58 +20,58 @@ $(document).ready(function () {
 	    $.ajax({
 	        url: 'createChannel.php',
 	        type: 'post',
+
 	        data: {'data':dataString},
 	        dataType: 'text',
 	        success: function (data) {
 	        	console.log(data);
-	        	// $(".modal-body").hide();
-	        	// $('.modal-body-result.para').text(data);
-	        	// $(".modal-body-result").show();
-	        	console.log(data);
+	        	$("#errorMsg").append(data);
+	        	//$('.errorMsg').innerHTML=data;
+	   //      	var url = 'index.php';
+				// window.location.href = url;
 	          
 	        }
 	        
 	    });
 	 });
 
+$( ".inviteChannelButton" ).on("click",function(e) {
+			var channelId=document.getElementById("channelId");
+			var channelId=channelId.options[channelId.selectedIndex].value;
+			var channelId = Number(channelId);
+			var token = $('#tokenfield2').val();
+			token = token.split(",");
+			var trimSpace = token.map(function(e){return e.trim();});
+	    	token = jQuery.unique(trimSpace);
+	    	var dataString = {'channelId':channelId,'usersList':token};
+	 	
+		    console.log(token);
+		    $.ajax({
+		        url: 'inviteMembers.php',
+		        type: 'post',
+		        data: {'data':dataString},
+		        dataType: 'text',
+		        success: function (data) {
+		        	console.log(data);
+		        	$("#errorMsg").append(data);
+		        	//$('.errorMsg').innerHTML=data;
+		   	//      	var url = 'index.php';
+					// window.location.href = url;
+		          
+		        }
+	        
+	    });
+	 });
+
+
 	$(document).on('click','.replyMsgIcon',function(e){
 
 		//$(".replyMsg"+e.currentTarget.id).show();
 		 $(".replyMsg"+e.currentTarget.id).toggle();
-		// $("#message_container").css({
-  //           width:"60%"
-  //       });
-  //       $("#footer").css({
-  //           width:"60%"
-  //       });
-  //       document.body.innerHTML += '<div style="float:right;width:30%;height:90%;opacity:0.3;z-index:100;background:#000;">Thread</div>';
-
+		
 
 	});
-	// $(document).on('click','.imgUpload',function(e){
-	// 	var myForm = document.getElementById('imgForm');
-	//    	var formData = new FormData(myForm),
-	//    	convertedJSON = {},
-	//    	it = formData.entries(),
-	//    	n;
-	//    	while(n = it.next()) {
-	//       	if(!n || n.done) break;
-	//       	convertedJSON[n.value[0]] = n.value[1];
-	//     }
-	//   	$.ajax({
-	//         url: 'uploadImage.php',
-	//         type: 'post',
-	//         data: {'image':convertedJSON},
-	//         dataType: 'text',
-	//         success: function (data) {
-	//         	console.log(data);
-	//         	//var url = "./index.php?channel="+convertedJSON['channel'];
-	//              //window.location.href = url;
-	//             /// Send Email to professor
-	//         }
- //    	});
-
-	// });
+	
 	
 	$(document).on('click','.replyButton',function(e){	
 		e.preventDefault();
@@ -106,15 +106,37 @@ $.ajax({
 	        type: 'post',
 	        data: {'usersList':0},
 	        dataType: 'text',
+	        async:false,
 	        success: function (data) {	
 				globalUser = JSON.parse(data);
-				$('#tokenfield').tokenfield({
+				$('#tokenfield1').tokenfield({
 					autocomplete: {
 						        source: globalUser,
 						        delay: 100
 						      },
 						      showAutocompleteOnFocus: true
 						  });
+
+        		    console.log(JSON.parse(data)); 
+        		    console.log("");
+
+	    		}
+	    	});
+$.ajax({
+	  url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'usersList1':0},
+	        dataType: 'text',
+	        success: function (data) {	
+				globalUser2 = JSON.parse(data);
+				$('#tokenfield2').tokenfield({
+					autocomplete: {
+						        source: globalUser2,
+						        delay: 100
+						      },
+						      showAutocompleteOnFocus: true
+						  });
+
 
         		    console.log(JSON.parse(data)); 
         		    console.log("");

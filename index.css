@@ -268,3 +268,21 @@ width: 4%;
     /* color: green; */
     font-family: "Comic Sans MS", cursive, sans-serif;
 }
+.newChannel{
+	color:white;
+	cursor:pointer;
+
+}
+.channelHeading{
+	opacity: 0.6;
+}
+.channelFormDiv{
+	padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 6%;
+}
+.arrowLeft{
+    font-size: 230% !important;   
+    margin-left: 2%;
+    cursor: pointer;
+}
