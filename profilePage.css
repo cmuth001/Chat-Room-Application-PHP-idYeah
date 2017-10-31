@@ -28,7 +28,9 @@ h2{
     padding: 16px;
     min-height: 500px
 }
-
+.channels{
+    margin-top: 10%;
+}
 /* Clear floats */
 .clearfix::after {
     content: "";

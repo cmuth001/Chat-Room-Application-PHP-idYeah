@@ -1,8 +1,9 @@
 <?php
+session_start();
 $channel = htmlspecialchars($_POST['channel']);
 echo $channel;
 $target_dir = "./assets/images/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$target_file = $target_dir .$_SESSION['email'].'.png';
 echo"file name:". $target_file;
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -17,11 +18,7 @@ if(isset($_POST["submit"])) {
         $uploadOk = 0;
     }
 }
-// Check if file already exists
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
-}
+
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 500000) {
     echo "Sorry, your file is too large.";

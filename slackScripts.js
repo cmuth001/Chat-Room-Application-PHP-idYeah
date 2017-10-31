@@ -1,14 +1,22 @@
 $(document).ready(function () {
+	var globalUser = new Array();// global array for users
  	$(".modal-body-result").hide();
   	$('[data-toggle="tooltip"]').tooltip();
 	$( ".channelButton" ).on("click",function(e) {
-
+		
 	    var channelName = document.getElementById("channelName").value;
 		var purpose = document.getElementById("purpose").value;
 		var private1 = document.getElementById("private").checked ;
 		var public1 = document.getElementById("public").checked ;
 		var radioButtonValue = (private1===false)?0:1;
-		var dataString = {'channelName':channelName, 'purpose':purpose, 'radioButtonValue':radioButtonValue};
+		
+		
+	    var token = $('#tokenfield').val();
+	    token = token.split(",");
+	    var trimSpace = token.map(function(e){return e.trim();});
+	    token = jQuery.unique(trimSpace);
+	    var dataString = {'channelName':channelName, 'purpose':purpose, 'radioButtonValue':radioButtonValue,'usersList':token};
+	    console.log(token);
 	    $.ajax({
 	        url: 'createChannel.php',
 	        type: 'post',
@@ -91,7 +99,6 @@ $(document).ready(function () {
 	    console.log(convertedJSON);
 	});
 
-});
 
 function reactionFunction(msg_id,user_email,emoji_id){
 
@@ -109,3 +116,38 @@ function reactionFunction(msg_id,user_email,emoji_id){
 	        
 	    });
 }
+$.ajax({
+	  url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'usersList':0},
+	        dataType: 'text',
+	        success: function (data) {	
+				globalUser = JSON.parse(data);
+				$('#tokenfield').tokenfield({
+					autocomplete: {
+						        source: globalUser,
+						        delay: 100
+						      },
+						      showAutocompleteOnFocus: true
+						  });
+
+        		    console.log(JSON.parse(data)); 
+        		    console.log("");
+
+	    		}
+	    	});
+  // $('#tokenfield').tokenfield();
+  // {
+  		
+  //     autocomplete: {
+  //       source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
+  //       delay: 100
+  //     },
+  //     showAutocompleteOnFocus: true
+  //   });
+    
+    // $("form").submit(function(e) {
+    //     e.preventDefault();
+    //     $('.form-data').text( $('#tokenfield').val());
+    // });
+});

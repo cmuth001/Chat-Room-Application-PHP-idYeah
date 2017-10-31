@@ -1,15 +1,27 @@
 <?php
 session_start();
+if(!$_SESSION['loggedIn']){
+	header("location: ./login/login.php");
+	die();
+}
+include_once "login/connect.php"; 
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD,DB_NAME)
+    OR die ('Could not connect to MySQL: '.mysql_error());
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 include_once "sqlQueries.php";
-$result = getUserDetails($_GET['email']);
-$count = existOrNot($_GET['email']);
+$image_url = $_SESSION['email'];
+$result = getUserDetails(mysqli_real_escape_string($conn,$_GET['email']));
+$count = existOrNot(mysqli_real_escape_string($conn,$_GET['email']));
 // echo $count;
 $userName =  $result['display_name'];
-$result = getUserDetails($_GET['email']);
+$result = getUserDetails(mysqli_real_escape_string($conn,$_GET['email']));
 $email =  $result['email'];
-$result = getUserDetails($_GET['email']); 
+$result = getUserDetails(mysqli_real_escape_string($conn,$_GET['email'])); 
 $status = $result['status'];
-$publicChannels =getAllPublicChannels($_GET['email']);
+$publicChannels =getAllPublicChannels(mysqli_real_escape_string($conn,$_GET['email']));
 $profile = "<!DOCTYPE html>
 						<html>
 						    <head>
@@ -34,9 +46,9 @@ $profile = "<!DOCTYPE html>
 										                <label><b>Email:</b></label><span class='profileStyle'>$email</span><br>
 										                <label><b>Status:</b></label><span class='profileStyle'>$status</span><br>
 										             </div>
-									                <div class ='profilePic' style='width:30%;height:100%;float:right' >
+									                <div class ='profilePic' style='width:30%;height:100%;float:right;margin-top: -3%;' >
 									                    <label class='notifyImgResult'></label>
-									                    <img src='./assets/images/homePage.png' width='100%'' height='40%'' alt='Avatar' class='avatar'>
+									                    <img src='./assets/images/$image_url.png' width='100%'' height='40%'' alt='Avatar' class='avatar'>
 									                    <div class = 'channels'>
 									                        <label>Public Channels</label>
 									                        	$publicChannels

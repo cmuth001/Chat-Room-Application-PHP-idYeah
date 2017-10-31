@@ -30,12 +30,21 @@ if(!$_SESSION['loggedIn']){
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="css/tags/jquery-ui.js"></script>
+		<script src="css/tags/jquery-migrate-3.0.0.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="css/tags/bootstrap-tokenfield.js"></script>
+		<script src="css/tags/typeahead.bundle.min.js"></script>
 		<script src="slackScripts.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/tags/jquery-ui.css">
+
+
 		<!-- multi select -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.css">
 		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.0/multiple-select.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
+		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
+		
 		    <!-- multi select -->
 	</head>
 	<body>
@@ -147,7 +156,12 @@ if(!$_SESSION['loggedIn']){
 										          	<input type="radio" name="colors" id="public">Public
 										          </div>
 										          <div id="framework_form">
-													    
+													  	<form method="GET">
+														    <input type="text" class="form-control" id="tokenfield" value="red,green,blue" />
+														    <input type="submit" class="btn btn-primary">
+														</form>
+														<br>
+														<!-- <div class="form-data"></div>   -->
 										          </div>	
 										          <div class="modal-footer">
 										          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -195,6 +209,7 @@ if(!$_SESSION['loggedIn']){
 			                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
 			                    </form>
 		                	</li>
+		                	<a href = 'newChannel.php'>new channel</a>
 		                    <!-- <li>
 		                    	<div class="col-xs-12 directmsgdiv ">
 		                    		<div class="col-xs-11 nopadding">

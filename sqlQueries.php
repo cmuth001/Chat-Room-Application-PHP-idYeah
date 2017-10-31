@@ -42,7 +42,7 @@ function getAllPublicChannels($email){
     $string = "";
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
-    	$string=$string."<li ><a class= '' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='ffont-size: 126%;padding-right: 3%;' class='fa'>&#xf09c;</i>".$row['channel_name']."</a></li>";
+    	$string=$string."<li ><i style='font-size: 126%;padding-right: 3%;' class='fa'>&#xf09c;</i>".$row['channel_name']."</li>";
 	}
 	return $string;
 }
@@ -53,7 +53,7 @@ function getAllChannels($email){
     $string = "";
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
-    	$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='ffont-size: 126%;padding-right: 3%;' class='fa'>&#xf09c;</i>".$row['channel_name']."</a></li>";
+    	$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa'>&#xf09c;</i>".$row['channel_name']."</a></li>";
 	}
 	return $string;
 }
@@ -166,6 +166,18 @@ function getChannelMessages($channel_id){
 	$string = $string."<div id = 'scrollBottom'></div></div>";
 	return $string;
 }
+if(isset($_POST['usersList']))
+{
+	$sql = "SELECT * FROM users";
+    $result = mysqli_query($conn, $sql);
+    $userList = [];
+    while(($row = mysqli_fetch_assoc($result))) 
+	{ 
+    	array_push($userList,$row['email']);
+	}
+	echo json_encode($userList);
+	
+	}
 if(isset($_POST['thread']))
 {
 	$thread = $_POST['thread'];
@@ -251,8 +263,8 @@ if(isset($_POST['reactions']))
 			$dislikeCount = mysqli_fetch_assoc($Result);
 
 			//extracting liked and disliked users list
-			$likeList = "SELECT *  FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=1";
-			$dislikeList = "SELECT * FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=2";
+			$likeList = "SELECT *  FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id='$msg_id' and emoji_id=1";
+			$dislikeList = "SELECT * FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id='$msg_id' and emoji_id=2";
 			$likeUsersList = mysqli_query($conn,$likeList);
 			$dislikeUsersList = mysqli_query($conn,$dislikeList);
 			$likeStr='';
@@ -292,8 +304,8 @@ if(isset($_POST['reactions']))
 		$dislikeCount = mysqli_fetch_assoc($Result);
 		
 		//extracting liked and disliked users list
-			$likeList = "SELECT *  FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=1";
-			$dislikeList = "SELECT * FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=2";
+			$likeList = "SELECT *  FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id='$msg_id' and emoji_id=1";
+			$dislikeList = "SELECT * FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id='$msg_id' and emoji_id=2";
 			$likeUsersList = mysqli_query($conn,$likeList);
 			$dislikeUsersList = mysqli_query($conn,$dislikeList);
 			$likeStr='';
