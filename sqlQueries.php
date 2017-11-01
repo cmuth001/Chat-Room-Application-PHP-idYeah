@@ -224,7 +224,7 @@ if(isset($_POST['thread']))
 {
 	$thread = $_POST['thread'];
 	$channel_id = intval($thread['channel']);
-	$message = $thread['message'];
+	$message = mysqli_real_escape_string($conn,$thread['message']);
 	$msgId = intval($thread['msgId']);
 	$user_email = $thread['user'];
 	$sql = "INSERT INTO `threaded_messages` VALUES(DEFAULT,'$msgId','$user_email','$message',CURRENT_TIMESTAMP)";
