@@ -61,11 +61,15 @@ if(!$_SESSION['loggedIn']){
 ">					<div class ="col-xs-5 nopadding ">
 						<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa'>&#xf09c;</i><label class = 'channel_title'><b>
 							<?php
+								$result ="";
+								$userChannels = userChannels($_SESSION['email']);
 								if (isset($_GET["channel"])){
-									$result = getChannelName($_GET["channel"]);
-								}else{
-									$result ="";
+									if (in_array($_GET["channel"], $userChannels)) {
+										$result = getChannelName($_GET["channel"]);
+									}
 								}
+									
+							
 								echo $result['channel_name']
 							?>
 							</b></label>
@@ -77,11 +81,12 @@ if(!$_SESSION['loggedIn']){
 							<span class= "divider">|</span>
 							<span class = "purposeChannel">
 								<?php
-								if (isset($_GET["channel"])){
-									$result = getChannelName($_GET["channel"]);
-								}else{
 									$result = "";
-								}
+									if (isset($_GET["channel"])){
+										if (in_array($_GET["channel"], $userChannels)) {
+											$result = getChannelName($_GET["channel"]);
+										}
+									}
 								echo $result['purpose']
 							?>
 							</span>
@@ -235,12 +240,19 @@ if(!$_SESSION['loggedIn']){
 		        <div id="message_container" class ="col-xs-10 headrow nopadding" style="width:87%;min-height:93%;background-color: white; ">
 		        	<div class ="col-xs-12 nopadding " style="height:91%;overflow-y: auto; overflow-x: hidden;position:relative;">
 			        	<?php 
+			        		$userChannels = userChannels($_SESSION['email']);
 			        		if (isset($_GET["channel"])){
-			        			$result =getChannelMessages($_GET["channel"]);
-			        		}else{
-			        			$result ="<h1 class ='emptyChannel'>Please select channel</h1>";
-			        		}	
-			        		echo $result 
+			        			if (in_array($_GET["channel"], $userChannels)) {				
+				        			$result =getChannelMessages($_GET["channel"]);
+				        		}else{
+				        			$result ="<h1 class ='emptyChannel'>Requested Channel does not exist</h1>";
+				        		}
+				        	}else{
+				        		
+				        		$result ="<h1 class ='emptyChannel'>Please select channel</h1>";
+				        	}
+			        		echo $result; 
+			        		//echo $userChannels;
 			        	?>
 
 		        	</div>

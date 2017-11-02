@@ -35,6 +35,17 @@ function getChannelName($channel_id){
 	$row = $result->fetch_assoc();
 	return $row;
 }
+function userChannels($email){
+	global $conn;
+	$sql = "SELECT channel_id FROM `userChannels` where userChannels.user_email='$email'";
+	$result = mysqli_query($conn, $sql);
+	$arrayOfChannels = [];
+	while(($row = mysqli_fetch_assoc($result))) 
+	{
+		array_push($arrayOfChannels, $row['channel_id']);
+	}
+	return $arrayOfChannels;
+}
 function getAllPublicChannels($email){
 	global $conn;
 	$sql = "SELECT channels.channel_name FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email='$email' and access_specifiers=0";
