@@ -13,16 +13,11 @@ $message = mysqli_real_escape_string($conn,$_POST['message']);
 $channel_id = mysqli_real_escape_string($conn,$_POST['channel']);
 $user = getUserDetails(mysqli_real_escape_string($conn,$_POST['email']));
 $user = $user['email'];
-// echo"message:". $message;
-// echo"channel_id:".$channel_id;
-// echo "user:".$user;
 if($message != "")
 {	
  	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,CURRENT_TIMESTAMP)";
- 	// echo $sql;
  	if (mysqli_query($conn, $sql)) {
- 		echo "$sql";
-    	// echo "New record created successfully";
+ 		
     	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
     	exit;
 	}else {

@@ -80,15 +80,22 @@ function channelList($email){
     while(($row = mysqli_fetch_assoc($publicResult))) 
 	{ 	$channelName = $row['channel_name'];
 		$channel_id = $row['channel_id'];
-    	$publicChannel=$publicChannel."
-    						<option value='$channel_id' >$channel_id-$channelName</option>
+		$created = $row['created_by_user_email'];
+		if($created==$email){
+    		$publicChannel=$publicChannel."
+    						<option data-subtext='Public channel created by You' value='$channel_id' >$channel_id-$channelName</option>
     					";
+    	}else{
+    		$publicChannel=$publicChannel."
+    						<option data-subtext='Public channel created by $created' value='$channel_id' >$channel_id-$channelName</option>
+    					";
+    	}
 	}
 	while(($row = mysqli_fetch_assoc($privateResult))) 
 	{ 	$channelName = $row['channel_name'];
 		$channel_id = $row['channel_id'];
     	$privateChannel=$privateChannel."
-    						<option value='$channel_id'>$channel_id-$channelName</option>
+    						<option data-subtext='Private channel Creadted by You' value='$channel_id'>$channel_id-$channelName</option>
     					";
 	}
 	$publicChannel = $publicChannel.$privateChannel;
@@ -157,6 +164,7 @@ function getChannelMessages($channel_id){
 		$replyMsg = "replyMsg".$row['cmessage_id'];
 		$myForm = "myForm".$row['cmessage_id'];
 		$contactImg = "./assets/images/";
+		$msgId = $row['cmessage_id'];
     	$string=$string."<div class='right'>
     						<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>
     						<a href= ''>".$row['display_name']."</a>
@@ -169,9 +177,10 @@ function getChannelMessages($channel_id){
     							<label class = 'dislikeIcon'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
     							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>
     						</div>
+    						<div class = 'thread_wrapper$msgId'>
     						";
     	
-    	$stringThread = "<div class = 'thread_wrapper'>";
+    	$stringThread = "";
     	if($row['has_thread']==1){
     		$threadsql = "SELECT * FROM `threaded_messages` join users on users.email=threaded_messages.user_email where message_id=".$row['cmessage_id'];
 			$threadResult = mysqli_query($conn, $threadsql);

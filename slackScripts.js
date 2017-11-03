@@ -90,9 +90,21 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        data: {'thread':convertedJSON},
 	        dataType: 'text',
 	        success: function (data) {
-	        	console.log(data);
-	        	var url = "./index.php?channel="+convertedJSON['channel'];
-	             window.location.href = url;
+	        	var msgId = convertedJSON['msgId'];
+	        	var user = convertedJSON['user'];
+	        	var channelId = convertedJSON['channel_id'];
+	        	var message = convertedJSON['message'];
+	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='./assets/images/"+user+".png'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'></label><div class= 'textMessage'><span>"+message+"</span></div></div>";
+	        	console.log(threadDiv);
+	        	//$('.thread_wrapper'+msgId).append("<div class='thread'><img src='./assets/images/cmuth001@odu.edu.png' alt='Contact_Img' class='contact_Img'></div>");
+	        	
+	        	$('.thread_wrapper'+msgId).append(threadDiv);
+	        	$('form').find('input[type=text]').val('');
+	        	
+
+
+	        	// var url = "./index.php?channel="+convertedJSON['channel'];
+	         //     window.location.href = url;
 	            /// Send Email to professor
 	        }
     	});
