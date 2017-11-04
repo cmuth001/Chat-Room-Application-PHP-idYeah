@@ -91,10 +91,11 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        dataType: 'text',
 	        success: function (data) {
 	        	var msgId = convertedJSON['msgId'];
-	        	var user = convertedJSON['user'];
+	        	var image = convertedJSON['user']
+	        	var user = convertedJSON['display_name'];
 	        	var channelId = convertedJSON['channel_id'];
 	        	var message = convertedJSON['message'];
-	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='./assets/images/"+user+".png'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'></label><div class= 'textMessage'><span>"+message+"</span></div></div>";
+	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='./assets/images/"+image+".png'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'></label><div class= 'textMessage'><span>"+message+"</span></div></div>";
 	        	console.log(threadDiv);
 	        	//$('.thread_wrapper'+msgId).append("<div class='thread'><img src='./assets/images/cmuth001@odu.edu.png' alt='Contact_Img' class='contact_Img'></div>");
 	        	

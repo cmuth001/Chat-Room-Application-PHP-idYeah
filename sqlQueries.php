@@ -176,8 +176,9 @@ function getChannelMessages($channel_id){
     							<label class='likeIcon' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
     							<label class = 'dislikeIcon'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
     							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>
+    							<a href='#thread_wrapper$msgId'  data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies</a>
     						</div>
-    						<div class = 'thread_wrapper$msgId'>
+    						<div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>
     						";
     	
     	$stringThread = "";
@@ -199,6 +200,8 @@ function getChannelMessages($channel_id){
 			$stringThread = $stringThread."</div>";//thread_wrapper
 			
 		}
+		$userDetails = getUserDetails($_SESSION['email']);
+		$userDetails = $userDetails['display_name'];
 		$string=$string.$stringThread."
 
 							<div class = '$replyMsg input-group input-group-lg textinput' style='display:none;'>
@@ -206,6 +209,7 @@ function getChannelMessages($channel_id){
     								<input type='hidden' name='user' id='user' value=".$_SESSION['email']." >
     								<input type='hidden' name='msgId' id='msgId' value=".$row['cmessage_id']." >
     								<input type='hidden' name='channel' id='channel' value='$channel_id' >
+    								<input type='hidden' name='display_name' id='display_name' value='$userDetails' >
     								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
     								<button type='submit' id = ".$row['cmessage_id']." class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
     							</form>
