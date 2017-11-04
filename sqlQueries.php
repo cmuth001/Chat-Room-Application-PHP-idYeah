@@ -27,7 +27,15 @@ function existOrNot($email){
     return $count;
 
 }
+function messageThreadCount($msgId){
+	global $conn;
+	$sql = "SELECT COUNT(*) as count1 FROM threaded_messages where message_id= '".$msgId."'";
+    $count1 = mysqli_query($conn,$sql);
+    $count = mysqli_fetch_assoc($count1);
+    $count = $count['count1'];
+    return $count;
 
+}
 function getChannelName($channel_id){
 	global $conn;
 	$sql = "SELECT * FROM channels where channel_id="."'$channel_id'";
@@ -165,6 +173,7 @@ function getChannelMessages($channel_id){
 		$myForm = "myForm".$row['cmessage_id'];
 		$contactImg = "./assets/images/";
 		$msgId = $row['cmessage_id'];
+		$messageThreadCount=messageThreadCount($msgId);
     	$string=$string."<div class='right'>
     						<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>
     						<a href= ''>".$row['display_name']."</a>
@@ -175,11 +184,16 @@ function getChannelMessages($channel_id){
     						<div class = 'reaction'>
     							<label class='likeIcon' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
     							<label class = 'dislikeIcon'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
-    							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>
-    							<a href='#thread_wrapper$msgId'  data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies</a>
-    						</div>
-    						<div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>
-    						";
+    							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>";
+    		if($messageThreadCount>0){
+    			$string=$string."<a href='#thread_wrapper$msgId'  data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>
+    						</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
+    		}
+    		// else{
+    		// 	$string=$string."<a href='#thread_wrapper$msgId'  data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>
+    		// 	</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
+    		// }					
+    		
     	
     	$stringThread = "";
     	if($row['has_thread']==1){
