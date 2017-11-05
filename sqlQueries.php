@@ -181,7 +181,7 @@ function getChannelMessages($channel_id){
     						<div class= 'textMessage'>
     							<span>".$message."</span>
     						</div>
-    						<div class = 'reaction'>
+    						<div class = 'reaction reaction$msgId'>
     							<label class='likeIcon likeIcon$msgId' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
     							<label class = 'dislikeIcon dislikeIcon$msgId'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
     							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>";
@@ -189,10 +189,9 @@ function getChannelMessages($channel_id){
     			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount repliesCount$msgId' id = '$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>
     						</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
     		}
-    		// else{
-    		// 	$string=$string."<a href='#thread_wrapper$msgId'  data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>
-    		// 	</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
-    		// }					
+    		else{
+    			$string=$string."</div><div class = ' thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
+    		}					
     		
     	
     	$stringThread = "";
@@ -211,9 +210,10 @@ function getChannelMessages($channel_id){
 					    						<div class= 'textMessage'><span>".$threadMessage."</span></div>		
 											</div>";
 			}
-			$stringThread = $stringThread."</div>";//thread_wrapper
+			
 			
 		}
+		$stringThread = $stringThread."</div>";//thread_wrapper
 		$userDetails = getUserDetails($_SESSION['email']);
 		$userDetails = $userDetails['display_name'];
 		$string=$string.$stringThread."

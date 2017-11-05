@@ -2,6 +2,10 @@
 .headrow{
 	    height: 70px;
 }
+.line {
+    height: 5px;
+    background: #FFEE90;
+}
 .userInfo{
 	background-color: #404040;width: 13%;height: 70px;color: white;padding: 1% !important;
 }

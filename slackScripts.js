@@ -97,7 +97,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        dataType: 'json',
 	        success: function (data) {
 	        	var msgId = convertedJSON['msgId'];
-	        	var image = convertedJSON['user']
+	        	var image = convertedJSON['user'];
 	        	var user = convertedJSON['display_name'];
 	        	var channelId = convertedJSON['channel_id'];
 	        	var message = convertedJSON['message'];
