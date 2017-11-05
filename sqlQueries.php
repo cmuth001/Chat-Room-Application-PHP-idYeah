@@ -27,6 +27,14 @@ function existOrNot($email){
     return $count;
 
 }
+function membersInChannel($channelId){
+	global $conn;
+	$sql = "SELECT COUNT(*) as count1 FROM `userChannels` where channel_id= '".$channelId."'";
+    $count1 = mysqli_query($conn,$sql);
+    $count = mysqli_fetch_assoc($count1);
+    $count = $count['count1'];
+    return $count;
+}
 function messageThreadCount($msgId){
 	global $conn;
 	$sql = "SELECT COUNT(*) as count1 FROM threaded_messages where message_id= '".$msgId."'";
@@ -36,12 +44,26 @@ function messageThreadCount($msgId){
     return $count;
 
 }
-function getChannelName($channel_id){
+function getChannelDetails($channel_id){
 	global $conn;
 	$sql = "SELECT * FROM channels where channel_id="."'$channel_id'";
 	$result = mysqli_query($conn, $sql);
 	$row = $result->fetch_assoc();
 	return $row;
+
+}
+function getChannelName($channel_id){
+	global $conn;
+	$sql = "SELECT * FROM channels where channel_id="."'$channel_id'";
+	$result = mysqli_query($conn, $sql);
+	$row = $result->fetch_assoc();
+	if(intval($row['access_specifiers'])==1){
+		$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-lock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
+	}
+	else{
+		$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa'>&#xf09c;</i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
+	}
+	echo $string;
 }
 function userChannels($email){
 	global $conn;
@@ -67,12 +89,17 @@ function getAllPublicChannels($email){
 }
 function getAllChannels($email){
 	global $conn;
-	$sql = "SELECT channels.channel_id,channels.channel_name FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email="."'$email'";
+	$sql = "SELECT channels.channel_id,channels.channel_name,channels.access_specifiers FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email="."'$email'";
     $result = mysqli_query($conn, $sql);
     $string = "";
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
-    	$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa'>&#xf09c;</i>".$row['channel_name']."</a></li>";
+		if(intval($row['access_specifiers'])==1){
+			$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa fa-lock'></i>".$row['channel_name']."</a></li>";
+		}
+		else{
+			$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa'>&#xf09c;</i>".$row['channel_name']."</a></li>";
+		}	
 	}
 	return $string;
 }

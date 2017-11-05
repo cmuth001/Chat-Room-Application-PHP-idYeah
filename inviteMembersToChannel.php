@@ -36,10 +36,10 @@
     	<div class = 'formDiv'>
 			<div class =''>
 	        	<a href ='index.php'><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' ></i></a>
-	        	<h2 >Invite members to Channel </h2>
+	        	<h2 style ='margin-top:-1%;'>Invite members to Channel </h2>
 	        </div>
 	        <form id= "inviteChannelForm" method = "post">
-		        <div class='container' style = 'height:100%; width:95%;'>
+		        <div class='container' style = 'height:100%; width:95%;padding-bottom: 11%'>
 		        	<div><label>Select Channel :<label>
 			    		<?php  				                 				 
 		                	$result =channelList($_SESSION['email']);
@@ -54,7 +54,7 @@
 							
 					 </div>	
 				
-					   <button type="submit" name = "submit"  class="btn btn-success inviteChannelButton" >InviteUsers</button>
+					   <button type="submit" name = "submit"  class="btn btn-success inviteChannelButton" style='width: 17%;float:right;' >InviteUsers</button>
 				    <!-- <select class="selectpicker" data-show-subtext="true" data-live-search="true">
 			        <option data-subtext="Rep California">Tom Foolery</option>
 			        <option data-subtext="Sen California">Bill Gordon</option>

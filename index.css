@@ -64,7 +64,7 @@ ui{
 .channeldiv{
 	/*text-align: center;*/
 	background-color: transparent;
-	padding-bottom: 5%;
+	/*padding-bottom: 5%;*/
 	padding-top: 5%;
 	font-family: "Comic Sans MS", cursive, sans-serif;
 	letter-spacing: 0.2em;
@@ -74,7 +74,7 @@ ui{
 	/*text-align: center;*/
 	background-color: #383836;
 	/*background-color: transparent;*/
-	padding-bottom: 5%;
+	/*padding-bottom: 5%;*/
 	padding-top: 5%;
 	font-family: "Comic Sans MS", cursive, sans-serif;
 	letter-spacing: 0.2em;
@@ -278,7 +278,7 @@ width: 4%;
 
 }
 .channelHeading{
-	opacity: 0.6;
+	
 }
 .channelFormDiv{
 	padding-left: 5%;
@@ -288,5 +288,6 @@ width: 4%;
 .arrowLeft{
     font-size: 230% !important;   
     margin-left: 2%;
+    margin-top: 3%;
     cursor: pointer;
 }

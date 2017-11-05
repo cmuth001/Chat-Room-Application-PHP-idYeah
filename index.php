@@ -57,9 +57,7 @@ if(!$_SESSION['loggedIn']){
 						<div><label><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></label></div>
 				</div>
 
-				<div class="col-xs-9 nopadding" style="width: 87%;height: 74px;border-bottom: 0.15em solid #706c6c;background-color: white;padding-left: 2% !important; padding-top: 4px !important;;
-">					<div class ="col-xs-5 nopadding ">
-						<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa'>&#xf09c;</i><label class = 'channel_title'><b>
+				<div class="col-xs-9 nopadding" style="width: 87%;height: 74px;border-bottom: 0.15em solid #706c6c;background-color: white;padding-left: 2% !important; padding-top: 4px !important;">					<div class ="col-xs-5 nopadding ">
 							<?php
 								$result ="";
 								$userChannels = userChannels($_SESSION['email']);
@@ -67,24 +65,27 @@ if(!$_SESSION['loggedIn']){
 									if (in_array($_GET["channel"], $userChannels)) {
 										$result = getChannelName($_GET["channel"]);
 									}
+								}else{
+									$result = "<div><label class = 'channel_title'><b>Channel Title</b></label>";
 								}
 									
 							
-								echo $result['channel_name']
+								echo $result;
 							?>
-							</b></label>
+							
 						</div>
 						<div class = "detailsOfChannel">
 							<span class="fa fa-star checked"></span>
 							<span class= "divider">|</span>
-							<i style='font-size: 117%;padding-right: 1%;color: #706c6c;' class="fa fa-users" aria-hidden="true"></i>
+							<i style='font-size: 117%;color: #706c6c;' class="fa fa-users" aria-hidden="true"></i>
+							<sub><?php echo membersInChannel($_GET["channel"]); ?></sub>
 							<span class= "divider">|</span>
 							<span class = "purposeChannel">
 								<?php
 									$result = "";
 									if (isset($_GET["channel"])){
 										if (in_array($_GET["channel"], $userChannels)) {
-											$result = getChannelName($_GET["channel"]);
+											$result = getChannelDetails($_GET["channel"]);
 										}
 									}
 								echo $result['purpose']

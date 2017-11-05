@@ -31,7 +31,7 @@
 					<div class = 'channelHeading'>
 			            <a href ='index.php'><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' ></i></a>
 			            
-			            <h2>Create Channel</h2>
+			            <h2 style = 'margin-top: -2%;'>Create Channel</h2>
 					</div>
 					<div class = 'channelFormDiv'>
 				  	<div class="form-group">
@@ -54,7 +54,7 @@
 						<!-- <div class="form-data"></div>   -->
 				  	</div>	
 			
-				   <button type="submit" name = "submit"  class="btn btn-success channelButton" >Create Channel</button>
+				   <button type="submit" name = "submit"  class="btn btn-success channelButton" style= 'width: 17%; float:right;'>Create Channel</button>
 				 
 				  </div>	
 			</form>
