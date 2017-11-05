@@ -75,6 +75,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	
 	$(document).on('click','.replyButton',function(e){	
 		e.preventDefault();
+
 	  	var myForm = document.getElementById('myForm'+e.currentTarget.id);
 	   	var formData = new FormData(myForm),
 	   	convertedJSON = {},
@@ -88,7 +89,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        url: 'sqlQueries.php',
 	        type: 'post',
 	        data: {'thread':convertedJSON},
-	        dataType: 'text',
+	        dataType: 'json',
 	        success: function (data) {
 	        	var msgId = convertedJSON['msgId'];
 	        	var image = convertedJSON['user']
@@ -100,6 +101,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        	//$('.thread_wrapper'+msgId).append("<div class='thread'><img src='./assets/images/cmuth001@odu.edu.png' alt='Contact_Img' class='contact_Img'></div>");
 	        	
 	        	$('.thread_wrapper'+msgId).append(threadDiv);
+	        	$('.repliesCount'+msgId).html('Replies('+data[0]+')');
 	        	$('form').find('input[type=text]').val('');
 	        	
 
@@ -182,7 +184,9 @@ function reactionFunction(msg_id,user_email,emoji_id){
 	        dataType: 'json',
 	        success: function (data) {	
         		$('div.reaction label.likeCount'+msg_id).text(data[0]);
-        		$('div.reaction label.dislikeCount'+msg_id).text(data[1]);      
+        		$('div.reaction label.dislikeCount'+msg_id).text(data[1]); 
+        		// $('div.reaction label.likeIcon'+msg_id).attr('title',data[2]);
+        		// $('div.reaction label.dislikeIcon'+msg_id).attr('title',data[3]);
 	        }
 	        
 	    });
