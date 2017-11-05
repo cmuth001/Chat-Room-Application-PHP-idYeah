@@ -71,8 +71,13 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		
 
 	});
-	
-	
+	$(document).on('click','.repliesCount',function(e){
+
+		//$(".replyMsg"+e.currentTarget.id).show();
+		 $(".replyMsg"+e.currentTarget.id).toggle();
+		
+
+	});
 	$(document).on('click','.replyButton',function(e){	
 		e.preventDefault();
 

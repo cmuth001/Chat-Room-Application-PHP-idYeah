@@ -186,7 +186,7 @@ function getChannelMessages($channel_id){
     							<label class = 'dislikeIcon dislikeIcon$msgId'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
     							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>";
     		if($messageThreadCount>0){
-    			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>
+    			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount repliesCount$msgId' id = '$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>
     						</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
     		}
     		// else{
