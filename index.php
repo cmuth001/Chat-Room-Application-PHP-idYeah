@@ -46,15 +46,29 @@ if(!$_SESSION['loggedIn']){
 		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
 		
 		    <!-- multi select -->
+
+
+
 	</head>
 	<body>
 		<div class="container nopadding col-xs-12" >
 			<div class = "col-xs-12 nopadding ">
 				<div  class = " col-xs-3 nopadding" style="background-color: #404040;width: 13%;height: 74px;color: white;padding: 1% !important;
 ">
-					<div><label>ODUCS518F17</label></div>
 					
-						<div><label><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></label></div>
+					
+						<div>
+							<div><label>ODUCS518F17</label></div>
+							<div class="dropdown">
+								<button onclick="userMenu()" class="dropbtn"><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?><i class="fa fa-angle-down"></i></button>
+								  <div id="myDropdown" class="dropdown-content">
+								    <div style = 'color:black;'><img src=<?php echo "./assets/images/".$_SESSION['email'].".png" ?> alt='Contact_Img' class='contact_Img'><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></div>
+								    <a href="#about">About</a>
+								    <a href="#contact">Contact</a>
+								  </div>
+							</div>
+							<!-- <label></label> -->
+						</div>
 				</div>
 
 				<div class="col-xs-9 nopadding" style="width: 87%;height: 74px;border-bottom: 0.15em solid #706c6c;background-color: white;padding-left: 2% !important; padding-top: 4px !important;">					<div class ="col-xs-5 nopadding ">

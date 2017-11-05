@@ -178,6 +178,26 @@ $.ajax({
     //     $('.form-data').text( $('#tokenfield').val());
     // });
 });
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function userMenu() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
 function reactionFunction(msg_id,user_email,emoji_id){
 
 	 	var data1 = {'msg_id':msg_id,'user_email':user_email,'emoji_id':emoji_id};
