@@ -78,12 +78,12 @@ if(!$_SESSION['loggedIn']){
 								if (isset($_GET["channel"])){
 									if (in_array($_GET["channel"], $userChannels)) {
 										$result = getChannelName($_GET["channel"]);
+									}else{
+										$result = "<div><label class = 'channel_title'><b>Channel Title</b></label>";
 									}
 								}else{
 									$result = "<div><label class = 'channel_title'><b>Channel Title</b></label>";
-								}
-									
-							
+								}									
 								echo $result;
 							?>
 							
@@ -271,7 +271,7 @@ if(!$_SESSION['loggedIn']){
 			        	?>
 
 		        	</div>
-		        	 
+
 
 
 			</div>
