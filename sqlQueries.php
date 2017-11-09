@@ -242,11 +242,24 @@ function getChannelMessages($channel_id){
     						}
     						
     		if($messageThreadCount>0){
-    			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount repliesCount$msgId' id = '$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>
-    						</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
+    			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount repliesCount$msgId' id = '$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>";
+    			
+    			if($_SESSION['email']=='cmuth001@odu.edu'){
+    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
+    			}
+    			
+    			$string=$string."</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
+    		
     		}
     		else{
-    			$string=$string."</div><div class = ' thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
+    			if($_SESSION['email']=='cmuth001@odu.edu'){
+    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
+    			}
+    			
+    			$string=$string."</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
+    			
+    			// $string=$string."<label><i class='fa fa-trash-o delete' id ='$msgId' aria-hidden='true'></i></label>
+    			// 				</div><div class = ' thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
     		}					
     		
     	
@@ -348,6 +361,24 @@ if(isset($_POST['archive']))
 	
 
 }
+if(isset($_POST['deleteMessage']))
+{
+	$messageId = intval($_POST['deleteMessage']);
+	echo $messageId;
+	$threadMessageSql = "DELETE FROM threaded_messages WHERE message_id='$messageId'";
+	$channekMessageDeleteSql = "DELETE FROM channel_messages WHERE cmessage_id='$messageId'";
+	if (mysqli_query($conn, $threadMessageSql)) {       
+        echo "'$threadMessageSql'thread messages deleted !!!";
+    }else{
+        echo "failed deleting thread messages !!!";
+    }
+    if (mysqli_query($conn, $channekMessageDeleteSql)) {       
+        echo "'$threadMessageSql'channel  message deleted !!!";
+    }else{
+        echo "failed deleting channel message !!!";
+    }
+}
+
 if(isset($_POST['thread']))
 {
 	$thread = $_POST['thread'];

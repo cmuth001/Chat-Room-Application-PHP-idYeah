@@ -34,3 +34,14 @@ border-radius: 15%;
     margin-right: -13%;
     margin-top: 1.7em;
 }
+.delete{
+  font-size: 150% !important;
+  cursor: pointer;
+  padding-left: 50%;
+}
+.delete:hover{
+  font-size: 150% !important;
+  cursor: pointer;
+  color: red;
+  padding-left: 50%;
+}

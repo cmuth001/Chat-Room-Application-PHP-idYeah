@@ -37,7 +37,10 @@ if(!$_SESSION['loggedIn']){
 		<script src="css/tags/typeahead.bundle.min.js"></script>
 		<script src="slackScripts.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/tags/jquery-ui.css">
-
+		<!-- delete pop links -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+		<!-- delete popup  -->
 
 		<!-- multi select -->
 		

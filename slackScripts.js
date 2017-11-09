@@ -62,8 +62,34 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        
 	    });
 	 });
+	$(document).on('click','.delete',function(e){
+		var messageId = e.currentTarget.id;
+		var channelId = parseInt(e.target.className.split(" ")[3]);
+		$.confirm({
+		    title: "<label style ='text-align: center;'>Confirmation </label><i class='fa fa-trash-o' style='color:red'  aria-hidden='true'></i>",
+		    content: 'Deleting Message from the Channel',
+		    buttons: {
+		        delete: function () {
+		            //$.alert('Confirmed!');
+		            $.ajax({
+				        url: 'sqlQueries.php',
+				        type: 'post',
+				        data: {'deleteMessage':messageId},
+				        dataType: 'text',
+				        success: function (data) {
+				        	console.log(data);
+				        	var url = "./index.php?channel="+channelId;
+				             window.location.href = url;
+				        }
+				    });
+		        },
+		        cancel: function () {
+		            
+		        }
+		    }
+		});
 
-
+	});
 	$(document).on('click','.replyMsgIcon',function(e){
 
 		//$(".replyMsg"+e.currentTarget.id).show();
