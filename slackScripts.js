@@ -71,6 +71,23 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		
 
 	});
+	$(document).on('click','.channelArchive',function(e){
+
+		console.log(e.currentTarget.id);
+		var channelId = e.currentTarget.id;
+		$.ajax({
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'archive':channelId},
+	        dataType: 'text',
+	        success: function (data) {
+	        	console.log(data);
+	        	var url = "./index.php?channel="+channelId;
+	             window.location.href = url;
+	        }
+	    });
+
+	});
 	$(document).on('click','.repliesCount',function(e){
 
 		//$(".replyMsg"+e.currentTarget.id).show();

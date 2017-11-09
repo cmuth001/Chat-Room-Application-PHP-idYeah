@@ -52,16 +52,24 @@ function getChannelDetails($channel_id){
 	return $row;
 
 }
-function getChannelName($channel_id){
+function getChannelName($channel_id,$user_email){
 	global $conn;
 	$sql = "SELECT * FROM channels where channel_id="."'$channel_id'";
 	$result = mysqli_query($conn, $sql);
 	$row = $result->fetch_assoc();
 	if(intval($row['access_specifiers'])==1){
-		$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-lock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
+		if($user_email=='cmuth001@odu.edu'){
+			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-lock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer;' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+		}else{
+			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-lock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
+		}
 	}
 	else{
-		$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa'>&#xf09c;</i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
+		if($user_email=='cmuth001@odu.edu'){
+			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+		}else{
+			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
+		}
 	}
 	echo $string;
 }
@@ -89,16 +97,26 @@ function getAllPublicChannels($email){
 }
 function getAllChannels($email){
 	global $conn;
-	$sql = "SELECT channels.channel_id,channels.channel_name,channels.access_specifiers FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email="."'$email'";
+	$sql = "SELECT channels.channel_id,channels.channel_name,channels.access_specifiers, channels.isArchive FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email="."'$email'";
     $result = mysqli_query($conn, $sql);
     $string = "";
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
 		if(intval($row['access_specifiers'])==1){
-			$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa fa-lock'></i>".$row['channel_name']."</a></li>";
+			if(intval($row['isArchive'])==1){
+				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 100%;padding-right: 3%;' class='fa fa-archive'></i>".$row['channel_name']."</a></li>";
+			}else{
+				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa fa-lock'></i>".$row['channel_name']."</a></li>";
+			}
+			
 		}
 		else{
-			$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa'>&#xf09c;</i>".$row['channel_name']."</a></li>";
+			if(intval($row['isArchive'])==1){
+				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 100%;padding-right: 3%;' class='fa fa-archive'></i>".$row['channel_name']."</a></li>";
+			}else{
+				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa fa-unlock-alt'></i>".$row['channel_name']."</a></li>";
+			}
+			
 		}	
 	}
 	return $string;
@@ -158,7 +176,9 @@ function getChannelMessages($channel_id){
 	global $conn;
 	$sql = "SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id="."'$channel_id'";
     $result = mysqli_query($conn, $sql);
-
+    	$channelQuery = "SELECT * FROM `channels` where channel_id= '$channel_id'";
+		$channelResult = mysqli_query($conn, $channelQuery);
+		$channelArray = $channelResult->fetch_assoc();
     // $string = "<div id='message_container' class ='col-xs-10 headrow nopadding' style='width:87%;min-height:93%;background-color: white; '>";
     // 		$string = $string+"<div class ='col-xs-12 nopadding' style='height:91%;overflow-y: auto; overflow-x: hidden;position:relative;'>";
 
@@ -204,6 +224,7 @@ function getChannelMessages($channel_id){
 		$myForm = "myForm".$row['cmessage_id'];
 		$contactImg = "./assets/images/";
 		$msgId = $row['cmessage_id'];
+		
 		$messageThreadCount=messageThreadCount($msgId);
     	$string=$string."<div class='right'>
     						<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>
@@ -213,7 +234,7 @@ function getChannelMessages($channel_id){
     							<span>".$message."</span>
     						</div>
     						<div class = 'reaction reaction$msgId'>";
-    						if($_SESSION['email']=='cmuth001@odu.edu'){
+    						if($channelArray['isArchive']==0){
 
     							$string=$string."<label class='likeIcon likeIcon$msgId' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
     									 <label class = 'dislikeIcon dislikeIcon$msgId'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>";
@@ -267,7 +288,7 @@ function getChannelMessages($channel_id){
 
 	}
 	$string = $string."<div id = 'scrollBottom'></div></div>";
-	if($_SESSION['email']=='cmuth001@odu.edu'){
+	if($channelArray['isArchive']==0){
 				$string = $string."<form action ='messages/messages.php'  method = 'post'>";
 								$string = $string."<div id='footer' class ='col-xs-12 nopadding '>";
 									$string = $string."<div class='input-group input-group-lg textinput'>";
@@ -293,7 +314,7 @@ if(isset($_POST['usersList']))
 	}
 	echo json_encode($userList);
 	
-	}
+}
 if(isset($_POST['usersList1']))
 {
 	$sql = "SELECT * FROM users";
@@ -305,7 +326,28 @@ if(isset($_POST['usersList1']))
 	}
 	echo json_encode($userList);
 	
+}
+if(isset($_POST['archive']))
+{
+	$channelId = intval($_POST['archive']);
+	$channelQuery = "SELECT * FROM `channels` where channel_id= '$channelId'";
+	$result = mysqli_query($conn, $channelQuery);
+	$channelArray = $result->fetch_assoc();
+	if($channelArray['isArchive']==0){
+		$sql = "UPDATE channels SET isArchive=1 where channel_id='$channelId'";
+		$archiveMsg = "channel-$channelId successfully archived";
+	}else{
+		$sql = "UPDATE channels SET isArchive=0 where channel_id='$channelId'";
+		$archiveMsg = "channel-$channelId unarchived";
 	}
+	if (mysqli_query($conn, $sql)) {       
+        echo $archiveMsg;
+    }else{
+        echo "failed channel $archive  archiving";
+    }
+	
+
+}
 if(isset($_POST['thread']))
 {
 	$thread = $_POST['thread'];

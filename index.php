@@ -77,7 +77,7 @@ if(!$_SESSION['loggedIn']){
 								$userChannels = userChannels($_SESSION['email']);
 								if (isset($_GET["channel"])){
 									if (in_array($_GET["channel"], $userChannels)) {
-										$result = getChannelName($_GET["channel"]);
+										$result = getChannelName($_GET["channel"],$_SESSION['email']);
 									}else{
 										$result = "<div><label class = 'channel_title'><b>Channel Title</b></label>";
 									}
