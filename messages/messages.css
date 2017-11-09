@@ -31,6 +31,6 @@ border-radius: 15%;
 }
 .logout{
     float: right;
-    margin-right: 4%;
+    /*margin-right: -13%;*/
     margin-top: 1.7em;
 }

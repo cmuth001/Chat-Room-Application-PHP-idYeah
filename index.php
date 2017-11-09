@@ -52,7 +52,7 @@ if(!$_SESSION['loggedIn']){
 	</head>
 	<body>
 		<div class="container nopadding col-xs-12" >
-			<div class = "col-xs-12 nopadding ">
+			<div class = "col-xs-12 nopadding " style='border-bottom: 0.15em solid  #404040;'>
 				<div  class = " col-xs-3 nopadding" style="background-color: #404040;width: 13%;height: 74px;color: white;padding: 1% !important;
 ">
 					
@@ -63,7 +63,7 @@ if(!$_SESSION['loggedIn']){
 								<button onclick="userMenu()" class="dropbtn"><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?><i class="fa fa-angle-down"></i></button>
 								  <div id="myDropdown" class="dropdown-content">
 								    <div style = 'color:black;'><img src=<?php echo "./assets/images/".$_SESSION['email'].".png" ?> alt='Contact_Img' class='contact_Img'><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></div>
-								    <a href="#about">About</a>
+								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>">Profile View</a>
 								    <a href="#contact">Contact</a>
 								  </div>
 							</div>
@@ -71,7 +71,7 @@ if(!$_SESSION['loggedIn']){
 						</div>
 				</div>
 
-				<div class="col-xs-9 nopadding" style="width: 87%;height: 74px;border-bottom: 0.15em solid #706c6c;background-color: white;padding-left: 2% !important; padding-top: 4px !important;">					<div class ="col-xs-5 nopadding ">
+				<div class="col-xs-9 nopadding" style="height: 74px;background-color: white;padding-left: 2% !important; padding-top: 4px !important;">					<div class ="col-xs-5 nopadding ">
 							<?php
 								$result ="";
 								$userChannels = userChannels($_SESSION['email']);
@@ -252,13 +252,13 @@ if(!$_SESSION['loggedIn']){
 		                </ul>
 		            </div>
 		        </div>
-		        <div id="message_container" class ="col-xs-10 headrow nopadding" style="width:87%;min-height:93%;background-color: white; ">
-		        	<div class ="col-xs-12 nopadding " style="height:91%;overflow-y: auto; overflow-x: hidden;position:relative;">
+		        <div id='message_container' class ='col-xs-10 headrow nopadding' style='width:87%;min-height:93%;background-color: white; '>
+		        	<div class ='col-xs-12 nopadding' style='height:91%;overflow-y: auto; overflow-x: hidden;position:relative;'>
 			        	<?php 
 			        		$userChannels = userChannels($_SESSION['email']);
-			        		if (isset($_GET["channel"])){
-			        			if (in_array($_GET["channel"], $userChannels)) {				
-				        			$result =getChannelMessages($_GET["channel"]);
+			        		if (isset($_GET['channel'])){
+			        			if (in_array($_GET['channel'], $userChannels)) {				
+				        			$result =getChannelMessages($_GET['channel']);
 				        		}else{
 				        			$result ="<h1 class ='emptyChannel'>Requested Channel does not exist</h1>";
 				        		}
@@ -267,25 +267,11 @@ if(!$_SESSION['loggedIn']){
 				        		$result ="<h1 class ='emptyChannel'>Please select channel</h1>";
 				        	}
 			        		echo $result; 
-			        		//echo $userChannels;
+			        		
 			        	?>
 
 		        	</div>
-		        	 <form action = "<?php echo htmlspecialchars("messages/messages.php") ?>" method = "post">
-			        	<div id="footer" class ="col-xs-12 nopadding "><!-- <input type="text" name="msgbox" style="width:100%;height: 100%;"> -->
-			        		<div class="input-group input-group-lg textinput">
-		  						<!-- <span class="input-group-addon" id="sizing-addon1"><a style="text-decoration: none" href="">+</a></span> -->
-		  							<input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
-		  							<input type="hidden" name="email" value=<?php echo '"'.$_SESSION['email'].'"';?>>
-		  							
-		  							<input type="text" class="form-control " name = "message" style  = "width: 93%;border-top-left-radius: 10px;border-bottom-left-radius: 10px;" placeholder= "Type Some message ...." aria-describedby="sizing-addon1" autofocus required>
-		  							<!-- <button type="submit" class="btn btn-info btn-lg btnsend"><span class="glyphicon glyphicon-send"></span> </button> -->
-		  							
-							</div>
-
-			        	</div>
-			        </form>		
-		        </div>
+		        	 
 
 
 			</div>

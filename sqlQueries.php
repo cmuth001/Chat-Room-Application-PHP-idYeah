@@ -158,7 +158,11 @@ function getChannelMessages($channel_id){
 	global $conn;
 	$sql = "SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id="."'$channel_id'";
     $result = mysqli_query($conn, $sql);
-    $string = "<div class = 'message_wrapper'>";
+
+    // $string = "<div id='message_container' class ='col-xs-10 headrow nopadding' style='width:87%;min-height:93%;background-color: white; '>";
+    // 		$string = $string+"<div class ='col-xs-12 nopadding' style='height:91%;overflow-y: auto; overflow-x: hidden;position:relative;'>";
+
+    $string =$string. "<div class = 'message_wrapper'>";
 
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
@@ -208,10 +212,14 @@ function getChannelMessages($channel_id){
     						<div class= 'textMessage'>
     							<span>".$message."</span>
     						</div>
-    						<div class = 'reaction reaction$msgId'>
-    							<label class='likeIcon likeIcon$msgId' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
-    							<label class = 'dislikeIcon dislikeIcon$msgId'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>
-    							<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>";
+    						<div class = 'reaction reaction$msgId'>";
+    						if($_SESSION['email']=='cmuth001@odu.edu'){
+
+    							$string=$string."<label class='likeIcon likeIcon$msgId' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
+    									 <label class = 'dislikeIcon dislikeIcon$msgId'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>";
+    							$string=$string."<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>";
+    						}
+    						
     		if($messageThreadCount>0){
     			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount repliesCount$msgId' id = '$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>
     						</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
@@ -259,6 +267,19 @@ function getChannelMessages($channel_id){
 
 	}
 	$string = $string."<div id = 'scrollBottom'></div></div>";
+	if($_SESSION['email']=='cmuth001@odu.edu'){
+				$string = $string."<form action ='messages/messages.php'  method = 'post'>";
+								$string = $string."<div id='footer' class ='col-xs-12 nopadding '>";
+									$string = $string."<div class='input-group input-group-lg textinput'>";
+										$string = $string."<input type='hidden' name='channel' value=".$channel_id.">";
+										$string = $string."<input type='hidden' name='email' value=".$_SESSION['email'].">";
+										$string = $string."<input type='text' class='form-control' name = 'message' style  = 'width: 93%;border-top-left-radius: 10px;border-bottom-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>";
+									$string = $string."</div>";
+								$string = $string."</div>";
+							$string = $string."</form>";
+	}
+	$string = $string."</div>";//message_container div
+
 	return $string;
 }
 if(isset($_POST['usersList']))
