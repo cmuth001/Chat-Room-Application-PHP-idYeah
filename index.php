@@ -42,13 +42,14 @@ if(!$_SESSION['loggedIn']){
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 		<!-- delete popup  -->
 
+		<!-- pagination -->
+		<script type="text/javascript" src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"></script>
+		<!-- pagination ends -->
+
+		<!-- multi select -->		
+		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
+		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">	
 		<!-- multi select -->
-		
-		
-		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
-		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
-		
-		    <!-- multi select -->
 
 
 
@@ -74,7 +75,8 @@ if(!$_SESSION['loggedIn']){
 						</div>
 				</div>
 
-				<div class="col-xs-9 nopadding" style="height: 74px;background-color: white;padding-left: 2% !important; padding-top: 4px !important;">					<div class ="col-xs-5 nopadding ">
+				<div class="col-xs-9 nopadding" style="height: 74px;background-color: white;padding-left: 2% !important; padding-top: 4px !important;">	
+					<div class ="col-xs-5 nopadding ">
 							<?php
 								$result ="";
 								$userChannels = userChannels($_SESSION['email']);
@@ -110,6 +112,11 @@ if(!$_SESSION['loggedIn']){
 							</span>
 						</div>
 
+
+					</div>
+					<div class = 'pagination myPagination'>
+						<p id="pagination-here"></p>
+        				<!-- <p id="content">Dynamic page content</p> -->
 					</div>
 					<div class = "logout">
 						<a href="./signOut.php">

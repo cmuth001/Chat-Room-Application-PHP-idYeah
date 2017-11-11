@@ -334,3 +334,16 @@ width: 4%;
 .dropdown a:hover {background-color: #f1f1f1}
 
 .show {display:block;}
+
+/*pagination styling*/
+#content{
+  padding: 15px;
+  border: solid 1px #eee;
+  max-width: 660px;
+  margin: auto;
+  border-radius: 4px;
+}
+.myPagination{
+	margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}

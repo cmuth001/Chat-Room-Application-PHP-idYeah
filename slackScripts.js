@@ -1,4 +1,7 @@
 $(document).ready(function () {
+	var url_string = location.search;
+	console.log(url_string);
+	
 	var globalUser = new Array();// global array for users
  	$(".modal-body-result").hide();
   	$('[data-toggle="tooltip"]').tooltip();
@@ -139,16 +142,19 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        data: {'thread':convertedJSON},
 	        dataType: 'json',
 	        success: function (data) {
-	        	var msgId = convertedJSON['msgId'];
-	        	var image = convertedJSON['user'];
+	        	var msgId = data[1]['message_id'];
+	        	var image = data[1]['user_email'];
 	        	var user = convertedJSON['display_name'];
 	        	var channelId = convertedJSON['channel_id'];
-	        	var message = convertedJSON['message'];
-	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='./assets/images/"+image+".png'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'></label><div class= 'textMessage'><span>"+message+"</span></div></div>";
+	        	var message = data[1]['message'];
+	        	var  timeStamp = data[1]['createdon'];
+	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='./assets/images/"+image+".png'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'>"+timeStamp+"</label><div class= 'textMessage'><span>"+message+"</span></div></div>";
 	        	console.log(threadDiv);
 	        	//$('.thread_wrapper'+msgId).append("<div class='thread'><img src='./assets/images/cmuth001@odu.edu.png' alt='Contact_Img' class='contact_Img'></div>");
-	        	
+	        	$('.thread_wrapper'+msgId).removeClass( "collapse" ).addClass( "collapse in" );
 	        	$('.thread_wrapper'+msgId).append(threadDiv);
+
+	        	// "<a href='#thread_wrapper"+msgId+"' class='repliesCount repliesCount"+msgId+"' id='"+msgId+"' data-toggle='collapse ' style='margin-left:1%;text-decoration:none;'>Replies(2)</a>";
 	        	$('.repliesCount'+msgId).html('Replies('+data[0]+')');
 	        	$('form').find('input[type=text]').val('');
 	        	
@@ -206,20 +212,55 @@ $.ajax({
 
 	    		}
 	    	});
-  // $('#tokenfield').tokenfield();
-  // {
-  		
-  //     autocomplete: {
-  //       source: ['red','blue','green','yellow','violet','brown','purple','black','white'],
-  //       delay: 100
-  //     },
-  //     showAutocompleteOnFocus: true
-  //   });
-    
-    // $("form").submit(function(e) {
-    //     e.preventDefault();
-    //     $('.form-data').text( $('#tokenfield').val());
-    // });
+
+
+
+
+	// pagination starts
+	 $('#pagination-here').bootpag({
+	    total: 10,          
+	    page: 1,            
+	    maxVisible: 5,     
+	    leaps: true,
+	    href: "#result-page-{{number}}",
+	})
+
+	//page click action
+	$('#pagination-here').on("page", function(event, num){
+		var url_string = event.currentTarget.baseURI; //window.location.href
+		var url = new URL(url_string);
+		var channel_id = url.searchParams.get('channel');
+		console.log('channel: '+channel_id);
+		var pages ='';
+		var max='';
+		$.ajax({
+			async:false,
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'messagesCount':channel_id},
+	        dataType: 'text',
+	        success: function (data) {	
+    		  var messagesCount = parseInt(data);
+    		  pages = Math.ceil(messagesCount/5);
+    		  max='';
+    		  if(pages>5){
+    		  	max=5;
+    		  }else{
+    		  	max = pages;
+    		  }
+	        }
+	        
+	    });
+	    $(this).bootpag({total: pages, maxVisible: max});
+	   
+
+		
+	    //show / hide content or pull via ajax etc
+	    $("#content").html("Page " + num); 
+	});
+	//pagination ends
+
+
 });
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */

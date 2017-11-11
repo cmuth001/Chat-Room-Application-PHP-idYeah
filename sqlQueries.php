@@ -247,7 +247,6 @@ function getChannelMessages($channel_id){
     			if($_SESSION['email']=='cmuth001@odu.edu'){
     				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
     			}
-    			
     			$string=$string."</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
     		
     		}
@@ -328,6 +327,7 @@ if(isset($_POST['usersList']))
 	echo json_encode($userList);
 	
 }
+
 if(isset($_POST['usersList1']))
 {
 	$sql = "SELECT * FROM users";
@@ -378,7 +378,15 @@ if(isset($_POST['deleteMessage']))
         echo "failed deleting channel message !!!";
     }
 }
+if(isset($_POST['messagesCount']))
+{
+	$channelId = $_POST['messagesCount'];
+	$sql = "SELECT COUNT(*) as msgCount FROM `channel_messages` where channel_id='$channelId'";
+	$Result = mysqli_query($conn,$sql);
+	$msgCount = mysqli_fetch_assoc($Result);
+	echo $msgCount['msgCount'];
 
+}
 if(isset($_POST['thread']))
 {
 	$thread = $_POST['thread'];
@@ -400,8 +408,16 @@ if(isset($_POST['thread']))
     }else{
         // echo "**** failed thread updating in channel_messages***";
     }
+    $sql = "SELECT * FROM `threaded_messages` ORDER BY thread_id DESC LIMIT 1";
+    $Result = mysqli_query($conn,$sql);
+	$lastThreadDetails = mysqli_fetch_assoc($Result);
+	// converting time 
+	$date = date_create($lastThreadDetails['createdon']);
+	$time = date_format($date, 'Y-m-d l g:ia');
+	$lastThreadDetails['createdon'] = $time;
+
     $messageThreadCount=messageThreadCount($msgId);
-    echo json_encode($messageThreadCount);
+    echo json_encode([$messageThreadCount,$lastThreadDetails]);
 }
 if(isset($_POST['reactions']))
 {
