@@ -198,9 +198,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		        success: function (data) {
 		        	console.log(data);
 		        	$("#errorMsg").append(data);
-		        	//$('.errorMsg').innerHTML=data;
-		   	//      	var url = 'index.php';
-					// window.location.href = url;
+		   
 		          
 		        }
 	        
@@ -260,6 +258,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	});
 	$(document).on('click','.repliesCount',function(e){
 
+		// disabled  text input box toggling
 		//$(".replyMsg"+e.currentTarget.id).show();
 		 //$(".replyMsg"+e.currentTarget.id).toggle();
 		
