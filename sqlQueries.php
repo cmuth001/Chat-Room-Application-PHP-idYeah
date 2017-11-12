@@ -2,6 +2,7 @@
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
+session_start();
 include_once "./login/connect.php";	
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD,DB_NAME)
 	OR die ('Could not connect to MySQL: '.mysql_error());
@@ -174,7 +175,9 @@ function getAllUsers(){
 
 function getChannelMessages($channel_id){
 	global $conn;
-	$sql = "SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id="."'$channel_id'";
+	// $sql = "SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id="."'$channel_id'";
+	$sql = "SELECT * FROM (SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id='$channel_id'  ORDER BY `cmessage_id` DESC LIMIT 7) TEMP ORDER BY `cmessage_id` ASC";
+	//SELECT * FROM (SELECT * FROM `channel_messages` ORDER BY `cmessage_id` DESC LIMIT 5) TEMP ORDER BY `cmessage_id` ASC
     $result = mysqli_query($conn, $sql);
     	$channelQuery = "SELECT * FROM `channels` where channel_id= '$channel_id'";
 		$channelResult = mysqli_query($conn, $channelQuery);
@@ -243,22 +246,23 @@ function getChannelMessages($channel_id){
     						
     		if($messageThreadCount>0){
     			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount repliesCount$msgId' id = '$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>";
-    			
-    			if($_SESSION['email']=='cmuth001@odu.edu'){
-    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
-    			}
+    			if($channelArray['isArchive']==0){
+	    			if($_SESSION['email']=='cmuth001@odu.edu'){
+	    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
+	    			}
+	    		}
     			$string=$string."</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
     		
     		}
     		else{
-    			if($_SESSION['email']=='cmuth001@odu.edu'){
-    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
-    			}
+    			if($channelArray['isArchive']==0){
+	    			if($_SESSION['email']=='cmuth001@odu.edu'){
+	    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
+	    			}
+	    		}
     			
     			$string=$string."</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
     			
-    			// $string=$string."<label><i class='fa fa-trash-o delete' id ='$msgId' aria-hidden='true'></i></label>
-    			// 				</div><div class = ' thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
     		}					
     		
     	
@@ -312,6 +316,7 @@ function getChannelMessages($channel_id){
 							$string = $string."</form>";
 	}
 	$string = $string."</div>";//message_container div
+
 
 	return $string;
 }
@@ -387,6 +392,52 @@ if(isset($_POST['messagesCount']))
 	echo $msgCount['msgCount'];
 
 }
+// get messages for pagination
+if(isset($_POST['getmessages']))
+{
+	$json = $_POST['getmessages'];
+	$channelId = $json['channelId'];
+	$start = intval($json['start']);
+	//$sql = "SELECT * FROM `channel_messages` join users on users.email= channel_messages.cuser_email where channel_id=$channelId ORDER BY `channel_messages`.`cmessage_id` DESC LIMIT $start,5";
+    $sql = "SELECT * FROM (SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id=$channelId  ORDER BY `cmessage_id` DESC LIMIT $start, 7) TEMP ORDER BY `cmessage_id` ASC";
+    $result = mysqli_query($conn, $sql);
+    $channelQuery = "SELECT * FROM `channels` where channel_id= '$channelId'";
+	$channelResult = mysqli_query($conn, $channelQuery);
+	$channelArray = $channelResult->fetch_assoc();
+    $messages = [];
+    $userDetails = getUserDetails($_SESSION['email']);
+    // $groupedThreadMessages = [];
+    $threadMessages = [];
+    while(($row = mysqli_fetch_assoc($result))) 
+	{ 
+		$likeCountQuery = "SELECT COUNT(*) as likeCount FROM `channel_message_reaction` where message_id=".$row['cmessage_id']." and emoji_id=1";
+		$dislikeCountQuery = "SELECT COUNT(*) as dislikeCount FROM `channel_message_reaction` where message_id=".$row['cmessage_id']." and emoji_id=2";
+		$likeResult = mysqli_query($conn,$likeCountQuery);
+		$dislikeResult = mysqli_query($conn,$dislikeCountQuery);
+		$likeCount = mysqli_fetch_assoc($likeResult);
+		$dislikeCount = mysqli_fetch_assoc($dislikeResult);
+		$row['replies'] = messageThreadCount($row['cmessage_id']);
+		$row['likeCount'] = $likeCount['likeCount'];
+		$row['disLikeCount'] = $dislikeCount['dislikeCount'];
+		$row['isArchive'] = $channelArray['isArchive'];
+		$row['session_email'] = $_SESSION['email'];
+		$row['session_username'] =$userDetails['display_name'];
+		if($row['has_thread']==1){
+			$threadMessagesSql = "SELECT * FROM `threaded_messages` join users on users.email=threaded_messages.user_email WHERE message_id=".$row['cmessage_id'];
+			// echo $threadMessagesSql;
+			$threadResult = mysqli_query($conn, $threadMessagesSql);
+
+			while(($rowThread = mysqli_fetch_assoc($threadResult))) 
+			{
+				array_push($threadMessages,$rowThread);
+			}
+		}
+    	array_push($messages,$row);
+	}
+	echo json_encode([$messages,$threadMessages]);
+	// echo $sql;
+	
+}
 if(isset($_POST['thread']))
 {
 	$thread = $_POST['thread'];
@@ -415,7 +466,7 @@ if(isset($_POST['thread']))
 	$date = date_create($lastThreadDetails['createdon']);
 	$time = date_format($date, 'Y-m-d l g:ia');
 	$lastThreadDetails['createdon'] = $time;
-
+	$lastThreadDetails['message'] = htmlspecialchars($lastThreadDetails['message']);
     $messageThreadCount=messageThreadCount($msgId);
     echo json_encode([$messageThreadCount,$lastThreadDetails]);
 }

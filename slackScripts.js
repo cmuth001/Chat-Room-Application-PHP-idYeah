@@ -1,7 +1,148 @@
 $(document).ready(function () {
+	// getting pagination pages 
 	var url_string = location.search;
-	console.log(url_string);
+	var id = parseInt(url_string.split("=")[1]);
+	console.log(id);
+	$.ajax({
+			async:false,
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'messagesCount':id},
+	        dataType: 'text',
+	        success: function (data) {	
+    		  var messagesCount = parseInt(data);
+    		  pages = Math.ceil(messagesCount/7);
+    		  if(pages>7){
+    		  	max=7;
+    		  }else{
+    		  	max = pages;
+    		  }
+	        }
+	        
+	    });
+	 $('#pagination-here').bootpag({
+	    total: pages,          
+	    page: 1,            
+	    maxVisible: max,     
+	    leaps: true,
+	    href: "#result-page-{{number}}",
+	})
+
+	//page click action
+	$('#pagination-here').on("page", function(event, num){	
+	    //show / hide content or pull via ajax etc
+	    // SELECT * FROM `channel_messages` where channel_id=1 ORDER BY `channel_messages`.`cmessage_id` DESC LIMIT 3,4
+	    console.log("channelId: "+id);
+	    var startRow = (7*(num-1));
+	    var jsonData = {'channelId':id,'start':startRow,'end':7};
+	    var string ='';
+	    $.ajax({
+			async:false,
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'getmessages':jsonData},
+	        dataType: 'json',
+	        success: function (data)
+	        {
+	        	
+
+	        	// message loop
+	        	var string ='';
+    		  	for (i = 0; i < data[0].length; i++)
+    		  	{
+    		  		var stringThread = '';
+    		  		var replyMsg = "replyMsg"+data[0][i]['cmessage_id'];
+    		  		var myForm = "myForm"+data[0][i]['cmessage_id'];
+    		  		var channelId = data[0][i]['channel_id'];
+    		  		var channelMessage = data[0][i]['channel_message'];
+    		  		var messageId = data[0][i]['cmessage_id'];
+    		  		var messageTimeStamp = data[0][i]['cmsg_timestamp'];
+    		  		var user = data[0][i]['cuser_email'];
+    		  		var displayName = data[0][i]['display_name'];
+    		  		var imagePath = "./assets/images/";
+    		  		string+="<div class = 'right'>";
+    		  				string+="<img src='"+imagePath+user+".png'  alt='Contact_Img' class='contact_Img'>";
+    		  				string+="<a href=''>"+displayName+"</a>";
+    		  				string+="<label class = 'timeStamp'>"+messageTimeStamp+"</label>";
+    		  				string+="<div class = 'textMessage'>";
+    		  						string+="<span>"+channelMessage+"</span></div>";
+    		  				string+="<div class = 'reaction reaction"+messageId+"'>";
+    		  					if(data[0][i]['isArchive']==0){
+    		  						string+="<label class = ' likeIcon likeIcon"+messageId+"' data-toggle='tooltip' title='' style='font-size:24px' emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",1)'><i class='fa fa-thumbs-o-up'></i></label><label class='likeCount"+messageId+"'>"+data[0][i]['likeCount']+"</label>";
+    		  						string+="<label class = ' dislikeIcon  dislikeIcon "+messageId+"' data-toggle='tooltip' title='' style='font-size:24px' emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",2)'><i class='fa fa-thumbs-o-down'></i></label><label class='dislikeCount"+messageId+"'>"+data[0][i]['disLikeCount']+"</label>";
+    		  						string+="<label class = 'replyMsgIcon' id="+messageId+" ><i class='fa fa-reply' aria-hidden='true'></i></label>";
+    		  					}
+    		  				if(data[0][i]['has_thread']==1){
+    		  					string+="<a href='#thread_wrapper"+messageId+"' class = 'repliesCount repliesCount"+messageId+"' id = '"+messageId+"' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies("+data[0][i]['replies']+")</a>";
+    		  					if(data[0][0]['isArchive']==0){
+	    		  					if(data[0][0]['session_email']=='cmuth001@odu.edu'){
+	    								string+="<label><i class='fa fa-trash-o delete $channel_id' id ='"+messageId+"' aria-hidden='true'></i></label>";
+	    							}
+	    						}
+    							string+="</div><div class = 'collapse thread_wrapper"+messageId+"' id ='thread_wrapper"+messageId+"'>";
+    		  				}else{
+    		  					if(data[0][0]['isArchive']==0){
+					    			if(data[0][0]['session_email']=='cmuth001@odu.edu'){
+					    				string+="<label><i class='fa fa-trash-o delete "+channelId+"' id ='"+messageId+"' aria-hidden='true'></i></label>";
+					    			}
+					    		}
+				    			string+="</div><div class = 'collapse thread_wrapper"+messageId+"' id ='thread_wrapper"+messageId+"'>";				    			
+				    		}
+
+		    		  		// threads loop
+		    		  		
+		    		  		if(data[0][i]['has_thread']==1){
+			    		  		for (j = 0; j < data[1].length; j++) {   
+			    		  			if(data[1][j]['message_id']==data[0][i]['cmessage_id']){
+			    		  				stringThread+="<div id ='"+messageId+"' class='thread'>";
+			    		  						stringThread+="<img src='"+imagePath+data[1][j]['email']+".png' alt='Contact_Img' class='contact_Img'><a href= ''>"+data[1][j]['display_name']+"</a><label class = 'timeStamp'>"+data[1][j]['createdon']+"</label>";
+			    		  						stringThread+="<div class= 'textMessage'><span>"+data[1][j]['message']+"</span></div>";
+			    		  				stringThread+="</div>";
+			    		  			}	
+			    		  		}
+    		  				}
+    		  				stringThread+="</div>";//thread wrapper
+    		  				string=string+stringThread+"<div class = '"+replyMsg+" input-group input-group-lg textinput' style='display:none;'>";
+		  						string+="<form id = '"+myForm+"' class = '' method ='post'>";
+    		  						string+="<input type='hidden' name='user' id='user' value='"+data[0][i]['session_email']+"'>";
+    		  						string+="<input type='hidden' name='msgId' id='msgId' value='"+messageId+"' >";
+    		  						string+="<input type='hidden' name='channel' id='channel' value='"+channelId+"'>";
+    		  						string+="<input type='hidden' name='display_name' id='display_name' value='"+data[0][i]['session_username']+"'>";
+    		  						string+="<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>";
+    		  						string+="<button type='submit' id = '"+messageId+"' class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>";
+		  						string+="</form>";
+		  					string+="</div></div>";//ending right
+
+    		  	}
+    		  	string +="<div id = 'scrollBottom'></div></div>";
+    			if(data[0][0]['isArchive']==0){
+    		 		string+="<form action ='messages/messages.php'  method = 'post'>";
+    		 			string+="<div id='footer' class ='col-xs-12 nopadding '>";
+	    		 			string+="<div class='input-group input-group-lg textinput'>";
+		    		 			string+="<input type='hidden' name='channel' value='"+channelId+"'>";
+		    		 			string+="<input type='hidden' name='email' value='"+data[0][0]['session_email']+"'>";
+		    		 			string+="<input type='text' class='form-control' name = 'message' style  = 'width: 93%;border-top-left-radius: 10px;border-bottom-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>";
+    		 				string+="</div>";
+    		 			string+="</div>";
+    		 		string+="</form>";
+	        	}
+	        	string+="</div>";//message_container div
+	        	$('.message_wrapper').html(string);
+
+        		//console.log(string);
+	    	}
+        	
+
+	    	// $("#content").html("Page " + num); 
+	   	 // 	console.log(num);
+	   	});
+	    
+	});
 	
+	// end of pagination stuff
+
+	
+
 	var globalUser = new Array();// global array for users
  	$(".modal-body-result").hide();
   	$('[data-toggle="tooltip"]').tooltip();
@@ -186,8 +327,8 @@ $.ajax({
 						      showAutocompleteOnFocus: true
 						  });
 
-        		    console.log(JSON.parse(data)); 
-        		    console.log("");
+        		    //console.log(JSON.parse(data)); 
+        		    //console.log("");
 
 	    		}
 	    	});
@@ -207,58 +348,22 @@ $.ajax({
 						  });
 
 
-        		    console.log(JSON.parse(data)); 
-        		    console.log("");
+        		    //console.log(JSON.parse(data)); 
+        		    //console.log("");
 
 	    		}
 	    	});
 
+// $(document).on('click','.likeIcon',function(e){
 
 
+// });
 
-	// pagination starts
-	 $('#pagination-here').bootpag({
-	    total: 10,          
-	    page: 1,            
-	    maxVisible: 5,     
-	    leaps: true,
-	    href: "#result-page-{{number}}",
-	})
+// $(document).on('click','.dislikeIcon',function(e){
 
-	//page click action
-	$('#pagination-here').on("page", function(event, num){
-		var url_string = event.currentTarget.baseURI; //window.location.href
-		var url = new URL(url_string);
-		var channel_id = url.searchParams.get('channel');
-		console.log('channel: '+channel_id);
-		var pages ='';
-		var max='';
-		$.ajax({
-			async:false,
-	        url: 'sqlQueries.php',
-	        type: 'post',
-	        data: {'messagesCount':channel_id},
-	        dataType: 'text',
-	        success: function (data) {	
-    		  var messagesCount = parseInt(data);
-    		  pages = Math.ceil(messagesCount/5);
-    		  max='';
-    		  if(pages>5){
-    		  	max=5;
-    		  }else{
-    		  	max = pages;
-    		  }
-	        }
-	        
-	    });
-	    $(this).bootpag({total: pages, maxVisible: max});
-	   
 
-		
-	    //show / hide content or pull via ajax etc
-	    $("#content").html("Page " + num); 
-	});
-	//pagination ends
+// });
+
 
 
 });
