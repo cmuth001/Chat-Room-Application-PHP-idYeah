@@ -416,6 +416,11 @@ if(isset($_POST['getmessages']))
 		$dislikeResult = mysqli_query($conn,$dislikeCountQuery);
 		$likeCount = mysqli_fetch_assoc($likeResult);
 		$dislikeCount = mysqli_fetch_assoc($dislikeResult);
+
+		$date = date_create($row['cmsg_timestamp']);
+		$time = date_format($date, 'Y-m-d l g:ia');
+		$row['cmsg_timestamp'] = $time;
+
 		$row['replies'] = messageThreadCount($row['cmessage_id']);
 		$row['likeCount'] = $likeCount['likeCount'];
 		$row['disLikeCount'] = $dislikeCount['dislikeCount'];
@@ -429,6 +434,9 @@ if(isset($_POST['getmessages']))
 
 			while(($rowThread = mysqli_fetch_assoc($threadResult))) 
 			{
+				$date = date_create($rowThread['createdon']);
+				$time = date_format($date, 'Y-m-d l g:ia');
+				$rowThread['createdon'] = $time;
 				array_push($threadMessages,$rowThread);
 			}
 		}

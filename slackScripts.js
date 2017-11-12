@@ -1,3 +1,6 @@
+
+
+
 $(document).ready(function () {
 	// getting pagination pages 
 	var url_string = location.search;
@@ -20,6 +23,52 @@ $(document).ready(function () {
 	        }
 	        
 	    });
+
+	$.ajax({
+	url: 'sqlQueries.php',
+    type: 'post',
+    data: {'usersList':0},
+    dataType: 'text',
+    async:false,
+    success: function (data) {	
+		globalUser = JSON.parse(data);
+		$('#tokenfield1').tokenfield({
+			autocomplete: {
+				        source: globalUser,
+				        delay: 100
+				      },
+				      showAutocompleteOnFocus: true
+				  });
+
+		    //console.log(JSON.parse(data)); 
+		    //console.log("");
+
+		}
+	});
+$.ajax({
+	url: 'sqlQueries.php',
+    type: 'post',
+    data: {'usersList1':0},
+    dataType: 'text',
+    success: function (data) {	
+		globalUser2 = JSON.parse(data);
+		$('#tokenfield2').tokenfield({
+			autocomplete: {
+				        source: globalUser2,
+				        delay: 100
+				      },
+				      showAutocompleteOnFocus: true
+				  });
+
+
+		    //console.log(JSON.parse(data)); 
+		    //console.log("");
+
+		}
+	});
+
+
+	
 	 $('#pagination-here').bootpag({
 	    total: pages,          
 	    page: 1,            
@@ -310,48 +359,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 
 
 
-$.ajax({
-	  url: 'sqlQueries.php',
-	        type: 'post',
-	        data: {'usersList':0},
-	        dataType: 'text',
-	        async:false,
-	        success: function (data) {	
-				globalUser = JSON.parse(data);
-				$('#tokenfield1').tokenfield({
-					autocomplete: {
-						        source: globalUser,
-						        delay: 100
-						      },
-						      showAutocompleteOnFocus: true
-						  });
 
-        		    //console.log(JSON.parse(data)); 
-        		    //console.log("");
-
-	    		}
-	    	});
-$.ajax({
-	  url: 'sqlQueries.php',
-	        type: 'post',
-	        data: {'usersList1':0},
-	        dataType: 'text',
-	        success: function (data) {	
-				globalUser2 = JSON.parse(data);
-				$('#tokenfield2').tokenfield({
-					autocomplete: {
-						        source: globalUser2,
-						        delay: 100
-						      },
-						      showAutocompleteOnFocus: true
-						  });
-
-
-        		    //console.log(JSON.parse(data)); 
-        		    //console.log("");
-
-	    		}
-	    	});
 
 // $(document).on('click','.likeIcon',function(e){
 
