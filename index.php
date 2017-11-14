@@ -51,7 +51,7 @@ if(!$_SESSION['loggedIn']){
 		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">	
 		<!-- multi select -->
 		<!-- type head for search -->
-		 <script src="typeahead.min.js"></script>
+		 <!-- // <script src="typeahead.min.js"></script> -->
 		<!-- end of type head  -->
 
 
@@ -243,11 +243,11 @@ if(!$_SESSION['loggedIn']){
 			                    </form>
 		                	</li>
 		                	 <li class="divider"></li>
-		                	 <li>
+		                	 <!-- <li>
 		                	 	<div class="bs-example">
        								 <input type="text" name="typeahead" class="typeahead tt-query"  spellcheck="false" placeholder="search with email...">
     							</div>
-		                	 </li>
+		                	 </li -->>
 		                	<!-- <a href = 'newChannel.php'>new channel</a> -->
 		                    <!-- <li>
 		                    	<div class="col-xs-12 directmsgdiv ">

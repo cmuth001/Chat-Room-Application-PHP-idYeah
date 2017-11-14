@@ -67,13 +67,8 @@ $.ajax({
 		}
 	});
 
-	$('input.typeahead').typeahead({
-        name: 'typeahead',
-        remote:'search.php?key=%QUERY',
-        limit : 10
-    });
-
 	
+
 	 $('#pagination-here').bootpag({
 	    total: pages,          
 	    page: 1,            
