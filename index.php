@@ -50,7 +50,9 @@ if(!$_SESSION['loggedIn']){
 		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
 		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">	
 		<!-- multi select -->
-
+		<!-- type head for search -->
+		 <script src="typeahead.min.js"></script>
+		<!-- end of type head  -->
 
 
 	</head>
@@ -75,7 +77,7 @@ if(!$_SESSION['loggedIn']){
 						</div>
 				</div>
 
-				<div class="col-xs-9 nopadding" style="height: 74px;background-color: white;padding-left: 2% !important; padding-top: 4px !important;">	
+				<div class="col-xs-9 nopadding" style="height: 74px;background-color: white;padding-left: 2% !important;padding-top: 14px !important;">	
 					<div class ="col-xs-5 nopadding ">
 							<?php
 								$result ="";
@@ -240,6 +242,12 @@ if(!$_SESSION['loggedIn']){
 			                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
 			                    </form>
 		                	</li>
+		                	 <li class="divider"></li>
+		                	 <li>
+		                	 	<div class="bs-example">
+       								 <input type="text" name="typeahead" class="typeahead tt-query"  spellcheck="false" placeholder="search with email...">
+    							</div>
+		                	 </li>
 		                	<!-- <a href = 'newChannel.php'>new channel</a> -->
 		                    <!-- <li>
 		                    	<div class="col-xs-12 directmsgdiv ">
