@@ -423,6 +423,7 @@ if(isset($_POST['getmessages']))
 
 		$row['replies'] = messageThreadCount($row['cmessage_id']);
 		$row['likeCount'] = $likeCount['likeCount'];
+		$row['channel_message'] = htmlspecialchars($row['channel_message']);
 		$row['disLikeCount'] = $dislikeCount['dislikeCount'];
 		$row['isArchive'] = $channelArray['isArchive'];
 		$row['session_email'] = $_SESSION['email'];
@@ -437,6 +438,7 @@ if(isset($_POST['getmessages']))
 				$date = date_create($rowThread['createdon']);
 				$time = date_format($date, 'Y-m-d l g:ia');
 				$rowThread['createdon'] = $time;
+				$rowThread['message'] = htmlspecialchars($rowThread['message']);
 				array_push($threadMessages,$rowThread);
 			}
 		}

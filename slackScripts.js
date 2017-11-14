@@ -77,6 +77,7 @@ $.ajax({
 	    href: "#result-page-{{number}}",
 	})
 
+
 	//page click action
 	$('#pagination-here').on("page", function(event, num){	
 	    //show / hide content or pull via ajax etc
