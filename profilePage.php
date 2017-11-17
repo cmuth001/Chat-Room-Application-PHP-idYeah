@@ -22,6 +22,7 @@ $email =  $result['email'];
 $result = getUserDetails(mysqli_real_escape_string($conn,$_GET['email'])); 
 $status = $result['status'];
 $publicChannels =getAllPublicChannels(mysqli_real_escape_string($conn,$_GET['email']));
+$rating = userProfileRating(mysqli_real_escape_string($conn,$_GET['email']));
 $profile = "<!DOCTYPE html>
 						<html>
 						    <head>
@@ -48,6 +49,10 @@ $profile = "<!DOCTYPE html>
 									                	<label><b>User Name:</b></label><span class='profileStyle'>$userName</span><br>
 										                <label><b>Email:</b></label><span class='profileStyle'>$email</span><br>
 										                <label><b>Status:</b></label><span class='profileStyle'>$status</span><br>
+										                <div class = 'userRating'>
+									                        <label>Rating:</label>
+									                        	$rating
+									                    </div>
 										             </div>
 									                <div class ='profilePic' style='width:30%;height:100%;float:right;margin-top: -3%;' >
 									                    <label class='notifyImgResult'></label>
