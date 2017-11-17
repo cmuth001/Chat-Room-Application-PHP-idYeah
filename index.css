@@ -127,6 +127,11 @@ ui{
 	margin-left: 18px;
 	width: 100%;
 }
+.textinput1{
+
+	margin-left: 18px;
+	width: 100%;
+}
 .btnadj{
     margin-top: 0.3em;
     padding-left: 0.3em;
@@ -276,6 +281,12 @@ width: 4%;
 	color:white;
 	cursor:pointer;
 
+}
+.codeDisplay{
+	max-height: 20%;
+}
+.codeArea{
+	min-height: 30%;
 }
 .channelHeading{
 	

@@ -223,20 +223,29 @@ function getChannelMessages($channel_id){
 		$date = date_create($row['cmsg_timestamp']);
 		$time = date_format($date, 'Y-m-d l g:ia');
 		$message = htmlspecialchars($row['channel_message']);
+		$textOrCode = $row['textOrCode'];
 		$replyMsg = "replyMsg".$row['cmessage_id'];
 		$myForm = "myForm".$row['cmessage_id'];
+		$codeForm = "threadCodeForm".$row['cmessage_id'];
+		$modalClose = "modalClose".$row['cmessage_id'];
+		$myThreadModal = "myThreadModal".$row['cmessage_id'];
 		$contactImg = "./assets/images/";
 		$msgId = $row['cmessage_id'];
 		
 		$messageThreadCount=messageThreadCount($msgId);
-    	$string=$string."<div class='right'>
+    	$string=$string."<div class='right right$msgId'>
     						<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>
     						<a href= ''>".$row['display_name']."</a>
     						<label class = 'timeStamp'>".$time."</label>  					
-    						<div class= 'textMessage'>
-    							<span>".$message."</span>
-    						</div>
-    						<div class = 'reaction reaction$msgId'>";
+    						<div class= 'textMessage'>";
+	    						if($textOrCode==0){
+	    							$string=$string."<span>".$message."</span>";
+	    						}else{
+	    							$string=$string."<span><pre class = 'codeDisplay'><code>".$message."</code></pre></span>";
+	    						}
+    							
+    						$string=$string."</div>";
+    						$string=$string."<div class = 'reaction reaction$msgId'>";
     						if($channelArray['isArchive']==0){
 
     							$string=$string."<label class='likeIcon likeIcon$msgId' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
@@ -278,9 +287,17 @@ function getChannelMessages($channel_id){
 				$threadTime = date_format($ThreadDate, 'Y-m-d l g:ia');
 				$threadMessage = htmlspecialchars($threadrow['message']);
 				$stringThread=$stringThread."<div id =".$row['cmessage_id']." class='thread'>
-												<img src=".$contactImg.$threadrow['email'].".png"." alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>  					
-					    						<div class= 'textMessage'><span>".$threadMessage."</span></div>		
-											</div>";
+												<img src=".$contactImg.$threadrow['email'].".png"." alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>";					
+						    					if($threadrow['textOrCode']==0)
+						    					{
+						    						$stringThread=$stringThread."<div class= 'textMessage'><span>".$threadMessage."</span></div>		
+																				</div>";
+
+						    					}else{
+						    						$stringThread=$stringThread."<div class= 'textMessage'><span><pre><code>".$threadMessage."</code></pre></span></div>		
+																				</div>";
+						    					}
+					    						
 			}
 			
 			
@@ -290,16 +307,56 @@ function getChannelMessages($channel_id){
 		$userDetails = $userDetails['display_name'];
 		$string=$string.$stringThread."
 
-							<div class = '$replyMsg input-group input-group-lg textinput' style='display:none;'>
+							<div class = '$replyMsg input-group input-group-lg textinput1' style='display:none;'>
     							<form id = '$myForm' class = '' method ='post'>
     								<input type='hidden' name='user' id='user' value=".$_SESSION['email']." >
     								<input type='hidden' name='msgId' id='msgId' value=".$row['cmessage_id']." >
     								<input type='hidden' name='channel' id='channel' value='$channel_id' >
     								<input type='hidden' name='display_name' id='display_name' value='$userDetails' >
-    								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
+    								<input type='hidden' name='text' value='0'>
+    								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 85%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
+    								<button id = ".$row['cmessage_id']." class='btn  btn-sm  threadCodeButton'>ifCode</button>
     								<button type='submit' id = ".$row['cmessage_id']." class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
     							</form>
+
     						</div>
+    						<div class='modal fade' id='$myThreadModal' role='dialog'>
+									    <div class='modal-dialog modal-lg'>
+									      <div class='modal-content'>
+									        <div class='modal-header'>
+									          <button type='button' class='close modalClose' data-dismiss='modal'>&times;</button>
+									          <h4 class='modal-title'>code posting Area</h4>
+									        </div>
+									        <div class='modal-body'>
+									          
+									          <form id= '$codeForm' method = 'post'>
+									          
+									          <div class='form-group'>
+									            <label for='message-text' class='form-control-label'>code</label>
+									            <textarea class='form-control codeArea' name = 'message' id='code' placeholder= 'Snippet' autofocus required ></textarea>
+									            <input type='hidden' name='channel' value=".$_GET['channel'].">
+									            <input type='hidden' name='user' id='user' value=".$_SESSION['email'].">
+									            <input type='hidden' name='channel' id='channel' value='$channel_id' >
+									            <input type='hidden' name='display_name' id='display_name' value='$userDetails' >
+									            <input type='hidden' name='msgId' id='msgId' value=".$row['cmessage_id']." >
+									            <input type='hidden' name='text' value='1'>
+									          </div>
+									          
+									          <div class='modal-footer'>
+									          <button type='button' class='btn btn-default $modalClose ' id = ".$row['cmessage_id']." data-dismiss='modal'>Close</button>
+									           <button type='submit' name = 'submit'  id = ".$row['cmessage_id']."  class='btn btn-success threadMessageButton' >submit code</button>
+									          </div>
+									          <div>
+													
+									          </div>		
+									        </form>
+									        </div>
+									        <div class = 'modal-body-result'>
+									        	<p class = 'para' style='text-align:center;'></p>
+									        </div>
+									      </div>
+									    </div>
+									  </div>
     						</div>";
 
 	}
@@ -310,7 +367,7 @@ function getChannelMessages($channel_id){
 									$string = $string."<div class='input-group input-group-lg textinput'>";
 										$string = $string."<input type='hidden' name='channel' value=".$channel_id.">";
 										$string = $string."<input type='hidden' name='email' value=".$_SESSION['email'].">";
-										$string = $string."<input type='text' class='form-control' name = 'message' style  = 'width: 93%;border-top-left-radius: 10px;border-bottom-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>";
+										$string = $string."<input type='text' class='form-control message' name = 'message' style  = 'width: 93%;border-top-left-radius: 10px;border-bottom-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required><input type='hidden' name='text' value='0'><button class='btn  btn-sm  codeButton' data-toggle='modal' data-target='#myModal'>ifCode</button>";
 									$string = $string."</div>";
 								$string = $string."</div>";
 							$string = $string."</form>";
@@ -455,7 +512,9 @@ if(isset($_POST['thread']))
 	$message = mysqli_real_escape_string($conn,$thread['message']);
 	$msgId = intval($thread['msgId']);
 	$user_email = $thread['user'];
-	$sql = "INSERT INTO `threaded_messages` VALUES(DEFAULT,'$msgId','$user_email','$message',CURRENT_TIMESTAMP)";
+	$textOrCode =$thread['text']; 
+
+	$sql = "INSERT INTO `threaded_messages` VALUES(DEFAULT,'$msgId','$user_email','$message','$textOrCode',CURRENT_TIMESTAMP)";
 	
 	if (mysqli_query($conn, $sql)) {       
         // echo "**** thread message inserted successfully ***";

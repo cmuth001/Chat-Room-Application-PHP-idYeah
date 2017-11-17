@@ -71,6 +71,7 @@ if(!$_SESSION['loggedIn']){
 								    <div style = 'color:black;'><img src=<?php echo "./assets/images/".$_SESSION['email'].".png" ?> alt='Contact_Img' class='contact_Img'><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></div>
 								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>">Profile View</a>
 								    <a href="#contact">Contact</a>
+
 								  </div>
 							</div>
 							<!-- <label></label> -->
@@ -163,42 +164,30 @@ if(!$_SESSION['loggedIn']){
 		                    		<div class="col-xs-11 nopadding">
 		                    			<b><a class ="link" href= "inviteMembersToChannel.php">Channels</a></b>
 		                    			<a href = 'newChannel.php' class = 'newChannel'><i class="fa fa-plus"></i></a>
-		                    			<!-- <button class="btn  btn-sm  btn-circle addChannel" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button> -->
+		                    			
 		                    			<!-- Modal -->
-										<!--   <div class="modal fade" id="myModal" role="dialog">
+										  <div class="modal fade" id="myModal" role="dialog">
 										    <div class="modal-dialog modal-lg">
 										      <div class="modal-content">
 										        <div class="modal-header">
-										          <button type="button" class="close" data-dismiss="modal">&times;</button>
-										          <h4 class="modal-title">Create a Channel</h4>
+										          <button type="button" class="close modalClose" data-dismiss="modal">&times;</button>
+										          <h4 class="modal-title">code posting Area</h4>
 										        </div>
 										        <div class="modal-body">
-										          <!-- <h5>Create a Channel</h5> -->
-										          <!-- <p>organise a topic</p>
-										          <form id= "channelForm" method = "post">
+										          
+										          <form action ='messages/messages.php' id= "codeForm" method = "post">
+										          
 										          <div class="form-group">
-										            <label for="recipient-name" class="form-control-label">Name:</label>
-										            <input type="text" class="form-control" name = "channelName" id="channelName" placeholder= "Name of the channel" autofocus required>
+										            <label for="message-text" class="form-control-label">code</label>
+										            <textarea class="form-control codeArea" name = "message" id="code" placeholder= " Snippet" autofocus required ></textarea>
+										            <input type='hidden' name='channel' value=<?php echo $_GET['channel']; ?>>
+										            <input type='hidden' name='email' value=<?php echo $_SESSION['email']; ?>>
+										            <input type='hidden' name='text' value='1'>
 										          </div>
-										          <div class="form-group">
-										            <label for="message-text" class="form-control-label">Purpose</label>
-										            <textarea class="form-control" name = "purpose" id="purpose" placeholder= "Purpose of the channel"></textarea>
-										          </div>
-										          <div class="form-group">
-										          	<input type="radio" name="colors" id="private">Private
-										          	<input type="radio" name="colors" id="public">Public
-										          </div>
-										          <div id="framework_form">
-													  	<form method="GET">
-														    <input type="text" class="form-control" id="tokenfield" value="red,green,blue" />
-														    <input type="submit" class="btn btn-primary">
-														</form>
-														<br>
-														<!-- <div class="form-data"></div>   -->
-										        <!--   </div>	
+										          
 										          <div class="modal-footer">
-										          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										           <button type="submit" name = "submit"  class="btn btn-success channelButton" >Create Channel</button>
+										          <button type="button" class="btn btn-default modalClose" data-dismiss="modal">Close</button>
+										           <button type="submit" name = "submit"  class="btn btn-success codeBtn" >submit code</button>
 										          </div>
 										          <div>
 														
@@ -210,7 +199,47 @@ if(!$_SESSION['loggedIn']){
 										        </div>
 										      </div>
 										    </div>
-										  </div> --> --> -->
+										  </div>
+
+
+										  <!-- thread modal -->
+										  	<!-- Modal -->
+									  <!-- <div class="modal fade" id="myThreadModal" role="dialog">
+									    <div class="modal-dialog modal-lg">
+									      <div class="modal-content">
+									        <div class="modal-header">
+									          <button type="button" class="close modalClose" data-dismiss="modal">&times;</button>
+									          <h4 class="modal-title">code posting Area</h4>
+									        </div>
+									        <div class="modal-body">
+									          
+									          <form action ='messages/messages.php' id= "codeForm" method = "post">
+									          
+									          <div class="form-group">
+									            <label for="message-text" class="form-control-label">code</label>
+									            <textarea class="form-control codeArea" name = "message" id="code" placeholder= " Snippet" autofocus required ></textarea>
+									            <input type='hidden' name='channel' value=<?php echo $_GET['channel']; ?>>
+									            <input type='hidden' name='email' value=<?php echo $_SESSION['email']; ?>>
+									            <input type='hidden' name='text' value='1'>
+									          </div>
+									          
+									          <div class="modal-footer">
+									          <button type="button" class="btn btn-default modalClose" data-dismiss="modal">Close</button>
+									           <button type="submit" name = "submit"  class="btn btn-success threadMessageButton" >submit code</button>
+									          </div>
+									          <div>
+													
+									          </div>		
+									        </form>
+									        </div>
+									        <div class = "modal-body-result">
+									        	<p class = "para" style='text-align:center;'></p>
+									        </div>
+									      </div>
+									    </div>
+									  </div>
+ -->
+										  <!-- thread modal end -->
 		                    		</div>
 		                    		<!-- <div class="col-xs-1  icon-plus nopadding">
 			                    	

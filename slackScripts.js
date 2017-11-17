@@ -103,19 +103,27 @@ $.ajax({
     		  		var stringThread = '';
     		  		var replyMsg = "replyMsg"+data[0][i]['cmessage_id'];
     		  		var myForm = "myForm"+data[0][i]['cmessage_id'];
+    		  		var codeForm = "threadCodeForm"+data[0][i]['cmessage_id'];
+    		  		var myThreadModal = "myThreadModal"+data[0][i]['cmessage_id'];
+    		  		var modalClose = "modalClose"+data[0][i]['cmessage_id'];
     		  		var channelId = data[0][i]['channel_id'];
     		  		var channelMessage = data[0][i]['channel_message'];
+    		  		var textOrCode = data[0][i]['textOrCode'];
     		  		var messageId = data[0][i]['cmessage_id'];
     		  		var messageTimeStamp = data[0][i]['cmsg_timestamp'];
     		  		var user = data[0][i]['cuser_email'];
     		  		var displayName = data[0][i]['display_name'];
     		  		var imagePath = "./assets/images/";
-    		  		string+="<div class = 'right'>";
+    		  		string+="<div class = 'right right"+messageId+"'>";
     		  				string+="<img src='"+imagePath+user+".png'  alt='Contact_Img' class='contact_Img'>";
     		  				string+="<a href=''>"+displayName+"</a>";
     		  				string+="<label class = 'timeStamp'>"+messageTimeStamp+"</label>";
     		  				string+="<div class = 'textMessage'>";
+    		  					if(textOrCode==0){
     		  						string+="<span>"+channelMessage+"</span></div>";
+    		  					}else{
+    		  						string+="<span><pre class='codeDisplay'><code>"+channelMessage+"</code></pre></span></div>";
+    		  					}
     		  				string+="<div class = 'reaction reaction"+messageId+"'>";
     		  					if(data[0][i]['isArchive']==0){
     		  						string+="<label class = ' likeIcon likeIcon"+messageId+"' data-toggle='tooltip' title='' style='font-size:24px' emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",1)'><i class='fa fa-thumbs-o-up'></i></label><label class='likeCount"+messageId+"'>"+data[0][i]['likeCount']+"</label>";
@@ -126,7 +134,7 @@ $.ajax({
     		  					string+="<a href='#thread_wrapper"+messageId+"' class = 'repliesCount repliesCount"+messageId+"' id = '"+messageId+"' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies("+data[0][i]['replies']+")</a>";
     		  					if(data[0][0]['isArchive']==0){
 	    		  					if(data[0][0]['session_email']=='cmuth001@odu.edu'){
-	    								string+="<label><i class='fa fa-trash-o delete $channel_id' id ='"+messageId+"' aria-hidden='true'></i></label>";
+	    								string+="<label><i class='fa fa-trash-o delete "+channelId+"' id ='"+messageId+"' aria-hidden='true'></i></label>";
 	    							}
 	    						}
     							string+="</div><div class = 'collapse thread_wrapper"+messageId+"' id ='thread_wrapper"+messageId+"'>";
@@ -146,22 +154,67 @@ $.ajax({
 			    		  			if(data[1][j]['message_id']==data[0][i]['cmessage_id']){
 			    		  				stringThread+="<div id ='"+messageId+"' class='thread'>";
 			    		  						stringThread+="<img src='"+imagePath+data[1][j]['email']+".png' alt='Contact_Img' class='contact_Img'><a href= ''>"+data[1][j]['display_name']+"</a><label class = 'timeStamp'>"+data[1][j]['createdon']+"</label>";
-			    		  						stringThread+="<div class= 'textMessage'><span>"+data[1][j]['message']+"</span></div>";
+			    		  						if(data[1][j]['textOrCode']==0){
+			    		  							stringThread+="<div class= 'textMessage'><span>"+data[1][j]['message']+"</span></div>";
+			    		  						}else{
+			    		  							stringThread+="<div class= 'textMessage'><span><pre><code>"+data[1][j]['message']+"</code></pre></span></div>";
+			    		  						}		
 			    		  				stringThread+="</div>";
 			    		  			}	
 			    		  		}
     		  				}
     		  				stringThread+="</div>";//thread wrapper
-    		  				string=string+stringThread+"<div class = '"+replyMsg+" input-group input-group-lg textinput' style='display:none;'>";
+    		  				string=string+stringThread+"<div class = '"+replyMsg+" input-group input-group-lg textinput1' style='display:none;'>";
 		  						string+="<form id = '"+myForm+"' class = '' method ='post'>";
     		  						string+="<input type='hidden' name='user' id='user' value='"+data[0][i]['session_email']+"'>";
     		  						string+="<input type='hidden' name='msgId' id='msgId' value='"+messageId+"' >";
     		  						string+="<input type='hidden' name='channel' id='channel' value='"+channelId+"'>";
+    		  						string+="<input type='hidden' name='text' value='0'>";
     		  						string+="<input type='hidden' name='display_name' id='display_name' value='"+data[0][i]['session_username']+"'>";
-    		  						string+="<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 95%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>";
+    		  						string+="<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 85%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>";
     		  						string+="<button type='submit' id = '"+messageId+"' class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>";
+		  							string+="<button id = '"+messageId+"' class='btn  btn-sm  threadCodeButton'>ifCode</button>"
 		  						string+="</form>";
-		  					string+="</div></div>";//ending right
+		  					string+="</div>";//Thread modal start
+		  					string+="<div class='modal fade' id='"+myThreadModal+"' role='dialog'>";
+									    string+="<div class='modal-dialog modal-lg'>";
+									      string+="<div class='modal-content'>";
+									        string+="<div class='modal-header'>";
+									          string+="<button type='button' class='close modalClose' data-dismiss='modal'>&times;</button>";
+									          string+="<h4 class='modal-title'>code posting Area</h4>";
+									        string+="</div>";
+									        string+="<div class='modal-body'>";
+									          string+="<form id= '"+codeForm+"' method = 'post'>";
+									          string+="<div class='form-group'>";
+									            string+="<label for='message-text' class='form-control-label'>code</label>";
+									            string+="<textarea class='form-control codeArea' name = 'message' id='code' placeholder= 'Snippet' autofocus required ></textarea>";
+									            string+="<input type='hidden' name='channel' value='"+channelId+"'>";
+									            string+="<input type='hidden' name='user' id='user' value='"+data[0][i]['session_email']+"'>";
+									            string+="<input type='hidden' name='channel' id='channel' value='"+channelId+"' >";
+									            string+="<input type='hidden' name='display_name' id='display_name' value='"+data[0][i]['session_username']+"' >";
+									            string+="<input type='hidden' name='msgId' id='msgId' value='"+messageId+"' >";
+									            string+="<input type='hidden' name='text' value='1'>";
+									          string+="</div>";   
+									          string+="<div class='modal-footer'>";
+									          string+="<button type='button' class='btn btn-default "+modalClose+"' data-dismiss='modal'>Close</button>";
+									           string+="<button type='submit' name = 'submit'  id = '"+messageId+"'  class='btn btn-success threadMessageButton' >submit code</button>";
+									          string+="</div>";
+									          string+="<div>";	
+									          string+="</div>";		
+									        string+="</form>";
+									        string+="</div>";
+									        string+="<div class = 'modal-body-result'>";
+									        	string+="<p class = 'para' style='text-align:center;'></p>";
+									        string+="</div>";
+									      string+="</div>";
+									    string+="</div>";
+									  string+="</div>";
+    						string+="</div>";
+
+
+
+
+		  					string+="</div>";//ending right
 
     		  	}
     		  	string +="<div id = 'scrollBottom'></div></div>";
@@ -257,6 +310,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	$(document).on('click','.delete',function(e){
 		var messageId = e.currentTarget.id;
 		var channelId = parseInt(e.target.className.split(" ")[3]);
+		var pageNo= e.currentTarget.baseURI.substring(e.currentTarget.baseURI.lastIndexOf('-')+1);
 		$.confirm({
 		    title: "<label style ='text-align: center;'>Confirmation </label><i class='fa fa-trash-o' style='color:red'  aria-hidden='true'></i>",
 		    content: 'Deleting Message from the Channel',
@@ -270,8 +324,12 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 				        dataType: 'text',
 				        success: function (data) {
 				        	console.log(data);
+				        	
+				        	var divHide = "right"+messageId;
+				        	//$('.'+divHide).hide();
 				        	var url = "./index.php?channel="+channelId;
-				             window.location.href = url;
+				        	console.log(channelId);
+				         	window.location.href = url;
 				        }
 				    });
 		        },
@@ -288,6 +346,21 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		 $(".replyMsg"+e.currentTarget.id).toggle();
 		
 
+	});
+	$(document).on('click','.codeButton',function(e){
+		$('.textinput').hide().prop('required',false);
+		//$('#myThreadModal').modal('show');
+		console.log("codeBtn");		
+	});
+	$(document).on('click','.threadCodeButton',function(e){
+		// $('.replyMsg'+e.currentTarget.id).hide().prop('required',false);
+
+		$('#myThreadModal'+e.currentTarget.id).modal('show');
+		//console.log("codeBtn");		
+	});
+	$(document).on('click','.modalClose',function(e){
+		$('.textinput').show();
+		console.log("modalClose");		
 	});
 	$(document).on('click','.channelArchive',function(e){
 
@@ -337,8 +410,14 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        	var user = convertedJSON['display_name'];
 	        	var channelId = convertedJSON['channel_id'];
 	        	var message = data[1]['message'];
+	        	var textOrCode = data[1]['textOrCode'];
 	        	var  timeStamp = data[1]['createdon'];
-	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='./assets/images/"+image+".png'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'>"+timeStamp+"</label><div class= 'textMessage'><span>"+message+"</span></div></div>";
+	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='./assets/images/"+image+".png'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'>"+timeStamp+"</label>";
+	        	if(textOrCode==0){
+	        		threadDiv+="<div class= 'textMessage'><span>"+message+"</span></div></div>";
+	        	}else{
+	        		threadDiv+="<div class= 'textMessage'><span><pre></code>"+message+"</code></pre></span></div></div>";
+	        	}
 	        	console.log(threadDiv);
 	        	//$('.thread_wrapper'+msgId).append("<div class='thread'><img src='./assets/images/cmuth001@odu.edu.png' alt='Contact_Img' class='contact_Img'></div>");
 	        	$('.thread_wrapper'+msgId).removeClass( "collapse" ).addClass( "collapse in" );
@@ -358,20 +437,57 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	    console.log(convertedJSON);
 	});
 
+	//
+
+	$(document).on('click','.threadMessageButton',function(e){	
+		e.preventDefault();
+	  	var myForm = document.getElementById('threadCodeForm'+e.currentTarget.id);
+	   	var formData = new FormData(myForm),
+	   	convertedJSON = {},
+	   	it = formData.entries(),
+	   	n;
+	   	while(n = it.next()) {
+	      	if(!n || n.done) break;
+	      	convertedJSON[n.value[0]] = n.value[1];
+	    }
+	  	$.ajax({
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'thread':convertedJSON},
+	        dataType: 'json',
+	        success: function (data) {
+	        	var msgId = data[1]['message_id'];
+	        	var image = data[1]['user_email'];
+	        	var user = convertedJSON['display_name'];
+	        	var channelId = convertedJSON['channel_id'];
+	        	var message = data[1]['message'];
+	        	var textOrCode = data[1]['textOrCode'];
+	        	var  timeStamp = data[1]['createdon'];
+	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='./assets/images/"+image+".png'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'>"+timeStamp+"</label>";
+	        	if(textOrCode==0){
+	        		threadDiv+="<div class= 'textMessage'><span>"+message+"</span></div></div>";
+	        	}else{
+	        		threadDiv+="<div class= 'textMessage'><span><pre></code>"+message+"</code></pre></span></div></div>";
+	        	}
+	        	
+	        	console.log(threadDiv);
+	        	//$('.thread_wrapper'+msgId).append("<div class='thread'><img src='./assets/images/cmuth001@odu.edu.png' alt='Contact_Img' class='contact_Img'></div>");
+	        	$('.thread_wrapper'+msgId).removeClass( "collapse" ).addClass( "collapse in" );
+	        	$('.thread_wrapper'+msgId).append(threadDiv);
+
+	        	// "<a href='#thread_wrapper"+msgId+"' class='repliesCount repliesCount"+msgId+"' id='"+msgId+"' data-toggle='collapse ' style='margin-left:1%;text-decoration:none;'>Replies(2)</a>";
+	        	$('.repliesCount'+msgId).html('Replies('+data[0]+')');
+	        	$('form').find('input[type=text]').val('');
+	        	
 
 
-
-
-// $(document).on('click','.likeIcon',function(e){
-
-
-// });
-
-// $(document).on('click','.dislikeIcon',function(e){
-
-
-// });
-
+	        	// var url = "./index.php?channel="+convertedJSON['channel'];
+	         //     window.location.href = url;
+	            /// Send Email to professor
+	        }
+    	});
+	    console.log(convertedJSON);
+	});
 
 
 });
