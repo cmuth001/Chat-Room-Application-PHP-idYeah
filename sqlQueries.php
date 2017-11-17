@@ -60,14 +60,25 @@ function getChannelName($channel_id,$user_email){
 	$row = $result->fetch_assoc();
 	if(intval($row['access_specifiers'])==1){
 		if($user_email=='cmuth001@odu.edu'){
-			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-lock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer;' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+			if($row['isArchive']==0){
+				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-lock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer;' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+			}else{
+				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-lock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #d05252;cursor:pointer;' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+			}
+			
 		}else{
 			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-lock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
 		}
 	}
 	else{
 		if($user_email=='cmuth001@odu.edu'){
-			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+			if($row['isArchive']==0){
+				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+			}else{
+				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #d05252;cursor:pointer' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+			}
+
+			
 		}else{
 			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
 		}
