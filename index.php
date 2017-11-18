@@ -74,16 +74,7 @@ if(!$_SESSION['loggedIn']){
 								    <a href="./signOut.php">
           								<span class="glyphicon glyphicon-log-out">LogOut</span>
         							</a>
-        							<!-- Default dropup button -->
-									<div class="btn-group dropup">
-									  <button type="button" class="btn btn-secondary">Dropup</button>
-									  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									    <span class="sr-only">Toggle Dropdown</span>
-									  </button>
-									  <div class="dropdown-menu">
-									    <!-- Dropdown menu links -->
-									  </div>
-									</div>
+        							
 								  </div>
 							</div>
 							<!-- <label></label> -->
