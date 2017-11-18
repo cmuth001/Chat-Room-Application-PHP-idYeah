@@ -13,6 +13,36 @@ $channel_id = mysqli_real_escape_string($conn,$_POST['channel']);
 $textOrCode = mysqli_real_escape_string($conn,$_POST['text']);
 $user = getUserDetails(mysqli_real_escape_string($conn,$_POST['email']));
 $user = $user['email'];
+$imageFormats = ['png','jpeg','jpg','gif','tiff','tif'];
+$image = end(explode('.',$message));
+if(intval($textOrCode)==2)
+{	//if (in_array($_GET["channel"], $userChannels))
+	if($message != "" && in_array($image,$imageFormats) )
+	{	
+	 	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,'$textOrCode',CURRENT_TIMESTAMP)";
+	 	if (mysqli_query($conn, $sql)) {
+	 		
+	    	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
+	    	exit;
+		}else{
+	    	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+
+		
+	}else if ($message != ""){
+		$textOrCode=0;
+		$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,'$textOrCode',CURRENT_TIMESTAMP)";
+	 	if (mysqli_query($conn, $sql)) {
+	 		
+	    	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
+	    	exit;
+		}else{
+	    	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+
+	}
+}else{
+
 	if($message != "")
 	{	
 	 	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,'$textOrCode',CURRENT_TIMESTAMP)";
@@ -26,24 +56,9 @@ $user = $user['email'];
 
 		
 	}
-// else{
-
-// 	if($message != "")
-// 	{	
-// 	 	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,'$textOrCode',CURRENT_TIMESTAMP)";
-// 	 	if (mysqli_query($conn, $sql)) {
-	 		
-// 	    	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
-// 	    	exit;
-// 		}else{
-// 	    	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-// 		}
-
-		
-// 	}
 
 
-// }
+}
 
 mysqli_close($conn);
 ?>

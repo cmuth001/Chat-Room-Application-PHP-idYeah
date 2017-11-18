@@ -493,6 +493,21 @@ if(isset($_POST['usersList1']))
 	echo json_encode($userList);
 	
 }
+
+
+if(isset($_POST['profileSearchInputField']))
+{
+	$keyValue = $_POST['profileSearchInputField'];
+	$sql = "SELECT * FROM users WHERE email LIKE \"%$keyValue%\" OR user_name LIKE \"%$keyValue%\"";
+    $result = mysqli_query($conn, $sql);
+    $userList = [];
+    while(($row = mysqli_fetch_assoc($result))) 
+	{ 
+    	array_push($userList,$row);
+	}
+	echo json_encode($userList);
+	
+}
 if(isset($_POST['archive']))
 {
 	$channelId = intval($_POST['archive']);

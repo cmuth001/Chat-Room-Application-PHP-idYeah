@@ -81,7 +81,7 @@ if(!$_SESSION['loggedIn']){
 						</div>
 				</div>
 
-				<div class="col-xs-9 nopadding" style="height: 74px;background-color: white;padding-left: 2% !important;padding-top: 14px !important;">	
+				<div class="col-xs-10 nopadding" style="height: 74px;background-color: white;padding-left: 2% !important;padding-top: 14px !important;">	
 					<div class ="col-xs-5 nopadding ">
 							<?php
 								$result ="";
@@ -124,11 +124,15 @@ if(!$_SESSION['loggedIn']){
 						<p id="pagination-here"></p>
         				<!-- <p id="content">Dynamic page content</p> -->
 					</div>
-					<!-- <div class = "logout">
-						<a href="./signOut.php">
-          					<span class="glyphicon glyphicon-log-out">LogOut</span>
-        				</a>
-					</div> -->
+					<!-- search profile field -->
+					<div class="input-group input-group-lg profileSearchField">
+					  <span class="input-group-addon" id="sizing-addon1">@</span>
+					  <input type="text" class="form-control" class ='profileSearchInputField' id ='profileSearchInputField' placeholder="Username" aria-label="Username" aria-describedby="sizing-addon1">
+					</div>
+					<div class ='listOfProfileSearch'>
+					</div>
+					<!-- search profile fielf end -->
+				
 					
 				</div>
 
@@ -258,6 +262,7 @@ if(!$_SESSION['loggedIn']){
 								        <div class="modal-header">
 								          <button type="button" class="close" data-dismiss="modal">&times;</button>
 								          <h4 class="modal-title">Enter Image URL</h4>
+								          <span style='color:red'>*.png, *.jpeg/jpg, *.gif, *.tiff/tif</span>
 								        </div>
 								        <div class="modal-body">
 								        	<form action ='messages/messages.php' method = 'post'>						     

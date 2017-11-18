@@ -9,6 +9,18 @@
 .userInfo{
 	background-color: #404040;width: 13%;height: 70px;color: white;padding: 1% !important;
 }
+.profileSearchField{
+	width: 30%;
+    float: right;
+    margin-top: 7px;
+}
+.listOfProfileSearch{
+	width: 26%;
+    float: right;
+    z-index: 1;
+    position: relative;
+    margin-top: -2%;
+}
 .leftSideMenu{
 	background-color: #404040;
 	width:13% !important;

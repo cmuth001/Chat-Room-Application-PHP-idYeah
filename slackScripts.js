@@ -393,6 +393,34 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		
 
 	});
+
+	// $(document).on('change','#profileSearchInputField',function(e){
+	$('#profileSearchInputField').keyup(function(){
+		
+		var keyValue = $('#profileSearchInputField').val();
+		$.ajax({
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'profileSearchInputField':keyValue},
+	        dataType: 'json',
+	        success: function (data) {
+	        	//$('.listOfProfileSearch').remove();
+	        	var usersList = "<ul class='list-group'>";
+	        	for (i = 0; i < data.length; i++)
+    		  	{	
+    		  		usersList+="<a href='profilePage.php?email="+data[i]['email']+"' style='text-decoration: none;'><li class='list-group-item'>"+data[i]['user_name']+"</li></a>";
+    		  	}
+    		  	usersList+="</ul>";
+    		  	$('.listOfProfileSearch').html(usersList);
+	        	console.log(usersList);
+	        	
+	        }
+	    });
+
+
+		console.log('input:value:'+keyValue);
+	});
+	
 	$(document).on('click','.replyButton',function(e){	
 		e.preventDefault();
 
