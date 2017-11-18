@@ -321,10 +321,10 @@ function getChannelMessages($channel_id){
 	    						}elseif ($textOrCode==1){
 	    							$string=$string."<span><pre class = 'codeDisplay'><code>".$message."</code></pre></span>";
 	    						}else if($textOrCode==2){
-	    							$string=$string."<a href='$message' target='_blank'>$message</a>";
-	    							$string=$string."<img class='profile-pic' src='$message' />";
+	    							$string=$string."<a href='$message' target='_blank'>$message</a><a href='#imageCollapse".$row['cmessage_id']."' data-toggle='collapse' ><i class='fa fa-caret-down' aria-hidden='true' style='cursor:pointer;'></i></a>";
+	    							$string=$string."<img id ='imageCollapse".$row['cmessage_id']."' class='profile-pic collapse in' src='$message' />";
 	    						}else{
-	    							$string=$string."<img class='profile-pic' src='./assets/channelImages/".$row['cmessage_id'].".png' />";
+	    							$string=$string."<img  class='profile-pic' src='./assets/channelImages/".$row['cmessage_id'].".png' />";
 	    							$string=$string."<span>".$message."</span>";
 	    						}
     							

@@ -124,8 +124,8 @@ $.ajax({
     		  					}else if(textOrCode==1){
     		  						string+="<span><pre class='codeDisplay'><code>"+channelMessage+"</code></pre></span></div>";
     		  					}else if(textOrCode==2){
-    		  						string+="<a href='"+channelMessage+"' target='_blank'>"+channelMessage+"</a>";
-    		  						string+="<img class='profile-pic' src='"+channelMessage+"'  />"
+    		  						string+="<a href='"+channelMessage+"' target='_blank'>"+channelMessage+"</a><a href='#imageCollapse"+messageId+"' data-toggle='collapse' ><i class='fa fa-caret-down' aria-hidden='true' style='cursor:pointer;'></i></a>";
+    		  						string+="<img id ='imageCollapse"+messageId+"' class='profile-pic collapse' src='"+channelMessage+"'  />"
     		  					}else{
     		  						string+="<img class='profile-pic' src='./assets/channelImages/"+messageId+".png' />"
     		  						string+="<span>"+channelMessage+"</span></div>";
