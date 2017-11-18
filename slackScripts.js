@@ -108,7 +108,7 @@ $.ajax({
     		  		var modalClose = "modalClose"+data[0][i]['cmessage_id'];
     		  		var channelId = data[0][i]['channel_id'];
     		  		var channelMessage = data[0][i]['channel_message'];
-    		  		var textOrCode = data[0][i]['textOrCode'];
+    		  		var textOrCode = parseInt(data[0][i]['textOrCode']);
     		  		var messageId = data[0][i]['cmessage_id'];
     		  		var messageTimeStamp = data[0][i]['cmsg_timestamp'];
     		  		var user = data[0][i]['cuser_email'];
@@ -121,8 +121,14 @@ $.ajax({
     		  				string+="<div class = 'textMessage'>";
     		  					if(textOrCode==0){
     		  						string+="<span>"+channelMessage+"</span></div>";
-    		  					}else{
+    		  					}else if(textOrCode==1){
     		  						string+="<span><pre class='codeDisplay'><code>"+channelMessage+"</code></pre></span></div>";
+    		  					}else if(textOrCode==2){
+    		  						string+="<a href='"+channelMessage+"' target='_blank'>"+channelMessage+"</a>";
+    		  						string+="<img class='profile-pic' src='"+channelMessage+"'  />"
+    		  					}else{
+    		  						string+="<img class='profile-pic' src='./assets/channelImages/"+messageId+".png' />"
+    		  						string+="<span>"+channelMessage+"</span></div>";
     		  					}
     		  				string+="<div class = 'reaction reaction"+messageId+"'>";
     		  					if(data[0][i]['isArchive']==0){
@@ -488,6 +494,38 @@ $( ".inviteChannelButton" ).on("click",function(e) {
     	});
 	    console.log(convertedJSON);
 	});
+
+// image upload into channel
+
+var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+    
+    $(".upload-button").on('click', function() {
+       $(".file-upload").click();
+    });
+
+    $('.imageSubmit').on('click', function() {
+    	$('#imageUpLoadModal input[type=submit]').trigger('click');
+	});
+	$('.imageURLSubmit').on('click', function() {
+    	$('#imageURLModal input[type=submit]').trigger('click');
+	});
+    //image upload code end
+
 
 
 });

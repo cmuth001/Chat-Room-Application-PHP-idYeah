@@ -74,6 +74,16 @@ if(!$_SESSION['loggedIn']){
 								    <a href="./signOut.php">
           								<span class="glyphicon glyphicon-log-out">LogOut</span>
         							</a>
+        							<!-- Default dropup button -->
+									<div class="btn-group dropup">
+									  <button type="button" class="btn btn-secondary">Dropup</button>
+									  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    <span class="sr-only">Toggle Dropdown</span>
+									  </button>
+									  <div class="dropdown-menu">
+									    <!-- Dropdown menu links -->
+									  </div>
+									</div>
 								  </div>
 							</div>
 							<!-- <label></label> -->
@@ -204,44 +214,7 @@ if(!$_SESSION['loggedIn']){
 										  </div>
 
 
-										  <!-- thread modal -->
-										  	<!-- Modal -->
-									  <!-- <div class="modal fade" id="myThreadModal" role="dialog">
-									    <div class="modal-dialog modal-lg">
-									      <div class="modal-content">
-									        <div class="modal-header">
-									          <button type="button" class="close modalClose" data-dismiss="modal">&times;</button>
-									          <h4 class="modal-title">code posting Area</h4>
-									        </div>
-									        <div class="modal-body">
-									          
-									          <form action ='messages/messages.php' id= "codeForm" method = "post">
-									          
-									          <div class="form-group">
-									            <label for="message-text" class="form-control-label">code</label>
-									            <textarea class="form-control codeArea" name = "message" id="code" placeholder= " Snippet" autofocus required ></textarea>
-									            <input type='hidden' name='channel' value=<?php echo $_GET['channel']; ?>>
-									            <input type='hidden' name='email' value=<?php echo $_SESSION['email']; ?>>
-									            <input type='hidden' name='text' value='1'>
-									          </div>
-									          
-									          <div class="modal-footer">
-									          <button type="button" class="btn btn-default modalClose" data-dismiss="modal">Close</button>
-									           <button type="submit" name = "submit"  class="btn btn-success threadMessageButton" >submit code</button>
-									          </div>
-									          <div>
-													
-									          </div>		
-									        </form>
-									        </div>
-									        <div class = "modal-body-result">
-									        	<p class = "para" style='text-align:center;'></p>
-									        </div>
-									      </div>
-									    </div>
-									  </div>
- -->
-										  <!-- thread modal end -->
+										 
 		                    		</div>
 		                    		<!-- <div class="col-xs-1  icon-plus nopadding">
 			                    	
@@ -250,6 +223,76 @@ if(!$_SESSION['loggedIn']){
 	        						</div> -->
 	        					</div>
 	        					</br>
+	        					<!-- Img  Modal -->
+								<div class="modal fade" id="imageUpLoadModal" role="dialog">
+								    <div class="modal-dialog">
+								    
+								      <!-- Modal content-->
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								          <h4 class="modal-title">Image Upload</h4>
+								        </div>
+								        <div class="modal-body">
+								
+											<form action="./uploadImageInToChannel.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
+						     						
+						                       	<img class="profile-pic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Icons8_flat_businessman.svg/1024px-Icons8_flat_businessman.svg.png" />
+						                        <div class="upload-button">Select Image</div>
+						                        <!-- <input type="file" name="fileToUpload" id="fileToUpload"> -->
+						                        <input class="file-upload" name="fileToUpload" id="fileToUpload" type="file" accept="image/*" style='display:none' />
+						                        <textarea class="form-control " name = "message" id="imgMessage" placeholder= " Message..." ></textarea>
+						                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
+						                    	<input type="submit" value="Upload Image" name="submit" style='display:none'>
+						                    </form>
+
+								        </div>
+								    	</br>
+								        <div class="modal-footer">
+								          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								          <button type="submit" name="submit" value="Upload Image" class="btn btn-success imageSubmit">submit</button>
+								        </div>
+								      </div>
+								      
+								    </div>
+								</div>
+								<!-- end of Img Model -->
+
+								<!-- Img URL  Modal -->
+								<div class="modal fade" id="imageURLModal" role="dialog">
+								    <div class="modal-dialog">
+								    
+								      <!-- Modal content-->
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								          <h4 class="modal-title">Enter Image URL</h4>
+								        </div>
+								        <div class="modal-body">
+								        	<form action ='messages/messages.php' method = 'post'>						     
+						                      	<div class="input-group">
+											  		<span class="input-group-addon"  id="basic-addon1">URL</span>
+											  		<input type="text" class="form-control" name = "message" placeholder="Image URL..." aria-describedby="basic-addon1">
+												</div>
+						                        <input type='hidden' name='text' value='2'>
+						                        <input type='hidden' name='email' value=<?php echo '"'.$_SESSION['email'].'"';?>>
+						                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
+						                    	<input type="submit" value="Upload Image" name="submit" style='display:none'>
+						                    </form>
+
+								        </div>
+								    	</br>
+								        <div class="modal-footer">
+								          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								          <button type="submit" name="submit" value="Upload Image" class="btn btn-success imageURLSubmit">submit</button>
+								        </div>
+								      </div>
+								      
+								    </div>
+								</div>
+								<!-- end of Img URL Model -->
+
+
 	        					<div id="Channel">
 				                        <ul class="nav nav-list tree starredList">
 				                 			<?php 
@@ -274,30 +317,7 @@ if(!$_SESSION['loggedIn']){
 			                    </form>
 		                	</li>
 		                	 <li class="divider"></li>
-		                	 <!-- <li>
-		                	 	<div class="bs-example">
-       								 <input type="text" name="typeahead" class="typeahead tt-query"  spellcheck="false" placeholder="search with email...">
-    							</div>
-		                	 </li -->>
-		                	<!-- <a href = 'newChannel.php'>new channel</a> -->
-		                    <!-- <li>
-		                    	<div class="col-xs-12 directmsgdiv ">
-		                    		<div class="col-xs-11 nopadding">
-		                    			<b><a class ="link" href= "">DirectMesssages</a></b>
-		                    		</div>
-		                    		<div class="col-xs-1  icon-plus nopadding"> -->
-			                    		
- 										<!-- <a href="#"><span class="name"></span></a> -->
-										
-	        						<!-- </div>
-	        					</div>
-	        					</br>
-        						<div id="directmsg">
-			                        <ul class="nav nav-list tree directmsgList">			         
-			                            <?php $result =getAllUsers();echo $result ?>
-			                        </ul>
-	                    		</div>
-		                    </li> -->
+
 		                </ul>
 		            </div>
 		        </div>

@@ -318,8 +318,14 @@ function getChannelMessages($channel_id){
     						<div class= 'textMessage'>";
 	    						if($textOrCode==0){
 	    							$string=$string."<span>".$message."</span>";
-	    						}else{
+	    						}elseif ($textOrCode==1){
 	    							$string=$string."<span><pre class = 'codeDisplay'><code>".$message."</code></pre></span>";
+	    						}else if($textOrCode==2){
+	    							$string=$string."<a href='$message' target='_blank'>$message</a>";
+	    							$string=$string."<img class='profile-pic' src='$message' />";
+	    						}else{
+	    							$string=$string."<img class='profile-pic' src='./assets/channelImages/".$row['cmessage_id'].".png' />";
+	    							$string=$string."<span>".$message."</span>";
 	    						}
     							
     						$string=$string."</div>";
@@ -443,9 +449,16 @@ function getChannelMessages($channel_id){
 				$string = $string."<form action ='messages/messages.php'  method = 'post'>";
 								$string = $string."<div id='footer' class ='col-xs-12 nopadding '>";
 									$string = $string."<div class='input-group input-group-lg textinput'>";
+									$string=$string."<div class='col-xs-1  dropup nopadding'><span class='multipleOptions input-group-addon dropdown-toggle' data-toggle='dropdown' id='sizing-addon1'><a style='text-decoration: none;font-size:32px; ' href=''>+</a></span>";
+										$string = $string."<ul class='dropdown-menu'>";
+											$string = $string."<li><a class ='codeButton' data-toggle='modal' data-target='#myModal' href=''>Code or Text Snippet</a></li>";
+											$string = $string."<li><a href='' data-toggle='modal' data-target='#imageUpLoadModal' >Image Upload</a></li>";
+											$string = $string."<li><a href='' data-toggle='modal' data-target='#imageURLModal'> Upload Image URL</a></li>";
+											$string = $string."</ul>";
+										$string = $string."</div>";
 										$string = $string."<input type='hidden' name='channel' value=".$channel_id.">";
 										$string = $string."<input type='hidden' name='email' value=".$_SESSION['email'].">";
-										$string = $string."<input type='text' class='form-control message' name = 'message' style  = 'width: 93%;border-top-left-radius: 10px;border-bottom-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required><input type='hidden' name='text' value='0'><button class='btn  btn-sm  codeButton' data-toggle='modal' data-target='#myModal'>ifCode</button>";
+										$string = $string."<input type='text' class='form-control message' name = 'message' style  = 'width: 85%;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required><input type='hidden' name='text' value='0'>";
 									$string = $string."</div>";
 								$string = $string."</div>";
 							$string = $string."</form>";

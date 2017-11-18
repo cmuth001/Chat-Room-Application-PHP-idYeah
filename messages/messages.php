@@ -13,8 +13,6 @@ $channel_id = mysqli_real_escape_string($conn,$_POST['channel']);
 $textOrCode = mysqli_real_escape_string($conn,$_POST['text']);
 $user = getUserDetails(mysqli_real_escape_string($conn,$_POST['email']));
 $user = $user['email'];
-if(intval($textOrCode)==0)
-{
 	if($message != "")
 	{	
 	 	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,'$textOrCode',CURRENT_TIMESTAMP)";
@@ -28,24 +26,24 @@ if(intval($textOrCode)==0)
 
 		
 	}
-}else{
+// else{
 
-	if($message != "")
-	{	
-	 	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,'$textOrCode',CURRENT_TIMESTAMP)";
-	 	if (mysqli_query($conn, $sql)) {
+// 	if($message != "")
+// 	{	
+// 	 	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,'$textOrCode',CURRENT_TIMESTAMP)";
+// 	 	if (mysqli_query($conn, $sql)) {
 	 		
-	    	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
-	    	exit;
-		}else{
-	    	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		}
+// 	    	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
+// 	    	exit;
+// 		}else{
+// 	    	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+// 		}
 
 		
-	}
+// 	}
 
 
-}
+// }
 
 mysqli_close($conn);
 ?>

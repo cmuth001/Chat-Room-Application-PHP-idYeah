@@ -17,7 +17,11 @@
 	overflow-x: hidden;
 	height: 93%;
 }
-
+.multipleOptions{
+	/*padding-top: 15px !important;
+    padding-bottom: 15px !important;*/
+    background-color: white !important;
+}
 li>*{
 	/*padding-left: 7%;*/
 }
@@ -362,3 +366,24 @@ width: 4%;
     margin-bottom: 0 !important;
 }
 
+
+/*image upload css*/
+
+.upload-button {
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: block;
+    float: left;
+}
+
+.profile-pic {
+    max-width: 200px;
+    max-height: 200px;
+    display: block;
+}
+
+.file-upload {
+    display: none;
+}
+/*end of Image upload css*/
