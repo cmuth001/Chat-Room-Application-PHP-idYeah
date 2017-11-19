@@ -58,8 +58,9 @@ function getChannelName($channel_id,$user_email){
 	$sql = "SELECT * FROM channels where channel_id="."'$channel_id'";
 	$result = mysqli_query($conn, $sql);
 	$row = $result->fetch_assoc();
+	$admin = admin();
 	if(intval($row['access_specifiers'])==1){
-		if($user_email=='cmuth001@odu.edu'){
+		if (in_array($user_email, $admin)){
 			if($row['isArchive']==0){
 				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-lock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer;' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
 			}else{
@@ -71,7 +72,7 @@ function getChannelName($channel_id,$user_email){
 		}
 	}
 	else{
-		if($user_email=='cmuth001@odu.edu'){
+		if (in_array($user_email, $admin)){
 			if($row['isArchive']==0){
 				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
 			}else{
@@ -96,7 +97,16 @@ function userChannels($email){
 	}
 	return $arrayOfChannels;
 }
-
+function admin(){
+	global $conn;
+	$sql = "SELECT * FROM `admin`";
+	$result = mysqli_query($conn, $sql);
+	$admin = [];
+	while(($row = mysqli_fetch_assoc($result))){
+		array_push($admin,$row['email']);
+	}
+	return $admin;
+}
 function getAllPublicChannels($email){
 	global $conn;
 	$sql = "SELECT channels.channel_name FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email='$email' and access_specifiers=0";
@@ -257,12 +267,11 @@ function getChannelMessages($channel_id){
 	$sql = "SELECT * FROM (SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id='$channel_id'  ORDER BY `cmessage_id` DESC LIMIT 7) TEMP ORDER BY `cmessage_id` ASC";
 	//SELECT * FROM (SELECT * FROM `channel_messages` ORDER BY `cmessage_id` DESC LIMIT 5) TEMP ORDER BY `cmessage_id` ASC
     $result = mysqli_query($conn, $sql);
-    	$channelQuery = "SELECT * FROM `channels` where channel_id= '$channel_id'";
-		$channelResult = mysqli_query($conn, $channelQuery);
-		$channelArray = $channelResult->fetch_assoc();
-    // $string = "<div id='message_container' class ='col-xs-10 headrow nopadding' style='width:87%;min-height:93%;background-color: white; '>";
-    // 		$string = $string+"<div class ='col-xs-12 nopadding' style='height:91%;overflow-y: auto; overflow-x: hidden;position:relative;'>";
+	$channelQuery = "SELECT * FROM `channels` where channel_id= '$channel_id'";
+	$channelResult = mysqli_query($conn, $channelQuery);
+	$channelArray = $channelResult->fetch_assoc();
 
+	$admin = admin();
     $string =$string. "<div class = 'message_wrapper'>";
 
     while(($row = mysqli_fetch_assoc($result))) 
@@ -340,7 +349,7 @@ function getChannelMessages($channel_id){
     		if($messageThreadCount>0){
     			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount repliesCount$msgId' id = '$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>";
     			if($channelArray['isArchive']==0){
-	    			if($_SESSION['email']=='cmuth001@odu.edu'){
+	    				if (in_array($_SESSION['email'], $admin)){
 	    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
 	    			}
 	    		}
@@ -349,7 +358,7 @@ function getChannelMessages($channel_id){
     		}
     		else{
     			if($channelArray['isArchive']==0){
-	    			if($_SESSION['email']=='cmuth001@odu.edu'){
+	    			if (in_array($_SESSION['email'], $admin)){
 	    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
 	    			}
 	    		}

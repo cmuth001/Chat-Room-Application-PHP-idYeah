@@ -421,8 +421,8 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		console.log('input:value:'+keyValue);
 	});
 	$('#profileSearchInputField').focusout(function() {
-		$('.listOfProfileSearch').remove();
-		$('#profileSearchInputField').val('');
+		//$('.listOfProfileSearch').html('');
+		//$('#profileSearchInputField').val('');
 		
 	});
 	

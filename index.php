@@ -66,9 +66,19 @@ if(!$_SESSION['loggedIn']){
 						<div>
 							<div><label>ODUCS518F17</label></div>
 							<div class="dropdown">
-								<button onclick="userMenu()" class="dropbtn"><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?><i class="fa fa-angle-down"></i></button>
+								<button onclick="userMenu()" class="dropbtn"><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name'];?><i class="fa fa-angle-down"></i></button>
 								  <div id="myDropdown" class="dropdown-content userProfile">
-								    <div style = 'color:black;'><img src=<?php echo "./assets/images/".$_SESSION['email'].".png" ?> alt='Contact_Img' class='contact_Img'><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name']?></div>
+								    <div style = 'color:black;'><img src=<?php echo "./assets/images/".$_SESSION['email'].".png" ?> alt='Contact_Img' class='contact_Img'>
+								    	<?php 
+								    	$result = getUserDetails($_SESSION['email']);
+								    	$admin = admin();
+								    	if (in_array($_SESSION['email'], $admin)) {
+								    		echo $result['display_name']."(Admin)";
+								    	}else{
+								    		echo $result['display_name'];
+								    	}
+								    	?>
+								    </div>
 								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>">Profile View</a>
 								    <a href="#contact">Contact</a>
 								    <a href="./signOut.php">
@@ -313,6 +323,7 @@ if(!$_SESSION['loggedIn']){
 			                    </form>
 		                	</li>
 		                	 <li class="divider"></li>
+
 
 		                </ul>
 		            </div>
