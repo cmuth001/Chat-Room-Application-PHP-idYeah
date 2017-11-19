@@ -54,8 +54,13 @@ if(isset($_POST['submit']))
                 $emailErr = "Invalid email "; 
             }else{
                 if($psw==$pswRepeat){
+
                     $sql = "INSERT INTO `users` VALUES('$email','$userName','$userName',DEFAULT,DEFAULT,DEFAULT,DEFAULT,'$psw',NULL,DEFAULT,CURRENT_TIMESTAMP)";
                     if (mysqli_query($conn, $sql)) {
+                        $sql1 = "INSERT INTO `userChannels` VALUES('$email',1,DEFAULT,DEFAULT,CURRENT_TIMESTAMP,DEFAULT)";
+                        $sql2 = "INSERT INTO `userChannels` VALUES('$email',2,DEFAULT,DEFAULT,CURRENT_TIMESTAMP,DEFAULT)";
+                        $sqlResult1 = mysqli_query($conn, $sql1);
+                        $sqlResult2 = mysqli_query($conn, $sql2);
                         // echo "<br><br><p style='text-align:center;color:green;'>**** Registered successfully ***</p>";
                         header("location: ../login/login.php");
                     }else{
