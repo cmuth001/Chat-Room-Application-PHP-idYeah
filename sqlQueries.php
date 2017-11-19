@@ -107,6 +107,17 @@ function admin(){
 	}
 	return $admin;
 }
+function channelMembers($channelId){
+	global $conn;
+	$sql = "SELECT userChannels.user_email, users.user_name FROM `userChannels` join users on userChannels.user_email=users.email where userChannels.channel_id=$channelId";
+	$result = mysqli_query($conn, $sql);
+	$string = "<ul class='dropdown-menu ' role='menu' >";
+	while(($row = mysqli_fetch_assoc($result))){
+		$string = $string."<li ><p class ='channelMembersLink'>".$row['user_name']."<span class='$channelId close channelMemberDelete' id = '".$row['user_email']."' style='color: red !important;opacity: 0.8;' >×</span></p></li>";
+	}
+	$string= $string."</ul>";
+	return $string;
+}
 function getAllPublicChannels($email){
 	global $conn;
 	$sql = "SELECT channels.channel_name FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email='$email' and access_specifiers=0";
@@ -553,6 +564,19 @@ if(isset($_POST['deleteMessage']))
         echo "'$threadMessageSql'channel  message deleted !!!";
     }else{
         echo "failed deleting channel message !!!";
+    }
+}
+if(isset($_POST['deleteChannelMember']))
+{
+	$details = $_POST['deleteChannelMember'];
+	$email = $details['email'];
+	$channelId = $details['channelId'];
+	$sql = "DELETE FROM `userChannels` where userChannels.user_email='$email' and userChannels.channel_id=$channelId";
+	
+	if (mysqli_query($conn, $sql)) {       
+        echo "removed from channel";
+    }else{
+        echo "failed deleting tfrom channel !!!";
     }
 }
 if(isset($_POST['messagesCount']))

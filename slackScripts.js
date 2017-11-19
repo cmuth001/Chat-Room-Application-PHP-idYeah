@@ -346,6 +346,41 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		});
 
 	});
+
+	$(document).on('click','.channelMemberDelete',function(e){
+		var details = e.target.className.split(' ');
+		var email = e.currentTarget.id;
+		var channelId = details[0];
+		var data = {'channelId':channelId ,'email':email};
+		
+		console.log(e.currentTarget.id);
+		$.confirm({
+			title:"<label>Channel Member</label>",
+			content:"Are you really want to delete</br><span>User name:</br>Email: '"+e.currentTarget.id+"'",
+			buttons:{
+				Yes:function(){
+					$.ajax({
+				        url: 'sqlQueries.php',
+				        type: 'post',
+				        data: {'deleteChannelMember':data},
+				        dataType: 'text',
+				        success: function (data) {
+				        	console.log(data);
+				        	
+				        	var url = "./index.php?channel="+channelId;
+				         	window.location.href = url;
+				        }
+				    });
+				},
+				No:function(){
+
+				}
+
+			}
+
+		});
+
+	});
 	$(document).on('click','.replyMsgIcon',function(e){
 
 		//$(".replyMsg"+e.currentTarget.id).show();
@@ -358,6 +393,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		//$('#myThreadModal').modal('show');
 		console.log("codeBtn");		
 	});
+	
 	$(document).on('click','.threadCodeButton',function(e){
 		// $('.replyMsg'+e.currentTarget.id).hide().prop('required',false);
 
@@ -396,7 +432,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 
 	// $(document).on('change','#profileSearchInputField',function(e){
 	$('#profileSearchInputField').keyup(function(){
-		
+		$('.listOfProfileSearch').show();
 		var keyValue = $('#profileSearchInputField').val();
 		$.ajax({
 	        url: 'sqlQueries.php',
@@ -420,12 +456,15 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 
 		console.log('input:value:'+keyValue);
 	});
-	$('#profileSearchInputField').focusout(function() {
-		//$('.listOfProfileSearch').html('');
-		//$('#profileSearchInputField').val('');
+	// $('#profileSearchInputField').focusout(function() {
+	// 	//$('.listOfProfileSearch').html('');
+	// 	//$('#profileSearchInputField').val('');
 		
+	// });
+	$(document).on('click','.container',function(e){	
+		$('.listOfProfileSearch').hide();
+		$('#profileSearchInputField').val('');
 	});
-	
 	$(document).on('click','.replyButton',function(e){	
 		e.preventDefault();
 

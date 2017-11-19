@@ -112,7 +112,11 @@ if(!$_SESSION['loggedIn']){
 						<div class = "detailsOfChannel">
 							<span class="fa fa-star checked"></span>
 							<span class= "divider">|</span>
-							<i style='font-size: 117%;color: #706c6c;' class="fa fa-users" aria-hidden="true"></i>
+							<i style='font-size: 117%;color: #706c6c; cursor:pointer;' class='fa fa-users dropdown-toggle' data-toggle='dropdown' aria-hidden="true"></i>
+							<?php 
+								$channelMembers = channelMembers($_GET["channel"]);
+								echo $channelMembers;
+							?>
 							<sub><?php echo membersInChannel($_GET["channel"]); ?></sub>
 							<span class= "divider">|</span>
 							<span class = "purposeChannel">

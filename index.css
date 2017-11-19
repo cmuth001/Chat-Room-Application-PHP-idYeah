@@ -400,3 +400,12 @@ width: 4%;
     display: none;
 }
 /*end of Image upload css*/
+.channelMembersLink{
+	padding-right: 5px !important;
+	padding-left: 10px !important;
+}
+.channelMembersUl{
+	margin-left: 7%;
+	overflow-y: auto;
+    height: 450%;
+}
