@@ -420,6 +420,11 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 
 		console.log('input:value:'+keyValue);
 	});
+	$('#profileSearchInputField').focusout(function() {
+		$('.listOfProfileSearch').remove();
+		$('#profileSearchInputField').val('');
+		
+	});
 	
 	$(document).on('click','.replyButton',function(e){	
 		e.preventDefault();
