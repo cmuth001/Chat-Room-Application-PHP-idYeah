@@ -50,10 +50,11 @@ $profile = "<!DOCTYPE html>
 										                <label><b>Email:</b></label><span class='profileStyle'>$email</span><br>
 										                <label><b>Status:</b></label><span class='profileStyle'>$status</span><br>
 										                <div class = 'userRating'>
-									                        <label>Rating:</label>
+									                        <label>Rating:</label></br>
 									                        	$rating
 									                    </div>
-										             </div>
+									                </div>
+     
 									                <div class ='profilePic' style='width:30%;height:100%;float:right;margin-top: -3%;' >
 									                    <label class='notifyImgResult'></label>
 									                    <img src='$image_url' width='100%'' height='40%'' alt='Avatar' class='avatar'>

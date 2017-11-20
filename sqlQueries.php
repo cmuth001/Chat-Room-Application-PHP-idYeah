@@ -193,8 +193,11 @@ function userProfileRating($email){
 		}
 
 		$userPercentage = (100*$userValue)/max($usersWeight);
-
-    	$string=$string."<li>".$row['chName'].": ".round($userPercentage,1)."%"."</li>";
+		// <div class='ratings'>
+		//     <div class='empty-stars'></div>
+		//     <div class='full-stars' style='width:70%'></div>
+		// </div>
+    	$string=$string."<span>".$row['chName'].":<div class='ratings'><div class='empty-stars'></div> <div class='full-stars' style='width:".round($userPercentage,1)."%'></div></div> "." ".round($userPercentage,1)."%"."</span></br>";
 	}
 	
 	return $string;
