@@ -163,7 +163,7 @@ $.ajax({
 			    		  						if(data[1][j]['textOrCode']==0){
 			    		  							stringThread+="<div class= 'textMessage'><span>"+data[1][j]['message']+"</span></div>";
 			    		  						}else{
-			    		  							stringThread+="<div class= 'textMessage'><span><pre><code>"+data[1][j]['message']+"</code></pre></span></div>";
+			    		  							stringThread+="<div class= 'textMessage'><span><pre class='codeDisplay'><code>"+data[1][j]['message']+"</code></pre></span></div>";
 			    		  						}		
 			    		  				stringThread+="</div>";
 			    		  			}	
@@ -494,7 +494,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        	if(textOrCode==0){
 	        		threadDiv+="<div class= 'textMessage'><span>"+message+"</span></div></div>";
 	        	}else{
-	        		threadDiv+="<div class= 'textMessage'><span><pre></code>"+message+"</code></pre></span></div></div>";
+	        		threadDiv+="<div class= 'textMessage'><span><pre class='codeDisplay'><code>"+message+"</code></pre></span></div></div>";
 	        	}
 	        	console.log(threadDiv);
 	        	//$('.thread_wrapper'+msgId).append("<div class='thread'><img src='./assets/images/cmuth001@odu.edu.png' alt='Contact_Img' class='contact_Img'></div>");

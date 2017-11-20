@@ -406,7 +406,7 @@ function getChannelMessages($channel_id){
 																				</div>";
 
 						    					}else{
-						    						$stringThread=$stringThread."<div class= 'textMessage'><span><pre><code>".$threadMessage."</code></pre></span></div>		
+						    						$stringThread=$stringThread."<div class= 'textMessage'><span><pre class='codeDisplay'><code>".$threadMessage."</code></pre></span></div>		
 																				</div>";
 						    					}
 					    						
@@ -664,8 +664,7 @@ if(isset($_POST['thread']))
 	$sql = "INSERT INTO `threaded_messages` VALUES(DEFAULT,'$msgId','$user_email','$message','$textOrCode',CURRENT_TIMESTAMP)";
 	
 	if (mysqli_query($conn, $sql)) {       
-        // echo "**** thread message inserted successfully ***";
-        //echo json_encode($messageThreadCount);
+        
     }else{
         // echo "**** failed inserting thread message ***";
     }
