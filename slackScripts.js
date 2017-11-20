@@ -574,7 +574,7 @@ var readURL = function(input) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('.profile-pic').attr('src', e.target.result);
+                $('.profile-pic1').attr('src', e.target.result);
             }
     
             reader.readAsDataURL(input.files[0]);
@@ -616,7 +616,7 @@ window.onclick = function(event) {
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
+        //openDropdown.classList.remove('show');
       }
     }
   }

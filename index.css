@@ -29,6 +29,12 @@
 	overflow-x: hidden;
 	height: 93%;
 }
+.userMenuList{
+    margin-right: 5px;
+}
+.userMenuLink{
+	text-decoration: none !important;
+}
 .multipleOptions{
 	/*padding-top: 15px !important;
     padding-bottom: 15px !important;*/
@@ -395,7 +401,11 @@ width: 4%;
     max-height: 200px;
     display: block;
 }
-
+.profile-pic1 {
+    max-width: 200px;
+    max-height: 200px;
+    display: block;
+}
 .file-upload {
     display: none;
 }

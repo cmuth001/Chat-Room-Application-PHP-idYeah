@@ -79,12 +79,17 @@ if(!$_SESSION['loggedIn']){
 								    	}
 								    	?>
 								    </div>
-								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>">Profile View</a>
-								    <a href="#contact">Contact</a>
-								    <a href="./signOut.php">
-          								<span class="glyphicon glyphicon-log-out">LogOut</span>
+								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" class = 'userMenuLink'><span class = 'fa fa-user userMenuList'></span>Profile View</a>
+								    <a href='#contact' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-phone userMenuList'></span>Contact</a>
+								    <div id='contact' class='collapse' ><a href='' style='margin-left: 10%; text-decoration:none;'><span class ='fa fa-mobile userMenuList' ></span><?php echo "123-546-7890" ?></a></div>
+								    <a href="./signOut.php" class = 'userMenuLink'>
+          								<span class="glyphicon glyphicon-log-out userMenuList"></span>LogOut
         							</a>
-        							
+        							<?php 
+        								if(in_array($_SESSION['email'], $admin)){
+        									echo "<a href = 'signup/signUpPage.php' class = 'userMenuLink'><span class='fa fa-user-plus userMenuList'></span>Invite new user</a>"; 
+        								}	
+        							?>	
 								  </div>
 							</div>
 							<!-- <label></label> -->
@@ -246,7 +251,7 @@ if(!$_SESSION['loggedIn']){
 								
 											<form action="./uploadImageInToChannel.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
 						     						
-						                       	<img class="profile-pic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Icons8_flat_businessman.svg/1024px-Icons8_flat_businessman.svg.png" />
+						                       	<img class="profile-pic1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Icons8_flat_businessman.svg/1024px-Icons8_flat_businessman.svg.png" />
 						                        <div class="upload-button">Select Image</div>
 						                        <!-- <input type="file" name="fileToUpload" id="fileToUpload"> -->
 						                        <input class="file-upload" name="fileToUpload" id="fileToUpload" type="file" accept="image/*" style='display:none' />

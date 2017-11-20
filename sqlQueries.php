@@ -111,10 +111,19 @@ function channelMembers($channelId){
 	global $conn;
 	$sql = "SELECT userChannels.user_email, users.user_name FROM `userChannels` join users on userChannels.user_email=users.email where userChannels.channel_id=$channelId";
 	$result = mysqli_query($conn, $sql);
-	$string = "<ul class='dropdown-menu ' role='menu' >";
-	while(($row = mysqli_fetch_assoc($result))){
-		$string = $string."<li ><p class ='channelMembersLink'>".$row['user_name']."<span class='$channelId close channelMemberDelete' id = '".$row['user_email']."' style='color: red !important;opacity: 0.8;' >×</span></p></li>";
+	$admin = admin();
+	$user = $_SESSION['email'];
+	$string = "<ul class='dropdown-menu ' role='menu' style=' cursor: pointer;' >";
+	if(in_array($user, $admin)){
+		while(($row = mysqli_fetch_assoc($result))){
+			$string = $string."<li ><p class ='channelMembersLink'>".$row['user_name']."<span class='$channelId close channelMemberDelete' id = '".$row['user_email']."' style='color: red !important;opacity: 0.8;' >×</span></p></li>";
+		}
+	}else{
+		while(($row = mysqli_fetch_assoc($result))){
+			$string = $string."<li ><p class ='channelMembersLink'>".$row['user_name']."</p></li>";
+		}
 	}
+	
 	$string= $string."</ul>";
 	return $string;
 }
@@ -133,65 +142,61 @@ function getAllPublicChannels($email){
 function userProfileRating($email){
 	global $conn;
 
-	$sql = "SELECT * FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email='$email' and access_specifiers=0";
+	$sql = "SELECT userChannels.channel_id as chId, userChannels.channel_name as chName  FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email='$email' and access_specifiers=0";
     //SELECT count(*) as userChannelMessagesCount FROM `channel_messages` where channel_id=2 and channel_messages.cuser_email='cmuth001@odu.edu'
     $result = mysqli_query($conn, $sql);
     $string = "";
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
-		$channelId = $row['channel_id'];
+		$channelId = $row['chId'];
+		$usersWeight = [];
+		$userValue=0;
+		$userPercentage=0;
     	//users Channels messages count
-    	$usersMessagesCountQuery = "SELECT count(*) as userChannelMessagesCount FROM `channel_messages` where channel_id='$channelId' and channel_messages.cuser_email='$email'";
-    	$usersMessagesCountResult = mysqli_query($conn,$usersMessagesCountQuery);
-		$usersMessagesCount = mysqli_fetch_assoc($usersMessagesCountResult);
-		$usersMessagesCount = $usersMessagesCount['userChannelMessagesCount'];
+		$channelMembersQuery = "SELECT * FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.channel_id=$channelId";
+		$channelMembersResult = mysqli_query($conn, $channelMembersQuery);
+		while(($memberRow = mysqli_fetch_assoc($channelMembersResult))) 
+		{ 
+			$channelMemberEmail = $memberRow['user_email'];
+	    	$usersMessagesCountQuery = "SELECT count(*) as userChannelMessagesCount FROM `channel_messages` where channel_id='$channelId' and channel_messages.cuser_email='$channelMemberEmail'";
+	    	$usersMessagesCountResult = mysqli_query($conn,$usersMessagesCountQuery);
+			$usersMessagesCount = mysqli_fetch_assoc($usersMessagesCountResult);
+			$usersMessagesCount = intval($usersMessagesCount['userChannelMessagesCount']);
 
-		//Total channel Messages
-		$totalChannelMessagesCountQuery = "SELECT count(*) as totalChannelMessagesCount FROM `channel_messages` where channel_id='$channelId'";
-		$totalChannelMessagesCountResult = mysqli_query($conn,$usersMessagesCountQuery);
-		$totalChannelMessagesCount = mysqli_fetch_assoc($usersMessagesCountResult);
-		$totalChannelMessagesCount = $totalChannelMessagesCount['totalChannelMessagesCount'];
+			//weight of messages
+			$usersMessagesWeight = ($usersMessagesCount)*(40/100);
 
+			// user thread messages count 
+			$userThreadMessagesCountQuery ="SELECT count(*) as userThreadMessagesCount FROM `threaded_messages` join channel_messages on channel_messages.cmessage_id=threaded_messages.message_id where channel_messages.channel_id='$channelId' and threaded_messages.user_email='$channelMemberEmail'";
+			$userThreadMessagesCountResult = mysqli_query($conn,$userThreadMessagesCountQuery);
+			$userThreadMessagesCount = mysqli_fetch_assoc($userThreadMessagesCountResult);
+			$userThreadMessagesCount = intval($userThreadMessagesCount['userThreadMessagesCount']);
 
-		// percentage of user posts
-		$usersMessagesPercentage = ($usersMessagesCount/$totalChannelMessagesCount)*100;
-		$usersMessagesPercentage = ($usersMessagesPercentage)*(40/100);
+			//weight of Thread messages
+			$usersThreadMessagesWeight = ($userThreadMessagesCount)*(30/100);
 
-		// user thread messages count 
-		$userThreadMessagesCountQuery ="SELECT count(*) as userThreadMessagesCount FROM `threaded_messages` join channel_messages on channel_messages.cmessage_id=threaded_messages.message_id where channel_messages.channel_id='$channelId' and threaded_messages.user_email='$email'";
-		$userThreadMessagesCountResult = mysqli_query($conn,$userThreadMessagesCountQuery);
-		$userThreadMessagesCount = mysqli_fetch_assoc($userThreadMessagesCountResult);
-		$userThreadMessagesCount = $userThreadMessagesCount['userThreadMessagesCount'];
+			//user reactions count
+			$userReactionCountQuery = "SELECT count(*) as usersReactionCount FROM `channel_message_reaction` JOIN channel_messages on channel_messages.cmessage_id=channel_message_reaction.message_id where channel_messages.channel_id='$channelId' AND channel_message_reaction.user_email='$channelMemberEmail'";
+			$userReactionCountResult = mysqli_query($conn,$userReactionCountQuery);
+			$userReactionCount =mysqli_fetch_assoc($userReactionCountResult);
+			$userReactionCount = intval($userReactionCount['usersReactionCount']);
 
-		//total thread meesages in channel
-		$totalThreadMessagesCountQuery = "SELECT count(*) as toalThreadMessagesCount FROM `threaded_messages` join channel_messages on channel_messages.cmessage_id=threaded_messages.message_id where channel_messages.channel_id='$channelId'";
-		$totalThreadMessagesCountResult = mysqli_query($conn,$totalThreadMessagesCountQuery);
-		$totalThreadMessagesCount = mysqli_fetch_assoc($totalThreadMessagesCountResult);
-		$totalThreadMessagesCount = $totalThreadMessagesCount['toalThreadMessagesCount'];
+			//weight of Thread messages
+			$userReactionWeight = ($userReactionCount)*(30/100);
 
-		//thread messages percentage
-		$usersThreadMessagesPercentage = ($userThreadMessagesCount/$totalThreadMessagesCount)*100;
-		$usersThreadMessagesPercentage = ($usersThreadMessagesPercentage)*(30/100);
+			$totalweight = $usersMessagesWeight+$usersThreadMessagesWeight+$userReactionWeight;
+			if($email==$channelMemberEmail){
+				$userValue =$totalweight;
+			}
+			array_push($usersWeight, $totalweight);
 
-		//user reactions count
-		$userReactionCountQuery = "SELECT count(*)as usersReactionCount FROM `channel_message_reaction` JOIN channel_messages on channel_messages.cmessage_id=channel_message_reaction.message_id where channel_messages.channel_id='$channelId' AND channel_message_reaction.user_email='$emai'";
-		$userReactionCountResult = mysqli_query($conn,$userReactionCountQuery);
-		$userReactionCount = mysqli_fetch_assoc($userReactionCountResult);
-		$userReactionCount = $userReactionCount['usersReactionCount'];
+		}
 
-		//total reaction Count
-		$totalReactionCountQuery="SELECT count(*) as totalReactionsCount FROM `channel_message_reaction` JOIN channel_messages on channel_messages.cmessage_id=channel_message_reaction.message_id where channel_messages.channel_id=2";
-		$totalReactionCountResult = mysqli_query($conn,$totalReactionCountQuery);
-		$totalReactionCount = mysqli_fetch_assoc($totalReactionCountResult);
-		$totalReactionCount = $totalReactionCount['totalReactionsCount'];
+		$userPercentage = (100*$userValue)/max($usersWeight);
 
-		//user reactions precentage
-		$usersReactionsPercentage = ($userReactionCountQuery/$totalReactionCount)*100;
-		$usersReactionsPercentage = ($usersReactionsPercentage)*(30/100);
-
-		$totalPercentage = $usersMessagesPercentage+$usersThreadMessagesPercentage+$usersReactionsPercentage;
-    	$string=$string."<li>".$row['channel_name'].round($totalPercentage,1)."</li>";
+    	$string=$string."<li>".$row['chName'].": ".round($userPercentage,1)."%"."</li>";
 	}
+	
 	return $string;
 }
 
@@ -572,7 +577,7 @@ if(isset($_POST['deleteChannelMember']))
 	$email = $details['email'];
 	$channelId = $details['channelId'];
 	$sql = "DELETE FROM `userChannels` where userChannels.user_email='$email' and userChannels.channel_id=$channelId";
-	
+
 	if (mysqli_query($conn, $sql)) {       
         echo "removed from channel";
     }else{

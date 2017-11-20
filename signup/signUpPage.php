@@ -1,9 +1,10 @@
 <?php 
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include_once "../login/connect.php"; 
+include_once "../sqlQueries.php";
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD,DB_NAME)
     OR die ('Could not connect to MySQL: '.mysql_error());
 
@@ -11,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $emailErr = $nameErr= $pswErr ="";
-
+$admin = admin();
 if(isset($_POST['submit']))
 {
     $email = mysqli_real_escape_string($conn,$_POST['email']);
@@ -55,14 +56,19 @@ if(isset($_POST['submit']))
             }else{
                 if($psw==$pswRepeat){
 
-                    $sql = "INSERT INTO `users` VALUES('$email','$userName','$userName',DEFAULT,DEFAULT,DEFAULT,DEFAULT,'$psw',NULL,DEFAULT,CURRENT_TIMESTAMP)";
+                    $sql = "INSERT INTO `users` VALUES('$email','$userName','$userName',DEFAULT,DEFAULT,DEFAULT,DEFAULT,'$psw',DEFAULT,DEFAULT,CURRENT_TIMESTAMP)";
                     if (mysqli_query($conn, $sql)) {
                         $sql1 = "INSERT INTO `userChannels` VALUES('$email',1,DEFAULT,DEFAULT,CURRENT_TIMESTAMP,DEFAULT)";
                         $sql2 = "INSERT INTO `userChannels` VALUES('$email',2,DEFAULT,DEFAULT,CURRENT_TIMESTAMP,DEFAULT)";
                         $sqlResult1 = mysqli_query($conn, $sql1);
                         $sqlResult2 = mysqli_query($conn, $sql2);
                         // echo "<br><br><p style='text-align:center;color:green;'>**** Registered successfully ***</p>";
-                        header("location: ../login/login.php");
+                       // header("location: ../login/login.php");
+                        if(in_array($_SESSION['email'], $admin)){
+                            header("location: ../index.php");
+                        }else{
+                            header("location: ../login/login.php");
+                        }
                     }else{
                         echo "<br><br><p style='text-align:center;color:red;'>**** failed registering ***</p>";
                     }
