@@ -32,6 +32,10 @@
 .userMenuList{
     margin-right: 5px;
 }
+.postingOptionMenu{
+    margin-right: 5px;
+    font-size: 120%;
+}
 .userMenuLink{
 	text-decoration: none !important;
 }
@@ -310,6 +314,7 @@ width: 4%;
 }
 .codeDisplay{
 	max-height: 20%;
+	border-left: 4px solid #4CAF50;
 }
 .codeArea{
 	min-height: 30%;

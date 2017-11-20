@@ -41,7 +41,7 @@ $profile = "<!DOCTYPE html>
         $profile = $profile. "
 								<div class = 'formDiv'>
 												<div class =''>
-									            	<a href ='index.php'><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' style = 'margin-top: 3%;'></i></a>
+									            	<a href ='index.php?channel=1'><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' style = 'margin-top: 3%;'></i></a>
 									            	<h2 style='margin-top: -3%;'>Profile Page</h2>
 									            </div>
 								                <div class='container' style = 'height:100%; width:95%;'>

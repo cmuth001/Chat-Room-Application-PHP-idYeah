@@ -479,9 +479,9 @@ function getChannelMessages($channel_id){
 									$string = $string."<div class='input-group input-group-lg textinput'>";
 									$string=$string."<div class='col-xs-1  dropup nopadding'><span class='multipleOptions input-group-addon dropdown-toggle' data-toggle='dropdown' id='sizing-addon1'><a style='text-decoration: none;font-size:32px; ' href=''>+</a></span>";
 										$string = $string."<ul class='dropdown-menu'>";
-											$string = $string."<li><a class ='codeButton' data-toggle='modal' data-target='#myModal' href=''>Code or Text Snippet</a></li>";
-											$string = $string."<li><a href='' data-toggle='modal' data-target='#imageUpLoadModal' >Image Upload</a></li>";
-											$string = $string."<li><a href='' data-toggle='modal' data-target='#imageURLModal'> Upload Image URL</a></li>";
+											$string = $string."<li><a class ='codeButton' data-toggle='modal' data-target='#myModal' href=''><i class='fa fa-code postingOptionMenu' aria-hidden='true'></i>Code </a></li>";
+											$string = $string."<li><a href='' data-toggle='modal' data-target='#imageUpLoadModal' ><i class='fa fa-picture-o postingOptionMenu' aria-hidden='true'></i>Image Upload</a></li>";
+											$string = $string."<li><a href='' data-toggle='modal' data-target='#imageURLModal'><i class='fa fa-link postingOptionMenu ' aria-hidden='true'></i> Upload Image URL</a></li>";
 											$string = $string."</ul>";
 										$string = $string."</div>";
 										$string = $string."<input type='hidden' name='channel' value=".$channel_id.">";

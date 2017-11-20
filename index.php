@@ -21,6 +21,8 @@ if(!$_SESSION['loggedIn']){
 
 
 ?>
+
+
 <html>
 	<head>
 		<title>Homepage</title>
@@ -159,10 +161,10 @@ if(!$_SESSION['loggedIn']){
 
 			<div class="col-xs-12 nopadding">
 		        <div class="col-xs-3  leftSideMenu nopadding">
-		        	<div class = "profileView">
+		        	<!-- <div class = "profileView">
 		        		<b><a class= 'link' href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" ><i class="fa fa-user" aria-hidden="true" style ='font-size: 126%;padding-right: 3%;'></i>ProfileView</a></b>
 
-		        	</div>
+		        	</div> -->
 		            <div >
 		                <ul class="col-xs-12 nav nav-list nopadding">
 		                    <!-- <li>
@@ -204,7 +206,7 @@ if(!$_SESSION['loggedIn']){
 										          <form action ='messages/messages.php' id= "codeForm" method = "post">
 										          
 										          <div class="form-group">
-										            <label for="message-text" class="form-control-label">code</label>
+										            <label for="message-text" class="form-control-label">code<i class='fa fa-code postingOptionMenu' aria-hidden='true'></i></label>
 										            <textarea class="form-control codeArea" name = "message" id="code" placeholder= " Snippet" autofocus required ></textarea>
 										            <input type='hidden' name='channel' value=<?php echo $_GET['channel']; ?>>
 										            <input type='hidden' name='email' value=<?php echo $_SESSION['email']; ?>>
@@ -245,7 +247,7 @@ if(!$_SESSION['loggedIn']){
 								      <div class="modal-content">
 								        <div class="modal-header">
 								          <button type="button" class="close" data-dismiss="modal">&times;</button>
-								          <h4 class="modal-title">Image Upload</h4>
+								          <h4 class="modal-title"><i class='fa fa-picture-o postingOptionMenu' aria-hidden='true'></i>Image Upload</h4>
 								        </div>
 								        <div class="modal-body">
 								
@@ -286,7 +288,7 @@ if(!$_SESSION['loggedIn']){
 								        <div class="modal-body">
 								        	<form action ='messages/messages.php' method = 'post'>						     
 						                      	<div class="input-group">
-											  		<span class="input-group-addon"  id="basic-addon1">URL</span>
+											  		<span class="input-group-addon"  id="basic-addon1"><i class='fa fa-link postingOptionMenu ' aria-hidden='true'></i>URL</span>
 											  		<input type="text" class="form-control" name = "message" placeholder="Image URL..." aria-describedby="basic-addon1">
 												</div>
 						                        <input type='hidden' name='text' value='2'>

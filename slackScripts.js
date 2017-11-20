@@ -389,7 +389,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 
 	});
 	$(document).on('click','.codeButton',function(e){
-		$('.textinput').hide().prop('required',false);
+		//$('.textinput').hide().prop('required',false);
 		//$('#myThreadModal').modal('show');
 		console.log("codeBtn");		
 	});
