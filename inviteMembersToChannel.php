@@ -30,6 +30,7 @@
 		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
 		
 		    <!-- multi select -->
+		<script type="text/javascript" src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"></script>
 	</head>
     </head>
     <body>
