@@ -545,7 +545,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        	if(textOrCode==0){
 	        		threadDiv+="<div class= 'textMessage'><span>"+message+"</span></div></div>";
 	        	}else{
-	        		threadDiv+="<div class= 'textMessage'><span><pre></code>"+message+"</code></pre></span></div></div>";
+	        		threadDiv+="<div class= 'textMessage'><span><pre class='codeDisplay'></code>"+message+"</code></pre></span></div></div>";
 	        	}
 	        	
 	        	console.log(threadDiv);
