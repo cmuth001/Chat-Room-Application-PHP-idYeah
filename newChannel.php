@@ -10,6 +10,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="css/tags/jquery-ui.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 		<script src="css/tags/jquery-migrate-3.0.0.min.js"></script>
 		<script src="css/tags/bootstrap-tokenfield.js"></script>
 		<script src="css/tags/typeahead.bundle.min.js"></script>
@@ -23,6 +24,9 @@
 		
 		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
 		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
+
+		<!-- token field -->
+		<script type="text/javascript" src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"></script>
 	</head>
 	<body>
 		<div class = "formDiv">

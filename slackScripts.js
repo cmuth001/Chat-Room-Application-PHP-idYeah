@@ -75,7 +75,7 @@ $.ajax({
 	    maxVisible: max,     
 	    leaps: true,
 	    href: "#result-page-{{number}}",
-	})
+	});
 
 
 	//page click action
@@ -125,7 +125,7 @@ $.ajax({
     		  						string+="<span><pre class='codeDisplay'><code>"+channelMessage+"</code></pre></span></div>";
     		  					}else if(textOrCode==2){
     		  						string+="<a href='"+channelMessage+"' target='_blank'>"+channelMessage+"</a><a href='#imageCollapse"+messageId+"' data-toggle='collapse' ><i class='fa fa-caret-down' aria-hidden='true' style='cursor:pointer;'></i></a>";
-    		  						string+="<img id ='imageCollapse"+messageId+"' class='profile-pic collapse' src='"+channelMessage+"'  />"
+    		  						string+="<img id ='imageCollapse"+messageId+"' class='profile-pic collapse' src='"+channelMessage+"'  /></div>"
     		  					}else{
     		  						string+="<img class='profile-pic' src='./assets/channelImages/"+messageId+".png' />"
     		  						string+="<span>"+channelMessage+"</span></div>";

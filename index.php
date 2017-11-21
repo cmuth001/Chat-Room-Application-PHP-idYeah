@@ -344,7 +344,7 @@ if(!$_SESSION['loggedIn']){
 		                   	<li> 
 			                   	<form action="./uploadImage.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
 			     
-			                        <div style="background-color: #404040;color: white;padding: 1% !important;"><label>Select image to upload:</label></div>
+			                        <div style="background-color: #404040;color: white;padding-left:9% !important;font-size: 1.7vh;"><label>Select image to upload:</label></div>
 			                        <input type="file" name="fileToUpload" id="fileToUpload">
 			                        <input type="submit" value="Upload Image" name="submit">
 			                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >

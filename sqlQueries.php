@@ -339,7 +339,7 @@ function getChannelMessages($channel_id){
 		$msgId = $row['cmessage_id'];
 		
 		$messageThreadCount=messageThreadCount($msgId);
-    	$string=$string."<div class='right right$msgId'>
+    	$string=$string."<div class='right right$msgId '>
     						<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>
     						<a href= ''>".$row['display_name']."</a>
     						<label class = 'timeStamp'>".$time."</label>  					

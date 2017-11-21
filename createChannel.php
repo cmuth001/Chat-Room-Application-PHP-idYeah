@@ -31,7 +31,7 @@ $data = $_POST['data'];
     if(in_array($channelName , $array)) {
         echo "channel already exist use different name";
     }else{  
-    	$sql = "INSERT INTO `channels` VALUES(DEFAULT,'$channelName','$purpose','$userCreated',CURRENT_TIMESTAMP,'$radioButtonValue')";
+    	$sql = "INSERT INTO `channels` VALUES(DEFAULT,'$channelName','$purpose','$userCreated',CURRENT_TIMESTAMP,'$radioButtonValue',DEFAULT)";
         // $result = $conn->query($sql);
         if (mysqli_query($conn, $sql)) {
             // echo "<br><br><p style='text-align:center;color:green;'>**** Channel created successfully ***</p>";
