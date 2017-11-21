@@ -98,7 +98,7 @@ if(!$_SESSION['loggedIn']){
 						</div>
 				</div>
 
-				<div class="col-xs-10 nopadding" style="height: 74px;background-color: white;padding-left: 2% !important;padding-top: 14px !important;">	
+				<div class="col-xs-10 nopadding" style="    z-index: 100; height: 74px;background-color: white;padding-left: 2% !important;padding-top: 14px !important;">	
 					<div class ="col-xs-3 nopadding ">
 							<?php
 								$result ="";
