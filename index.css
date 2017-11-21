@@ -10,16 +10,16 @@
 	background-color: #404040;width: 13%;height: 70px;color: white;padding: 1% !important;
 }
 .profileSearchField{
-	width: 30%;
+	width: 63%;
     float: right;
     margin-top: 7px;
 }
 .listOfProfileSearch{
-	width: 26%;
+	width: 51%;
     float: right;
     z-index: 1;
     position: relative;
-    margin-top: -2%;
+   
 }
 .leftSideMenu{
 	background-color: #404040;
@@ -388,6 +388,7 @@ width: 4%;
 .myPagination{
 	margin-top: 0 !important;
     margin-bottom: 0 !important;
+    float: right;
 }
 
 
@@ -423,4 +424,9 @@ width: 4%;
 	margin-left: 7%;
 	overflow-y: auto;
     height: 450%;
+}
+.helpPage{
+	position: absolute;
+	z-index: 100;
+	margin-top: 30%;
 }

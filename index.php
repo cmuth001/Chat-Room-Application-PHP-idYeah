@@ -99,7 +99,7 @@ if(!$_SESSION['loggedIn']){
 				</div>
 
 				<div class="col-xs-10 nopadding" style="height: 74px;background-color: white;padding-left: 2% !important;padding-top: 14px !important;">	
-					<div class ="col-xs-5 nopadding ">
+					<div class ="col-xs-3 nopadding ">
 							<?php
 								$result ="";
 								$userChannels = userChannels($_SESSION['email']);
@@ -113,9 +113,8 @@ if(!$_SESSION['loggedIn']){
 									$result = "<div><label class = 'channel_title'><b>Channel Title</b></label>";
 								}									
 								echo $result;
-							?>
-							
-						</div>
+							?>	
+					</div>
 						<div class = "detailsOfChannel">
 							<span class="fa fa-star checked"></span>
 							<span class= "divider">|</span>
@@ -141,19 +140,37 @@ if(!$_SESSION['loggedIn']){
 
 
 					</div>
-					<div class = 'pagination myPagination'>
-						<p id="pagination-here"></p>
-        				<!-- <p id="content">Dynamic page content</p> -->
+					<div class ="col-xs-4 nopadding ">
+						<div class = 'pagination myPagination'>
+							<p id="pagination-here"></p>
+	        				<!-- <p id="content">Dynamic page content</p> -->
+						</div>
 					</div>
-					<!-- search profile field -->
-					<div class="input-group input-group-lg profileSearchField">
-					  <span class="input-group-addon" id="sizing-addon1">@</span>
-					  <input type="text" class="form-control" class ='profileSearchInputField' id ='profileSearchInputField' placeholder="Username" aria-label="Username" aria-describedby="sizing-addon1">
+
+					<div class ="col-xs-5 nopadding ">
+						<div class ="col-xs-11 nopadding ">
+							<!-- search profile field -->
+							<div class="input-group input-group-lg profileSearchField">
+							  <span class="input-group-addon" id="sizing-addon1">@</span>
+							  <input type="text" class="form-control" class ='profileSearchInputField' id ='profileSearchInputField' placeholder="Username" aria-label="Username" aria-describedby="sizing-addon1">
+							</div>
+							<div class ='listOfProfileSearch'>
+							</div>
+							<!-- search profile fielf end -->
+						</div>
+
+						<div class ="col-xs-1 nopadding ">
+							<div class ="col-xs-1 nopadding "></div>
+							<div class ="col-xs-10 nopadding ">
+							<div class = 'helpPage'>
+								<a href= 'helpPage.html' target='_blank' title='help'><i class="fa fa-question-circle-o" aria-hidden="true" style='font-size:200%'></i></a>
+							</div>
+						</div>
+						</div>
 					</div>
-					<div class ='listOfProfileSearch'>
-					</div>
-					<!-- search profile fielf end -->
-				
+					
+						
+					
 					
 				</div>
 

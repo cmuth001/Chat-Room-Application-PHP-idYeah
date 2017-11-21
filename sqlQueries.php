@@ -412,7 +412,7 @@ function getChannelMessages($channel_id){
 					    						
 			}
 			
-			
+			 
 		}
 		$stringThread = $stringThread."</div>";//thread_wrapper
 		$userDetails = getUserDetails($_SESSION['email']);
