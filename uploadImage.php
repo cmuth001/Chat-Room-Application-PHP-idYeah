@@ -3,7 +3,7 @@ session_start();
 $channel = htmlspecialchars($_POST['channel']);
 echo $channel;
 $target_dir = "./assets/images/";
-$target_file = $target_dir .$_SESSION['email'].'.PNG';
+$target_file = $target_dir .$_SESSION['email'].'.png';
 echo"file name:". $target_file;
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -25,7 +25,7 @@ if ($_FILES["fileToUpload"]["size"] > 10000000) {
     $uploadOk = 0;
 }
 // Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "PNG" && $imageFileType != "jpeg"
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
