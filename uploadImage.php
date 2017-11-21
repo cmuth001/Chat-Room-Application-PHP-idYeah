@@ -3,7 +3,7 @@ session_start();
 $channel = htmlspecialchars($_POST['channel']);
 echo $channel;
 $target_dir = "./assets/images/";
-$target_file = $target_dir .$_SESSION['email'].'.png';
+$target_file = $target_dir .$_SESSION['email'].'.PNG';
 echo"file name:". $target_file;
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
