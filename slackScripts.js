@@ -15,8 +15,8 @@ $(document).ready(function () {
 	        success: function (data) {	
     		  var messagesCount = parseInt(data);
     		  pages = Math.ceil(messagesCount/7);
-    		  if(pages>7){
-    		  	max=7;
+    		  if(pages>5){
+    		  	max=5;
     		  }else{
     		  	max = pages;
     		  }
