@@ -142,13 +142,14 @@ function getAllPublicChannels($email){
 function userProfileRating($email){
 	global $conn;
 
-	$sql = "SELECT userChannels.channel_id as chId, userChannels.channel_name as chName  FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email='$email' and access_specifiers=0";
+	$sql = "SELECT userChannels.channel_id as chId, channels.channel_name as chName  FROM `userChannels` join channels on userChannels.channel_id=channels.channel_id where userChannels.user_email='$email' and channels.access_specifiers=0";
     //SELECT count(*) as userChannelMessagesCount FROM `channel_messages` where channel_id=2 and channel_messages.cuser_email='cmuth001@odu.edu'
     $result = mysqli_query($conn, $sql);
     $string = "";
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
 		$channelId = $row['chId'];
+		$channelName= $row['chName'];
 		$usersWeight = [];
 		$userValue=0;
 		$userPercentage=0;
@@ -193,8 +194,8 @@ function userProfileRating($email){
 		}
 
 		$userPercentage = (100*$userValue)/max($usersWeight);
-	
-    	$string=$string."<span>".$row['chName'].":<div class='ratings'><div class='empty-stars'></div> <div class='full-stars' style='width:".round($userPercentage,1)."%'></div></div> "." ".round($userPercentage,1)."%"."</span></br>";
+		
+    	$string=$string."<span>".$channelName.":<div class='ratings'><div class='empty-stars'></div> <div class='full-stars' style='width:".round($userPercentage,1)."%'></div></div> "." ".round($userPercentage,1)."%"."</span></br>";
 	}
 	
 	return $string;
