@@ -23,7 +23,7 @@
 }
 .leftSideMenu{
 	background-color: #404040;
-	width:13% !important;
+	/*width:13% !important;*/
 	padding: 0px 0;
 	overflow-y: auto; 
 	overflow-x: hidden;
@@ -35,6 +35,9 @@
 .postingOptionMenu{
     margin-right: 5px;
     font-size: 120%;
+}
+.message{
+    height: 45px !important;
 }
 .userMenuLink{
 	text-decoration: none !important;
@@ -74,7 +77,7 @@ head,body{
 #footer {
    position: fixed;
    bottom: 0;
-   width: 87%;
+   /*width: 87%;*/
    min-height: 4.8em !important;
 }
 .listheader{
@@ -156,7 +159,7 @@ ui{
 }
 .textinput{
 
-	margin-left: 18px;
+	/*margin-left: 18px;*/
 	width: 100%;
 }
 .textinput1{
@@ -432,4 +435,30 @@ width: 4%;
 	position: absolute;
 	z-index: 100;
 	margin-top: 30%;
+}
+
+#threadContainer{
+	border-radius: 0px;
+}
+.threadHeading{
+	border-radius: 0px !important;
+	padding-top: 5% !important;
+	padding-bottom: 5% !important;
+}
+/*.thread_wrapper{
+	height: 64%;
+    
+}*/
+.rightThread{
+	margin-left: 0px; 
+  padding: 5px 5px;
+  background-color: white;
+  /*border-radius: 10px;*/
+    
+}
+#threadContainerBody{
+	padding: 0px;
+	height: 83%;
+	overflow-y: auto;
+	overflow-x:hidden; 
 }

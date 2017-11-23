@@ -26,13 +26,14 @@ if ($conn->connect_error) {
              echo "invite '$count'";
             if($count<1)
             {
-	            $sql = "INSERT INTO `userChannels` VALUES('$user','$channelId',DEFAULT,DEFAULT,CURRENT_TIMESTAMP,DEFAULT)";
+	            $sql = "INSERT INTO `userChannels` VALUES('$user','$channelId',CURRENT_TIMESTAMP,DEFAULT)";
 	            if (mysqli_query($conn, $sql)) {
 	            
 	                echo "**** $user userChannels created successfully ***";
 	            }else{
 	            // echo "<br><br><p style='text-align:center;color:red;'>**** failed creating channel***</p>";
 	                echo "**** failed creating userChannels***";
+	                echo $sql;
 	            }
 	        }
 	        else{

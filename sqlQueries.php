@@ -278,19 +278,31 @@ function getAllUsers(){
 
 
 
-function getChannelMessages($channel_id){
+function getChannelMessages($channel_id,$start){
 	global $conn;
+
 	// $sql = "SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id="."'$channel_id'";
-	$sql = "SELECT * FROM (SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id='$channel_id'  ORDER BY `cmessage_id` DESC LIMIT 7) TEMP ORDER BY `cmessage_id` ASC";
+	$sql = "SELECT * FROM (SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email where channel_id=$channel_id ORDER BY `cmessage_id` DESC LIMIT $start,10 ) TEMP ORDER BY `cmessage_id` ASC";
 	//SELECT * FROM (SELECT * FROM `channel_messages` ORDER BY `cmessage_id` DESC LIMIT 5) TEMP ORDER BY `cmessage_id` ASC
     $result = mysqli_query($conn, $sql);
+    $row_cnt = $result->num_rows;//finding the no of rows.
 	$channelQuery = "SELECT * FROM `channels` where channel_id= '$channel_id'";
 	$channelResult = mysqli_query($conn, $channelQuery);
 	$channelArray = $channelResult->fetch_assoc();
-
+		
 	$admin = admin();
-    $string =$string. "<div class = 'message_wrapper'>";
+	$ThreadContainer='';
 
+	
+    $string =$string. "";
+    $_SESSION['lastLimit']=$start+10;
+    if($row_cnt>=10){
+    	$loadMore = "<div id = 'loadMore".$_SESSION['lastLimit']."' class='col-xs-12 noPadding'><div class = 'col-xs-5 noPadding'></div><div class ='col-xs-2 noPadding ' style='text-align:center;font-style: italic;color: #337ab7; margin-top: 8px;cursor:pointer;'><span class ='loadMore' style='text-align:center;' id='".$_SESSION['lastLimit']."'>load more</span></div><div class = 'col-xs-5 noPadding'></div></div>";
+		
+    }else{
+    	$loadMore="<div col-xs-12 style='text-align:center;oncopy='return false' oncut='return false' onpaste='return false'><h1>".$channelArray['channel_name']."</h1><p style='border-bottom: 2px solid #ccc;'>This is the very beginning of your channel</p></div>";
+    }
+	$string =$string.$loadMore;
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
 		$likeCountQuery = "SELECT COUNT(*) as likeCount FROM `channel_message_reaction` where message_id=".$row['cmessage_id']." and emoji_id=1";
@@ -337,7 +349,7 @@ function getChannelMessages($channel_id){
 		$msgId = $row['cmessage_id'];
 		
 		$messageThreadCount=messageThreadCount($msgId);
-    	$string=$string."<div class='right right$msgId '>
+    	$string=$string."<div class='col-xs-12 right right$msgId '>
     						<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>
     						<a href= ''>".$row['display_name']."</a>
     						<label class = 'timeStamp'>".$time."</label>  					
@@ -417,19 +429,7 @@ function getChannelMessages($channel_id){
 		$userDetails = $userDetails['display_name'];
 		$string=$string.$stringThread."
 
-							<div class = '$replyMsg input-group input-group-lg textinput1' style='display:none;'>
-    							<form id = '$myForm' class = '' method ='post'>
-    								<input type='hidden' name='user' id='user' value=".$_SESSION['email']." >
-    								<input type='hidden' name='msgId' id='msgId' value=".$row['cmessage_id']." >
-    								<input type='hidden' name='channel' id='channel' value='$channel_id' >
-    								<input type='hidden' name='display_name' id='display_name' value='$userDetails' >
-    								<input type='hidden' name='text' value='0'>
-    								<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 85%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>
-    								<button id = ".$row['cmessage_id']." class='btn  btn-sm  threadCodeButton'>ifCode</button>
-    								<button type='submit' id = ".$row['cmessage_id']." class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>
-    							</form>
-
-    						</div>
+							
     						<div class='modal fade' id='$myThreadModal' role='dialog'>
 									    <div class='modal-dialog modal-lg'>
 									      <div class='modal-content'>
@@ -470,28 +470,12 @@ function getChannelMessages($channel_id){
     						</div>";
 
 	}
-	$string = $string."<div id = 'scrollBottom'></div></div>";
-	if($channelArray['isArchive']==0){
-				$string = $string."<form action ='messages/messages.php'  method = 'post'>";
-								$string = $string."<div id='footer' class ='col-xs-12 nopadding '>";
-									$string = $string."<div class='input-group input-group-lg textinput'>";
-									$string=$string."<div class='col-xs-1  dropup nopadding'><span class='multipleOptions input-group-addon dropdown-toggle' data-toggle='dropdown' id='sizing-addon1'><a style='text-decoration: none;font-size:32px; ' href=''>+</a></span>";
-										$string = $string."<ul class='dropdown-menu'>";
-											$string = $string."<li><a class ='codeButton' data-toggle='modal' data-target='#myModal' href=''><i class='fa fa-code postingOptionMenu' aria-hidden='true'></i>Code </a></li>";
-											$string = $string."<li><a href='' data-toggle='modal' data-target='#imageUpLoadModal' ><i class='fa fa-picture-o postingOptionMenu' aria-hidden='true'></i>Image Upload</a></li>";
-											$string = $string."<li><a href='' data-toggle='modal' data-target='#imageURLModal'><i class='fa fa-link postingOptionMenu ' aria-hidden='true'></i> Upload Image URL</a></li>";
-											$string = $string."</ul>";
-										$string = $string."</div>";
-										$string = $string."<input type='hidden' name='channel' value=".$channel_id.">";
-										$string = $string."<input type='hidden' name='email' value=".$_SESSION['email'].">";
-										$string = $string."<input type='text' class='form-control message' name = 'message' style  = 'width: 85%;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required><input type='hidden' name='text' value='0'>";
-									$string = $string."</div>";
-								$string = $string."</div>";
-							$string = $string."</form>";
-	}
-	$string = $string."</div>";//message_container div
-
-
+	$string = $string."</div>";
+	
+	// $string = $string."</div>";//message_container div
+	
+	$string =$string.$ThreadContainer;
+	
 	return $string;
 }
 if(isset($_POST['usersList']))
@@ -594,6 +578,17 @@ if(isset($_POST['messagesCount']))
 	echo $msgCount['msgCount'];
 
 }
+if(isset($_POST['loadMore']))
+{
+	$channelId = intval($_POST['loadMore']['channelId']);
+	$start = intval($_POST['loadMore']['start']);
+	$str = getChannelMessages($channelId,$start);
+	echo $str;
+
+
+
+
+}
 // get messages for pagination
 if(isset($_POST['getmessages']))
 {
@@ -649,6 +644,56 @@ if(isset($_POST['getmessages']))
 	echo json_encode([$messages,$threadMessages]);
 	// echo $sql;
 	
+}
+if(isset($_POST['threadContainerMessages']))
+{
+	$channelId = $_POST['threadContainerMessages']['channelId'];
+	$messageId = intval($_POST['threadContainerMessages']['messageId']);
+	$sql = "SELECT * FROM `channel_messages` join users on users.email=channel_messages.cuser_email WHERE channel_messages.cmessage_id=$messageId";
+	$result = mysqli_query($conn,$sql);
+	$userDetails = getUserDetails($_SESSION['email']);
+	$channelQuery = "SELECT * FROM `channels` where channel_id= '$channelId'";
+	$channelResult = mysqli_query($conn, $channelQuery);
+	$channelArray = $channelResult->fetch_assoc();
+	$messageDetails = mysqli_fetch_assoc($result);
+		$likeCountQuery = "SELECT COUNT(*) as likeCount FROM `channel_message_reaction` where message_id=".$messageId." and emoji_id=1";
+		$dislikeCountQuery = "SELECT COUNT(*) as dislikeCount FROM `channel_message_reaction` where message_id=".$messageId." and emoji_id=2";
+		$likeResult = mysqli_query($conn,$likeCountQuery);
+		$dislikeResult = mysqli_query($conn,$dislikeCountQuery);
+		$likeCount = mysqli_fetch_assoc($likeResult);
+		$dislikeCount = mysqli_fetch_assoc($dislikeResult);
+		$date = date_create($messageDetails['cmsg_timestamp']);
+		$time = date_format($date, 'Y-m-d l g:ia');
+		$messageDetails['cmsg_timestamp'] = $time;
+		$messageDetails['replies'] = messageThreadCount($messageDetails['cmessage_id']);
+		$messageDetails['likeCount'] = $likeCount['likeCount'];
+		$messageDetails['channel_message'] = htmlspecialchars($messageDetails['channel_message']);
+		$messageDetails['disLikeCount'] = $dislikeCount['dislikeCount'];
+		$messageDetails['isArchive'] = $channelArray['isArchive'];
+		$messageDetails['session_email'] = $_SESSION['email'];
+		$messageDetails['session_username'] =$userDetails['display_name'];
+	if($messageDetails['has_thread']==1)
+	{
+		$threadSql = "SELECT * FROM `threaded_messages` join users on users.email=threaded_messages.user_email WHERE message_id=$messageId";
+		$threadResult = mysqli_query($conn,$threadSql);
+		$threadArray = [];
+		// $threads = mysqli_fetch_assoc($threadResult);
+		while($row =mysqli_fetch_assoc($threadResult)){
+			$date = date_create($row['createdon']);
+			$time = date_format($date, 'Y-m-d l g:ia');
+			$row['createdon'] = $time;
+			$row['message'] = htmlspecialchars($row['message']);
+			array_push($threadArray, $row);
+
+		}
+		echo json_encode([$messageDetails,$threadArray]);
+	}else{
+		echo json_encode([$messageDetails,[]]);
+	}
+	
+
+	
+
 }
 if(isset($_POST['thread']))
 {

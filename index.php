@@ -61,12 +61,12 @@ if(!$_SESSION['loggedIn']){
 	<body>
 		<div class="container nopadding col-xs-12" >
 			<div class = "col-xs-12 nopadding " style='border-bottom: 0.15em solid  #404040;'>
-				<div  class = " col-xs-3 nopadding" style="background-color: #404040;width: 13%;height: 74px;color: white;padding: 1% !important;
+				<div  class = " col-xs-2 nopadding" style="background-color: #404040;height: 74px;color: white;padding: 1% !important;
 ">
 					
 					
 						<div>
-							<div><label>ODUCS518F17</label></div>
+							<div><label style='font-size: 1.7vh;'>ODUCS518F17</label></div>
 							<div class="dropdown">
 								<button onclick="userMenu()" class="dropbtn"><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name'];?><i class="fa fa-angle-down"></i></button>
 								  <div id="myDropdown" class="dropdown-content userProfile">
@@ -81,7 +81,8 @@ if(!$_SESSION['loggedIn']){
 								    	}
 								    	?>
 								    </div>
-								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" class = 'userMenuLink'><span class = 'fa fa-user userMenuList'></span>Profile View</a>
+								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" class = 'userMenuLink'><span class = 'fa fa-user userMenuList'></span> View Profile</a>
+								    <a class = 'userMenuLink picUpdate' style='cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Update Profile Pic</a>
 								    <a href='#contact' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-phone userMenuList'></span>Contact</a>
 								    <div id='contact' class='collapse' ><a href='' style='margin-left: 10%; text-decoration:none;'><span class ='fa fa-mobile userMenuList' ></span><?php echo "123-546-7890" ?></a></div>
 								    <a href="./signOut.php" class = 'userMenuLink'>
@@ -99,7 +100,7 @@ if(!$_SESSION['loggedIn']){
 				</div>
 
 				<div class="col-xs-10 nopadding" style="    z-index: 100; height: 74px;background-color: white;padding-left: 2% !important;padding-top: 14px !important;">	
-					<div class ="col-xs-3 nopadding ">
+					<div class ="col-xs-3 nopadding " style='font-size: 1.46vh;'>
 							<?php
 								$result ="";
 								$userChannels = userChannels($_SESSION['email']);
@@ -141,7 +142,7 @@ if(!$_SESSION['loggedIn']){
 
 					</div>
 					<div class ="col-xs-4 nopadding ">
-						<div class = 'pagination myPagination'>
+						<div class = 'pagination myPagination' style='display:none;'>
 							<p id="pagination-here"></p>
 	        				<!-- <p id="content">Dynamic page content</p> -->
 						</div>
@@ -151,7 +152,7 @@ if(!$_SESSION['loggedIn']){
 						<div class ="col-xs-11 nopadding ">
 							<!-- search profile field -->
 							<div class="input-group input-group-lg profileSearchField">
-							  <span class="input-group-addon" id="sizing-addon1">@</span>
+							  <span class="input-group-addon" id="sizing-addon1" style='padding: 3% 4%;'>@</span>
 							  <input type="text" class="form-control" class ='profileSearchInputField' id ='profileSearchInputField' placeholder="Username" aria-label="Username" aria-describedby="sizing-addon1">
 							</div>
 							<div class ='listOfProfileSearch'>
@@ -177,7 +178,7 @@ if(!$_SESSION['loggedIn']){
 			</div>
 
 			<div class="col-xs-12 nopadding">
-		        <div class="col-xs-3  leftSideMenu nopadding">
+		        <div class="col-xs-2  leftSideMenu nopadding">
 		        	<!-- <div class = "profileView">
 		        		<b><a class= 'link' href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" ><i class="fa fa-user" aria-hidden="true" style ='font-size: 126%;padding-right: 3%;'></i>ProfileView</a></b>
 
@@ -341,7 +342,7 @@ if(!$_SESSION['loggedIn']){
 		                    
 		                    <li class="divider"></li>
 
-		                   	<li> 
+		                   	<!-- <li> 
 			                   	<form action="./uploadImage.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
 			     
 			                        <div style="background-color: #404040;color: white;padding-left:9% !important;font-size: 1.7vh;"><label>Select image to upload:</label></div>
@@ -349,20 +350,23 @@ if(!$_SESSION['loggedIn']){
 			                        <input type="submit" value="Upload Image" name="submit">
 			                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
 			                    </form>
-		                	</li>
+		                	</li> -->
 		                	 <li class="divider"></li>
 
 
 		                </ul>
 		            </div>
 		        </div>
-		        <div id='message_container' class ='col-xs-10 headrow nopadding' style='width:87%;min-height:93%;background-color: white; '>
+		        <div id='message_container' class ='col-xs-10 headrow nopadding' style='min-height:93%;background-color: white; '>
 		        	<div class ='col-xs-12 nopadding' style='height:91%;overflow-y: auto; overflow-x: hidden;position:relative;'>
+			        	<!-- start of message wrapper -->
+			        	<div class = 'message_wrapper'>
 			        	<?php 
 			        		$userChannels = userChannels($_SESSION['email']);
 			        		if (isset($_GET['channel'])){
-			        			if (in_array($_GET['channel'], $userChannels)) {				
-				        			$result =getChannelMessages($_GET['channel']);
+			        			if (in_array($_GET['channel'], $userChannels)) {
+			        				$_SESSION['lastLimit']=0;				
+				        			$result =getChannelMessages($_GET['channel'],0);
 				        		}else{
 				        			$result ="<h1 class ='emptyChannel'>Requested Channel does not exist</h1>";
 				        		}
@@ -373,10 +377,68 @@ if(!$_SESSION['loggedIn']){
 			        		echo $result; 
 			        		
 			        	?>
+			        </div>
+			        <!-- form start -->
+			        <?php 
+				        $userChannels = userChannels($_SESSION['email']);
+				        $channelArray=getChannelDetails($_GET['channel']);
+				        if (isset($_GET['channel'])){
+		        			if (in_array($_GET['channel'], $userChannels)){
+						        if($channelArray['isArchive']==0){
+						        	$string='';
+										$string = $string."<form action ='messages/messages.php'  method = 'post'>";
+											$string = $string."<div id='footer' class ='col-xs-12 nopadding '>";
+												$string = $string."<div class='input-group input-group-lg textinput'>";
+												$string=$string."<div class='col-xs-1  dropup nopadding'><span class='multipleOptions input-group-addon dropdown-toggle' data-toggle='dropdown' id='sizing-addon1'><a style='text-decoration: none;font-size:32px; ' href=''>+</a></span>";
+													$string = $string."<ul class='dropdown-menu'>";
+														$string = $string."<li><a class ='codeButton' data-toggle='modal' data-target='#myModal' href=''><i class='fa fa-code postingOptionMenu' aria-hidden='true'></i>Code </a></li>";
+														$string = $string."<li><a href='' data-toggle='modal' data-target='#imageUpLoadModal' ><i class='fa fa-picture-o postingOptionMenu' aria-hidden='true'></i>Image Upload</a></li>";
+														$string = $string."<li><a href='' data-toggle='modal' data-target='#imageURLModal'><i class='fa fa-link postingOptionMenu ' aria-hidden='true'></i> Upload Image URL</a></li>";
+														$string = $string."</ul>";
+													$string = $string."</div>";
+													$string = $string."<div class ='col-xs-11 nopadding'>";
+													$string = $string."<input type='hidden' name='channel' value=".$_GET['Channel'].">";
+													$string = $string."<input type='hidden' name='email' value=".$_SESSION['email'].">";
+													$string = $string."<input type='text' class='form-control message' name = 'message'  placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required><input type='hidden' name='text' value='0'>";
+												$string = $string."</div></div>";
+											$string = $string."</div>";
+										$string = $string."</form>";
+										echo $string;
+								}
+							}
+						}
+
+			        ?>
+
+			        <!-- end message_wrapper -->
 
 		        	</div>
 
+		        	<div id='threadContainer' class ='col-xs-3 noPadding panel panel-primary' style='display:none;'>
+		        		<div class="panel-heading threadHeading">Thread <button type="button" class="close threadClose" >&times;</button></div>
+      					<div class="panel-body " id='threadContainerBody'>
 
+
+      			
+      					</div>
+		        	</div>
+		        	<!-- profile pic update -->
+		        	<div id='profilPicUpdate' class ='col-xs-3 noPadding panel panel-primary' style='display:none;'>
+		        		<div class="panel-heading UpdateProfilePicture">Update Profile Picture <button type="button" class="close threadClose" >&times;</button></div>
+      					<div class="panel-body " id='UpdateProfilePictureBody'>
+
+      						<form action="./uploadImage.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
+			     
+		                        <!-- <div style="background-color: #404040;color: white;padding-left:9% !important;font-size: 1.7vh;"><label>Select image to upload:</label></div> -->
+		                        <img class="profile-pic1" src=<?php echo "./assets/images/".$_SESSION['email'].".png" ?> />
+						        <div class="upload-button" style='display:none'>Select Image</div>
+		                        <input class = 'imageSelect' type="file" name="fileToUpload" id="fileToUpload">
+		                        <input type="submit" value="Upload Image" name="submit">
+		                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
+			                </form>
+      			
+      					</div>
+		        	</div>
 
 			</div>
 	</div>

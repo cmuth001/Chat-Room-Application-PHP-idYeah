@@ -47,7 +47,7 @@ $data = $_POST['data'];
          echo $last_id;
         foreach ($userList as $user) {
             
-            $sql = "INSERT INTO `userChannels` VALUES('$user','$last_id','$channelName','$radioButtonValue',CURRENT_TIMESTAMP,DEFAULT)";
+            $sql = "INSERT INTO `userChannels` VALUES('$user','$last_id',CURRENT_TIMESTAMP,DEFAULT)";
             if (mysqli_query($conn, $sql)) {
             
                 echo "**** $user userChannels created successfully ***";
