@@ -210,17 +210,17 @@ function getAllChannels($email){
 	{ 
 		if(intval($row['access_specifiers'])==1){
 			if(intval($row['isArchive'])==1){
-				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 100%;padding-right: 3%;' class='fa fa-archive'></i>".$row['channel_name']."</a></li>";
+				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."><i style='font-size: 100%;padding-right: 3%;' class='fa fa-archive'></i>".$row['channel_name']."</a></li>";
 			}else{
-				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa fa-lock'></i>".$row['channel_name']."</a></li>";
+				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."><i style='font-size: 126%;padding-right: 3%;' class='fa fa-lock'></i>".$row['channel_name']."</a></li>";
 			}
 			
 		}
 		else{
 			if(intval($row['isArchive'])==1){
-				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 100%;padding-right: 3%;' class='fa fa-archive'></i>".$row['channel_name']."</a></li>";
+				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."><i style='font-size: 100%;padding-right: 3%;' class='fa fa-archive'></i>".$row['channel_name']."</a></li>";
 			}else{
-				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."#scrollBottom><i style='font-size: 126%;padding-right: 3%;' class='fa fa-unlock-alt'></i>".$row['channel_name']."</a></li>";
+				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."><i style='font-size: 126%;padding-right: 3%;' class='fa fa-unlock-alt'></i>".$row['channel_name']."</a></li>";
 			}
 			
 		}	
@@ -294,7 +294,7 @@ function getChannelMessages($channel_id,$start){
 	$ThreadContainer='';
 
 	
-    $string =$string. "";
+    $string = "";
     $_SESSION['lastLimit']=$start+10;
     if($row_cnt>=10){
     	$loadMore = "<div id = 'loadMore".$_SESSION['lastLimit']."' class='col-xs-12 noPadding'><div class = 'col-xs-5 noPadding'></div><div class ='col-xs-2 noPadding ' style='text-align:center;font-style: italic;color: #337ab7; margin-top: 8px;cursor:pointer;'><span class ='loadMore' style='text-align:center;' id='".$_SESSION['lastLimit']."'>load more</span></div><div class = 'col-xs-5 noPadding'></div></div>";

@@ -22,7 +22,7 @@ if(intval($textOrCode)==2)
 	 	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,'$textOrCode',CURRENT_TIMESTAMP)";
 	 	if (mysqli_query($conn, $sql)) {
 	 		
-	    	header('Location: ../index.php?channel='.$channel_id.'#scrollBottom');
+	    	header('Location: ../index.php?channel='.$channel_id);
 	    	exit;
 		}else{
 	    	echo "Error: " . $sql . "<br>" . mysqli_error($conn);

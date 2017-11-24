@@ -1,15 +1,16 @@
 <?php
 
-session_start();
-
+// session_start();// session already started in sqlQueries.php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include_once "sqlQueries.php";	
 
-
 // mysqli_close($conn);
-if($_GET && $_GET['action'] && $_GET['action']=="logout"){
-	unset($_SESSION['loggedIn']);
-	unset($_SESSION['email']);
-}
+// if($_GET && $_GET['action'] && $_GET['action']=="logout"){
+// 	unset($_SESSION['loggedIn']);
+// 	unset($_SESSION['email']);
+// }
 
 if(!$_SESSION['loggedIn']){
 	header("location: ./login/login.php");
@@ -397,7 +398,7 @@ if(!$_SESSION['loggedIn']){
 														$string = $string."</ul>";
 													$string = $string."</div>";
 													$string = $string."<div class ='col-xs-11 nopadding'>";
-													$string = $string."<input type='hidden' name='channel' value=".$_GET['Channel'].">";
+													$string = $string."<input type='hidden' name='channel'  value=".htmlspecialchars($_GET['channel']).">";
 													$string = $string."<input type='hidden' name='email' value=".$_SESSION['email'].">";
 													$string = $string."<input type='text' class='form-control message' name = 'message'  placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required><input type='hidden' name='text' value='0'>";
 												$string = $string."</div></div>";
