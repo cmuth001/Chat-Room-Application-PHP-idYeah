@@ -390,6 +390,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		$('#message_container').addClass('col-xs-7');
 		$('#footer').removeClass('col-xs-12');
 		$('#footer').addClass('col-xs-7');
+		$('#profilPicUpdate').hide();
 		$('#threadContainer').show();
 		var messageId = e.currentTarget.id;
 		var details = {'channelId':id,'messageId':messageId};
@@ -565,6 +566,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		$('#message_container').addClass('col-xs-7');
 		$('#footer').removeClass('col-xs-12');
 		$('#footer').addClass('col-xs-7');
+		$('#threadContainer').hide();
 		$('#profilPicUpdate').show();
 		console.log("picUpdate");
 	});
