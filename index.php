@@ -111,7 +111,11 @@ if(!$_SESSION['loggedIn']){
 									}else{
 										$result = "<div><label class = 'channel_title'><b>Channel Title</b></label>";
 									}
-								}else{
+								}else if(isset($_GET["email"])){
+									$userDetails = getUserDetails($_GET["email"]);
+									echo "<div><label class = 'channel_title'><b>".$userDetails['user_name']."</b></label>";
+								}
+								else{
 									$result = "<div><label class = 'channel_title'><b>Channel Title</b></label>";
 								}									
 								echo $result;
@@ -120,22 +124,40 @@ if(!$_SESSION['loggedIn']){
 						<div class = "detailsOfChannel">
 							<span class="fa fa-star checked"></span>
 							<span class= "divider">|</span>
-							<i style='font-size: 117%;color: #706c6c; cursor:pointer;' class='fa fa-users dropdown-toggle' data-toggle='dropdown' aria-hidden="true"></i>
 							<?php 
-								$channelMembers = channelMembers($_GET["channel"]);
-								echo $channelMembers;
+								if (isset($_GET["channel"])){
+									echo "<i style='font-size: 117%;color: #706c6c; cursor:pointer;' class='fa fa-users dropdown-toggle' data-toggle='dropdown' aria-hidden='true'></i>";
+								}else{
+									echo "<i style='font-size: 117%;color: #706c6c; cursor:pointer;' class='fa fa-user dropdown-toggle' data-toggle='dropdown' aria-hidden='true'></i>";
+								}
 							?>
-							<sub><?php echo membersInChannel($_GET["channel"]); ?></sub>
+							
+							<?php
+								if (isset($_GET["channel"])){
+									$channelMembers = channelMembers($_GET["channel"]);
+									echo $channelMembers;
+								}
+							?>
+							<sub>
+								<?php
+									if (isset($_GET["channel"])){
+										echo membersInChannel($_GET["channel"]);
+									}
+								?>
+							</sub>
 							<span class= "divider">|</span>
 							<span class = "purposeChannel">
-								<?php
-									$result = "";
+								<?php		
 									if (isset($_GET["channel"])){
+										$result = "";
 										if (in_array($_GET["channel"], $userChannels)) {
 											$result = getChannelDetails($_GET["channel"]);
 										}
+										echo $result['purpose'];
+									}else{
+										$userDetails = getUserDetails($_GET["email"]);
+										echo $userDetails['status'];
 									}
-								echo $result['purpose']
 							?>
 							</span>
 						</div>
@@ -227,8 +249,18 @@ if(!$_SESSION['loggedIn']){
 										          <div class="form-group">
 										            <label for="message-text" class="form-control-label">code<i class='fa fa-code postingOptionMenu' aria-hidden='true'></i></label>
 										            <textarea class="form-control codeArea" name = "message" id="code" placeholder= " Snippet" autofocus required ></textarea>
-										            <input type='hidden' name='channel' value=<?php echo $_GET['channel']; ?>>
-										            <input type='hidden' name='email' value=<?php echo $_SESSION['email']; ?>>
+										            <?php 
+
+							                        	$string='';
+							                        	if (isset($_GET['channel'])){
+							                        		$string = $string."<input type='hidden' name='email' value='".$_SESSION['email']."'>";
+							                        		$string = $string."<input type='hidden' name='channel' value='".$_GET["channel"]."'>";
+							                        	}else{
+							                        		$string = $string."<input type='hidden' name='toEmail'  value=".htmlspecialchars($_GET['email']).">";
+															$string = $string."<input type='hidden' name='fromEmail' value=".$_SESSION['email'].">";
+							                        	}
+							                        	echo $string;
+						                        	?>
 										            <input type='hidden' name='text' value='1'>
 										          </div>
 										          
@@ -277,7 +309,18 @@ if(!$_SESSION['loggedIn']){
 						                        <!-- <input type="file" name="fileToUpload" id="fileToUpload"> -->
 						                        <input class="file-upload" name="fileToUpload" id="fileToUpload" type="file" accept="image/*" style='display:none' />
 						                        <textarea class="form-control " name = "message" id="imgMessage" placeholder= " Message..." ></textarea>
-						                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
+						                        <?php 
+
+						                        	$string='';
+						                        	if (isset($_GET['channel'])){
+						                        		$string = $string."<input type='hidden' name='email' value='".$_SESSION['email']."'>";
+						                        		$string = $string."<input type='hidden' name='channel' value='".$_GET["channel"]."'>";
+						                        	}else{
+						                        		$string = $string."<input type='hidden' name='toEmail'  value=".htmlspecialchars($_GET['email']).">";
+														$string = $string."<input type='hidden' name='fromEmail' value=".$_SESSION['email'].">";
+						                        	}
+						                        	echo $string;
+						                        ?>
 						                    	<input type="submit" value="Upload Image" name="submit" style='display:none'>
 						                    </form>
 
@@ -311,8 +354,18 @@ if(!$_SESSION['loggedIn']){
 											  		<input type="text" class="form-control" name = "message" placeholder="Image URL..." aria-describedby="basic-addon1">
 												</div>
 						                        <input type='hidden' name='text' value='2'>
-						                        <input type='hidden' name='email' value=<?php echo '"'.$_SESSION['email'].'"';?>>
-						                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
+						                        <?php 
+
+						                        	$string='';
+						                        	if (isset($_GET['channel'])){
+						                        		$string = $string."<input type='hidden' name='email' value='".$_SESSION['email']."'>";
+						                        		$string = $string."<input type='hidden' name='channel' value='".$_GET["channel"]."'>";
+						                        	}else{
+						                        		$string = $string."<input type='hidden' name='toEmail'  value=".htmlspecialchars($_GET['email']).">";
+														$string = $string."<input type='hidden' name='fromEmail' value=".$_SESSION['email'].">";
+						                        	}
+						                        	echo $string;
+						                        ?>
 						                    	<input type="submit" value="Upload Image" name="submit" style='display:none'>
 						                    </form>
 
@@ -343,15 +396,24 @@ if(!$_SESSION['loggedIn']){
 		                    
 		                    <li class="divider"></li>
 
-		                   	<!-- <li> 
-			                   	<form action="./uploadImage.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
-			     
-			                        <div style="background-color: #404040;color: white;padding-left:9% !important;font-size: 1.7vh;"><label>Select image to upload:</label></div>
-			                        <input type="file" name="fileToUpload" id="fileToUpload">
-			                        <input type="submit" value="Upload Image" name="submit">
-			                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
-			                    </form>
-		                	</li> -->
+		                   	<li>
+		                    	<div class="col-xs-12 directmsgdiv ">
+		                    		<div class="col-xs-11 nopadding">
+		                    			<b><a class ="link" href= "">DirectMesssages</a></b>
+		                    		</div>
+		                    		<div class="col-xs-1  icon-plus nopadding">
+			                    		
+ 										<!-- <a href="#"><span class="name"></span></a> -->
+										
+	        						</div>
+	        					</div>
+	        					</br>
+        						<div id="directmsg">
+			                        <ul class="nav nav-list tree directmsgList">			         
+			                            <?php $result =getAllUsers();echo $result ?>
+			                        </ul>
+	                    		</div>
+		                    </li>
 		                	 <li class="divider"></li>
 
 
@@ -371,6 +433,10 @@ if(!$_SESSION['loggedIn']){
 				        		}else{
 				        			$result ="<h1 class ='emptyChannel'>Requested Channel does not exist</h1>";
 				        		}
+				        	}else if (isset($_GET['email'])){
+				        			$_SESSION['lastLimit']=0;
+				        			$result =getDirectMessages($_GET['email'],0);
+				        		
 				        	}else{
 				        		
 				        		$result ="<h1 class ='emptyChannel'>Please select channel</h1>";
@@ -379,6 +445,7 @@ if(!$_SESSION['loggedIn']){
 			        		
 			        	?>
 			        </div>
+			        <!-- end of message_wrapper -->
 			        <!-- form start -->
 			        <?php 
 				        $userChannels = userChannels($_SESSION['email']);
@@ -407,6 +474,28 @@ if(!$_SESSION['loggedIn']){
 										echo $string;
 								}
 							}
+						}
+						if (isset($_GET['email'])){
+				        	$string='';
+								$string = $string."<form action ='messages/messages.php'  method = 'post'>";
+									$string = $string."<div id='footer' class ='col-xs-12 nopadding '>";
+										$string = $string."<div class='input-group input-group-lg textinput'>";
+										$string=$string."<div class='col-xs-1  dropup nopadding'><span class='multipleOptions input-group-addon dropdown-toggle' data-toggle='dropdown' id='sizing-addon1'><a style='text-decoration: none;font-size:32px; ' href=''>+</a></span>";
+											$string = $string."<ul class='dropdown-menu'>";
+												$string = $string."<li><a class ='codeButton' data-toggle='modal' data-target='#myModal' href=''><i class='fa fa-code postingOptionMenu' aria-hidden='true'></i>Code </a></li>";
+												$string = $string."<li><a href='' data-toggle='modal' data-target='#imageUpLoadModal' ><i class='fa fa-picture-o postingOptionMenu' aria-hidden='true'></i>Image Upload</a></li>";
+												$string = $string."<li><a href='' data-toggle='modal' data-target='#imageURLModal'><i class='fa fa-link postingOptionMenu ' aria-hidden='true'></i> Upload Image URL</a></li>";
+												$string = $string."</ul>";
+											$string = $string."</div>";
+											$string = $string."<div class ='col-xs-11 nopadding'>";
+											$string = $string."<input type='hidden' name='toEmail'  value=".htmlspecialchars($_GET['email']).">";
+											$string = $string."<input type='hidden' name='fromEmail' value=".$_SESSION['email'].">";
+											$string = $string."<input type='text' class='form-control message' name = 'message'  placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required><input type='hidden' name='text' value='0'>";
+										$string = $string."</div></div>";
+									$string = $string."</div>";
+								$string = $string."</form>";
+							echo $string;
+							
 						}
 
 			        ?>

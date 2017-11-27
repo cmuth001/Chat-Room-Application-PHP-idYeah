@@ -4,7 +4,7 @@
 $(document).ready(function () {
 	// getting pagination pages 
 	var url_string = location.search;
-	var id = parseInt(url_string.split("=")[1]);
+	var id = url_string.split("=")[1];
 	console.log(id);
 	$.ajax({
 			async:false,
@@ -137,7 +137,7 @@ $.ajax({
     		  						string+="<label class = 'replyMsgIcon' id="+messageId+" ><i class='fa fa-reply' aria-hidden='true'></i></label>";
     		  					}
     		  				if(data[0][i]['has_thread']==1){
-    		  					string+="<a href='#thread_wrapper"+messageId+"' class = 'repliesCount repliesCount"+messageId+"' id = '"+messageId+"' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies("+data[0][i]['replies']+")</a>";
+    		  					string+="<a href='#thread_wrapper"+messageId+"' class = 'repliesCount repliesCount"+messageId+"' id = '"+messageId+"' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Comments("+data[0][i]['replies']+")</a>";
     		  					if(data[0][0]['isArchive']==0){
 	    		  					if(data[0][0]['session_email']=='cmuth001@odu.edu'){
 	    								string+="<label><i class='fa fa-trash-o delete "+channelId+"' id ='"+messageId+"' aria-hidden='true'></i></label>";
@@ -428,19 +428,28 @@ $( ".inviteChannelButton" ).on("click",function(e) {
     		  						string+="<span><pre class='codeDisplay'><code>"+channelMessage+"</code></pre></span></div>";
     		  					}else if(textOrCode==2){
     		  						string+="<a href='"+channelMessage+"' target='_blank'>"+channelMessage+"</a><a href='#imageCollapse"+messageId+"' data-toggle='collapse' ><i class='fa fa-caret-down' aria-hidden='true' style='cursor:pointer;'></i></a>";
-    		  						string+="<img id ='imageCollapse"+messageId+"' class='profile-pic collapse' src='"+channelMessage+"'  /></div>"
+    		  						string+="<img id ='imageCollapse"+messageId+"' class='profile-pic collapse in' src='"+channelMessage+"'  /></div>"
     		  					}else{
     		  						string+="<img class='profile-pic' src='./assets/channelImages/"+messageId+".png' />"
     		  						string+="<span>"+channelMessage+"</span></div>";
     		  					}
     		  				string+="<div class = 'reaction reaction"+messageId+"'>";
     		  					if(data[0]['isArchive']==0){
-    		  						string+="<label class = ' likeIcon likeIcon"+messageId+"' data-toggle='tooltip' title='' style='font-size:24px' emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",1)'><i class='fa fa-thumbs-o-up'></i></label><label class='likeCount"+messageId+"'>"+data[0]['likeCount']+"</label>";
-    		  						string+="<label class = ' dislikeIcon  dislikeIcon "+messageId+"' data-toggle='tooltip' title='' style='font-size:24px' emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",2)'><i class='fa fa-thumbs-o-down'></i></label><label class='dislikeCount"+messageId+"'>"+data[0]['disLikeCount']+"</label>";
+    		  						if(data[0]['emojiId']==1 && data[0]['session_email']==data[0]['emoji_email'] ){
+    		  							string+="<label class = ' likeIcon likeIcon"+messageId+"' data-toggle='tooltip' title=''  emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",1)'><i class='fa fa-thumbs-up' style='color: #3697e1;font-size: 180%;'></i></label><label class='likeCount"+messageId+"'>"+data[0]['likeCount']+"</label>";
+    		  							string+="<label class = ' dislikeIcon  dislikeIcon"+messageId+"' data-toggle='tooltip' title=''  emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",2)'><i class='fa fa-thumbs-o-down'style='font-size: 170%;'></i></label><label class='dislikeCount"+messageId+"'>"+data[0]['disLikeCount']+"</label>";
+    		  						}else if(data[0]['emojiId']==2 && data[0]['session_email']==data[0]['emoji_email']){
+    		  							string+="<label class = ' likeIcon likeIcon"+messageId+"' data-toggle='tooltip' title=''  emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",1)'><i class='fa fa-thumbs-o-up' font-size: 170%;></i></label><label class='likeCount"+messageId+"'>"+data[0]['likeCount']+"</label>";
+    		  							string+="<label class = ' dislikeIcon  dislikeIcon"+messageId+"' data-toggle='tooltip' title=''  emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",2)'><i class='fa fa-thumbs-down' style='color: #3697e1;font-size: 180%;'></i></label><label class='dislikeCount"+messageId+"'>"+data[0]['disLikeCount']+"</label>";
+    		  						}else{
+    		  							string+="<label class = ' likeIcon likeIcon"+messageId+"' data-toggle='tooltip' title=''  emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",1)'><i class='fa fa-thumbs-o-up ' style='font-size: 170%;'></i></label><label class='likeCount"+messageId+"'>"+data[0]['likeCount']+"</label>";
+    		  							string+="<label class = ' dislikeIcon  dislikeIcon"+messageId+"' data-toggle='tooltip' title=''  emoji_id = '1' name = 'like' id ='"+messageId+"' onclick='reactionFunction("+messageId+",\""+user+"\",2)'><i class='fa fa-thumbs-o-down' style='font-size: 170%;'></i></label><label class='dislikeCount"+messageId+"'>"+data[0]['disLikeCount']+"</label>";
+    		  						}
+    		  						
     		  						//string+="<label class = 'replyMsgIcon' id="+messageId+" ><i class='fa fa-reply' aria-hidden='true'></i></label>";
     		  					}
     		  				if(data[0]['has_thread']==1){
-    		  					string+="<a href='#thread_wrapper"+messageId+"' class = 'repliesCount repliesCount"+messageId+"' id = '"+messageId+"' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies("+data[0]['replies']+")</a>";
+    		  					string+="<a href='#thread_wrapper"+messageId+"' class = 'repliesCount repliesCount"+messageId+"' id = '"+messageId+"' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Comments("+data[0]['replies']+")</a>";
     		  					if(data[0]['isArchive']==0){
 	    		  					if(data[0]['session_email']=='cmuth001@odu.edu'){
 	    								string+="<label><i class='fa fa-trash-o delete "+channelId+"' id ='"+messageId+"' aria-hidden='true'></i></label>";
@@ -482,7 +491,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
     		  						string+="<input type='hidden' name='display_name' id='display_name' value='"+data[0]['session_username']+"'>";
     		  						string+="<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 85%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>";
     		  						string+="<button type='submit' id = '"+messageId+"' class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>";
-		  							string+="<button id = '"+messageId+"' class='btn  btn-sm  threadCodeButton'>ifCode</button>"
+		  							string+="<button id = '"+messageId+"' class='btn  btn-sm  threadCodeButton' title='Insert Code'><i class='fa fa-code postingOptionMenu' aria-hidden='true'>Code</i></button>"
 		  						string+="</form>";
 		  					string+="</div>";//Thread modal start
 		  					string+="<div class='modal fade' id='"+myThreadModal+"' role='dialog'>";
@@ -597,7 +606,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	});
 	$(document).on('click','.loadMore',function(e){
 		var start = e.currentTarget.id;
-		var details = {'channelId':id,'start':start};
+		var details = {'channelId':parseInt(id),'start':start};
 		$.ajax({
 			url:'sqlQueries.php',
 			type:'post',
@@ -612,6 +621,22 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		});
 
 		console.log(e.currentTarget.id);
+
+	});
+	$(document).on('click','.loadMoreDirectMessages',function(e){
+		var start = e.currentTarget.id;
+		var details = {'toEmail':id,'start':start};
+		$.ajax({
+			url:'sqlQueries.php',
+			type:'post',
+			data:{'loadMoreDirectMessages':details},
+			dataType:'text',
+			success:function(data){
+				$("#loadMoreDirectMessages"+start).remove();
+				$('.message_wrapper').prepend(data);
+			}
+
+		});
 
 	});
 	// $(document).on('change','#profileSearchInputField',function(e){
@@ -686,7 +711,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        	$('.thread_wrapper'+msgId).append(threadDiv);
 
 	        	// "<a href='#thread_wrapper"+msgId+"' class='repliesCount repliesCount"+msgId+"' id='"+msgId+"' data-toggle='collapse ' style='margin-left:1%;text-decoration:none;'>Replies(2)</a>";
-	        	$('.repliesCount'+msgId).html('Replies('+data[0]+')');
+	        	$('.repliesCount'+msgId).html('Comments('+data[0]+')');
 	        	$('form').find('input[type=text]').val('');
 	        	
 
@@ -738,7 +763,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        	$('.thread_wrapper'+msgId).append(threadDiv);
 
 	        	// "<a href='#thread_wrapper"+msgId+"' class='repliesCount repliesCount"+msgId+"' id='"+msgId+"' data-toggle='collapse ' style='margin-left:1%;text-decoration:none;'>Replies(2)</a>";
-	        	$('.repliesCount'+msgId).html('Replies('+data[0]+')');
+	        	$('.repliesCount'+msgId).html('Comments('+data[0]+')');
 	        	$('form').find('input[type=text]').val('');
 	        	
 
@@ -814,7 +839,33 @@ function reactionFunction(msg_id,user_email,emoji_id){
 	        type: 'post',
 	        data: {'reactions':data1},
 	        dataType: 'json',
-	        success: function (data) {	
+	        success: function (data) {
+	        	var string ="";
+	        	var like = "<i class='fa fa-thumbs-o-up' style='font-size:170%;'></i>";
+	        	var disLike ="<i class='fa fa-thumbs-o-down' style='font-size:170%;'></i>";
+	        	if(data[4]==1){
+	        		string+="<i class='fa fa-thumbs-up' style='color: #3697e1;font-size:180%;'></i>";
+	        		$(".likeIcon"+msg_id).html(string);
+	        		$(".dislikeIcon"+msg_id).html(disLike);
+	        	}else if(data[4]==2){
+	        		string+="<i class='fa fa-thumbs-down' style='color: #3697e1;font-size:180%;'></i>";
+	        		$(".likeIcon"+msg_id).html(like);
+	        		$(".dislikeIcon"+msg_id).html(string);
+
+	        	}else{
+	        		$(".likeIcon"+msg_id).html(like);
+	        		$(".dislikeIcon"+msg_id).html(disLike);
+	        	}
+	        	// if(data[4]==1){
+	        	// 	string+="<label class = ' likeIcon likeIcon"+msg_id+"' data-toggle='tooltip' title='' style='font-size:24px' emoji_id = '1' name = 'like' id ='"+msg_id+"' onclick='reactionFunction("+msg_id+",\""+user_email+"\",1)'><i class='fa fa-thumbs-up' style='color: #3697e1;;'></i></label><label class='likeCount"+msg_id+"'>"+data[0]+"</label>";
+	        	// 	$(".likeIcon "+msg_id).html(string);
+	        	// }else if(data[4]==2){
+	        	// 	string+="<label class = ' dislikeIcon  dislikeIcon "+msg_id+"' data-toggle='tooltip' title='' style='font-size:24px' emoji_id = '1' name = 'like' id ='"+msg_id+"' onclick='reactionFunction("+msg_id+",\""+user_email+"\",2)'><i class='fa fa-thumbs-down' style='color: #3697e1;'></i></label><label class='dislikeCount"+msg_id+"'>"+data[1]+"</label>";
+	        	// 	$(".dislikeIcon "+msg_id).html(string);
+	        	// }else{
+	        	// 	string+="<label class = ' likeIcon likeIcon"+msg_id+"' data-toggle='tooltip' title='' style='font-size:24px' emoji_id = '1' name = 'like' id ='"+msg_id+"' onclick='reactionFunction("+msg_id+",\""+user_email+"\",1)'><i class='fa fa-thumbs-o-up'></i></label><label class='likeCount"+msg_id+"'>"+data[0]+"</label>";
+    		  		// string+="<label class = ' dislikeIcon  dislikeIcon "+msg_id+"' data-toggle='tooltip' title='' style='font-size:24px' emoji_id = '1' name = 'like' id ='"+msg_id+"' onclick='reactionFunction("+msg_id+",\""+user_email+"\",2)'><i class='fa fa-thumbs-o-down'></i></label><label class='dislikeCount"+msg_id+"'>"+data[1]+"</label>";
+	        	// }
         		$('div.reaction label.likeCount'+msg_id).text(data[0]);
         		$('div.reaction label.dislikeCount'+msg_id).text(data[1]); 
         		// $('div.reaction label.likeIcon'+msg_id).attr('title',data[2]);

@@ -38,6 +38,8 @@
 }
 .message{
     height: 45px !important;
+	border-bottom-right-radius: 5px !important;
+	border-top-right-radius: 5px !important;
 }
 .userMenuLink{
 	text-decoration: none !important;
@@ -163,9 +165,11 @@ ui{
 	width: 100%;
 }
 .textinput1{
-
-	margin-left: 18px;
-	width: 100%;
+	position: absolute !important;
+    margin-left: 18px;
+    width: 100%;
+    margin-top: 0px;
+    bottom: 0px;
 }
 .btnadj{
     margin-top: 0.3em;
@@ -261,7 +265,7 @@ width: 4%;
     padding: 0px !important;
 }
 .likeIcon{
-	font-size: 25px;
+	
     /* padding: 7px; */
     margin-left: 55px;
     padding-right: 5px;
@@ -269,7 +273,7 @@ width: 4%;
     /* color: #5a49e3; */
 }
 .likeIcon:hover{
-	font-size: 25px;
+	
     /* padding: 7px; */
    margin-left: 55px;
     padding-right: 5px;
@@ -279,12 +283,12 @@ width: 4%;
     text-align: center;
 }
 .dislikeIcon{
-	font-size: 25px;
+	
 	padding-right: 5px;
 	padding-left: 10px;
 }
 .dislikeIcon:hover{
-	font-size: 25px;
+	
 	padding-right: 5px;
 	color: #5a49e3;
 	padding-left: 10px;
@@ -292,7 +296,7 @@ width: 4%;
 	text-align: center;
 }
 .replyMsgIcon{
-	font-size: 140%;
+	font-size: 186%;
     cursor: pointer;
     margin-left: 1%;
 }

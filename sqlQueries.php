@@ -266,16 +266,78 @@ function channelList($email){
 }
 function getAllUsers(){
 	global $conn;
-	$sql = "SELECT user_name FROM users";
+	$sql = "SELECT * FROM users";
     $result = mysqli_query($conn, $sql);
     $string = "";
     while(($row = mysqli_fetch_assoc($result))) 
 	{ 
-    	$string=$string."<li ><a class= 'listbg' href=''><i class ='fa' style = 'padding-right: 3%;'>&#xf2be;</i>".$row['user_name']."</a></li>";
+    	$string=$string."<li ><a class= 'listbg' href=\"./index.php?email=".trim($row['email'])."\"><i class ='fa' style = 'padding-right: 3%;'>&#xf2be;</i>".$row['user_name']."</a></li>";
 	}
 	return $string;
 }
+// direct messages calling function
+function getDirectMessages($toEmail,$start){
+	global $conn;
 
+	
+	$sql = "select * from ( SELECT * FROM `direct_message` join users on users.email=direct_message.from_email where (direct_message.to_email='$toEmail' and direct_message.from_email='".$_SESSION['email']."') or (direct_message.from_email='$toEmail' and direct_message.to_email='".$_SESSION['email']."') ORDER by directmsg_id DESC LIMIT $start,10) as temp ORDER BY directmsg_id ASC";
+	
+    $result = mysqli_query($conn, $sql);
+    $row_cnt = $result->num_rows;//finding the no of rows.
+	$toEmailDetails =getUserDetails($toEmail);
+    $string = "";
+    $_SESSION['lastLimit']=$start+10;
+    if($row_cnt>=10){
+    	$loadMore = "<div id = 'loadMoreDirectMessages".$_SESSION['lastLimit']."' class='col-xs-12 noPadding'><div class = 'col-xs-5 noPadding'></div><div class ='col-xs-2 noPadding ' style='text-align:center;font-style: italic;color: #337ab7; margin-top: 8px;cursor:pointer;'><span class ='loadMoreDirectMessages' style='text-align:center;' id='".$_SESSION['lastLimit']."'>load more</span></div><div class = 'col-xs-5 noPadding'></div></div>";
+		
+    }else{
+    	$loadMore="<div col-xs-12 style='text-align:center; oncopy='return false' oncut='return false' onpaste='return false'><h1>".$toEmailDetails['user_name']."</h1><p style='border-bottom: 2px solid #ccc;'>This is the very beginning of your chat</p></div>";
+    }
+	$string =$string.$loadMore;
+    while(($row = mysqli_fetch_assoc($result))) 
+	{ 	
+		$date = date_create($row['dm_timestamp']);
+		$time = date_format($date, 'Y-m-d l g:ia');
+		$message = htmlspecialchars($row['direct_message']);
+		$textOrCode = $row['textOrCode'];
+		$contactImg = "./assets/images/";
+		$msgId = $row['directmsg_id'];	
+    	$string=$string."<div class='col-xs-12 right right$msgId '>
+    						<img src=".$contactImg.$row['from_email'].".png"." alt='Contact_Img' class='contact_Img'>
+    						<a href= ''>".$row['user_name']."</a>
+    						<label class = 'timeStamp'>".$time."</label>  					
+    						<div class= 'textMessage'>";
+	    						if($textOrCode==0){
+	    							$string=$string."<span>".$message."</span>";
+	    						}elseif ($textOrCode==1){
+	    							$string=$string."<span><pre class = 'codeDisplay'><code>".$message."</code></pre></span>";
+	    						}else if($textOrCode==2){
+	    							$string=$string."<a href='$message' target='_blank'>$message</a><a href='#imageCollapse".$msgId."' data-toggle='collapse' ><i class='fa fa-caret-down' aria-hidden='true' style='cursor:pointer;'></i></a>";
+	    							$string=$string."<img id ='imageCollapse".$msgId."' class='profile-pic collapse in' src='$message' />";
+	    						}else{
+	    							$string=$string."<img  class='profile-pic' src='./assets/channelImages/".$msgId.".png' />";
+	    							$string=$string."<span>".$message."</span>";
+	    						}
+    							
+    						$string=$string."</div>";
+    					$string=$string."</div>";//right
+    						
+    					
+    		
+   
+    	
+		$userDetails = getUserDetails($_SESSION['email']);
+		$userDetails = $userDetails['display_name'];
+		
+
+	}
+	// $string = $string."</div>";
+	
+	
+	return $string;
+}
+
+//end of direct messages calling function
 
 
 function getChannelMessages($channel_id,$start){
@@ -309,14 +371,25 @@ function getChannelMessages($channel_id,$start){
 		$dislikeCountQuery = "SELECT COUNT(*) as dislikeCount FROM `channel_message_reaction` where message_id=".$row['cmessage_id']." and emoji_id=2";
 		$likeList = "SELECT *  FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=1";
 		$dislikeList = "SELECT * FROM `channel_message_reaction` join users on users.email=channel_message_reaction.user_email where message_id=".$row['cmessage_id']." and emoji_id=2";
-
+		$reactionStatusQuery ="SELECT * FROM `channel_message_reaction` where channel_message_reaction.message_id=".$row['cmessage_id']." and channel_message_reaction.user_email='".$_SESSION['email']."'";
+		
+		//$test = "SELECT * FROM channel_message_reaction where channel_message_reaction.message_id=".$row['cmessage_id'];
 		$likeResult = mysqli_query($conn,$likeCountQuery);
 		$dislikeResult = mysqli_query($conn,$dislikeCountQuery);
 		$likeUsersList = mysqli_query($conn,$likeList);
 		$dislikeUsersList = mysqli_query($conn,$dislikeList);
-		
+		$reactionStatusResult = mysqli_query($conn,$reactionStatusQuery);
+
 		$likeCount = mysqli_fetch_assoc($likeResult);
 		$dislikeCount = mysqli_fetch_assoc($dislikeResult);
+		$reactionCnt = $reactionStatusResult->num_rows;//finding reaction exist or not.
+		if($reactionCnt>0){
+			$reactionStatus = mysqli_fetch_assoc($reactionStatusResult);
+			$emojiId = intval($reactionStatus['emoji_id']);
+		}else{
+			$emojiId=0;
+		}
+		
 		$likeStr='';
 		$dislikeStr='';
 		while(($likeUser = mysqli_fetch_assoc($likeUsersList))) 
@@ -369,17 +442,25 @@ function getChannelMessages($channel_id,$start){
     						$string=$string."</div>";
     						$string=$string."<div class = 'reaction reaction$msgId'>";
     						if($channelArray['isArchive']==0){
+    							if($emojiId==1 && $_SESSION['email']==$reactionStatus['user_email']){
+    								$string=$string."<label class='likeIcon likeIcon$msgId' data-toggle='tooltip' title='$likeStr'   emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-up' style='color: #3697e1;font-size: 180%;'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
+    									 <label class = 'dislikeIcon dislikeIcon$msgId'data-toggle='tooltip' title='$dislikeStr'  emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down' style='font-size: 170%;'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>";
+    							}else if($emojiId==2 && $_SESSION['email']==$reactionStatus['user_email']){
+    								$string=$string."<label class='likeIcon likeIcon$msgId' data-toggle='tooltip' title='$likeStr'  emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up' style='font-size: 170%;'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
+    									 	<label class = 'dislikeIcon dislikeIcon$msgId'data-toggle='tooltip' title='$dislikeStr'  emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-down' style='color: #3697e1;font-size: 180%;'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>";
+    							}else{
+    								$string=$string."<label class='likeIcon likeIcon$msgId' data-toggle='tooltip' title='$likeStr'  emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up' style='font-size: 170%;'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
+    									 	<label class = 'dislikeIcon dislikeIcon$msgId'data-toggle='tooltip' title='$dislikeStr'  emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down' style='font-size: 170%;'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>";		
 
-    							$string=$string."<label class='likeIcon likeIcon$msgId' data-toggle='tooltip' title='$likeStr' style='font-size:24px' emoji_id = '1' name = 'like' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",1)' ><i class='fa fa-thumbs-o-up'></i></label><label class=likeCount".$row['cmessage_id'].">".$likeCount['likeCount']."</label>
-    									 <label class = 'dislikeIcon dislikeIcon$msgId'data-toggle='tooltip' title='$dislikeStr' style='font-size:24px' emoji_id = '2' name = 'dislike' id =".$row['cmessage_id']." onclick = 'reactionFunction(".$row['cmessage_id'].","."\"".$_SESSION['email']."\"".",2)' ><i class='fa fa-thumbs-o-down'></i></label><label class=dislikeCount".$row['cmessage_id'].">".$dislikeCount['dislikeCount']."</label>";
-    							$string=$string."<label class = 'replyMsgIcon' id=".$row['cmessage_id']." ><i class='fa fa-reply' aria-hidden='true'></i></label>";
+    							}
+    							$string=$string."<label class = 'replyMsgIcon' id=".$row['cmessage_id']." title='Leave a comment'><i class='fa fa-comments-o' aria-hidden='true'></i></label>";
     						}
     						
     		if($messageThreadCount>0){
-    			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount repliesCount$msgId' id = '$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Replies($messageThreadCount)</a>";
+    			$string=$string."<a href='#thread_wrapper$msgId' class = 'repliesCount repliesCount$msgId' id = '$msgId' data-toggle='collapse' style = 'margin-left:1%;text-decoration:none;'>Comments($messageThreadCount)</a>";
     			if($channelArray['isArchive']==0){
 	    				if (in_array($_SESSION['email'], $admin)){
-	    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
+	    				$string=$string."<label title='Delete'><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
 	    			}
 	    		}
     			$string=$string."</div><div class = 'collapse thread_wrapper$msgId' id ='thread_wrapper$msgId'>";
@@ -388,7 +469,7 @@ function getChannelMessages($channel_id,$start){
     		else{
     			if($channelArray['isArchive']==0){
 	    			if (in_array($_SESSION['email'], $admin)){
-	    				$string=$string."<label><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
+	    				$string=$string."<label title='Delete'><i class='fa fa-trash-o delete $channel_id' id ='$msgId' aria-hidden='true'></i></label>";
 	    			}
 	    		}
     			
@@ -585,9 +666,12 @@ if(isset($_POST['loadMore']))
 	$str = getChannelMessages($channelId,$start);
 	echo $str;
 
-
-
-
+}
+if(isset($_POST['loadMoreDirectMessages'])){
+	$toEmail = $_POST['loadMoreDirectMessages']['toEmail'];
+	$start = $_POST['loadMoreDirectMessages']['start'];
+	$str = getDirectMessages($toEmail,$start);
+	echo $str;
 }
 // get messages for pagination
 if(isset($_POST['getmessages']))
@@ -662,6 +746,17 @@ if(isset($_POST['threadContainerMessages']))
 		$dislikeResult = mysqli_query($conn,$dislikeCountQuery);
 		$likeCount = mysqli_fetch_assoc($likeResult);
 		$dislikeCount = mysqli_fetch_assoc($dislikeResult);
+
+		$reactionStatusQuery ="SELECT * FROM `channel_message_reaction` where channel_message_reaction.message_id=".$messageId." and channel_message_reaction.user_email='".$_SESSION['email']."'";
+		$reactionStatusResult = mysqli_query($conn,$reactionStatusQuery);
+		$reactionCnt = $reactionStatusResult->num_rows;//finding reaction exist or not.
+		if($reactionCnt>0){
+			$reactionStatus = mysqli_fetch_assoc($reactionStatusResult);
+			$emojiId = intval($reactionStatus['emoji_id']);
+		}else{
+			$emojiId=0;
+		}
+
 		$date = date_create($messageDetails['cmsg_timestamp']);
 		$time = date_format($date, 'Y-m-d l g:ia');
 		$messageDetails['cmsg_timestamp'] = $time;
@@ -672,6 +767,8 @@ if(isset($_POST['threadContainerMessages']))
 		$messageDetails['isArchive'] = $channelArray['isArchive'];
 		$messageDetails['session_email'] = $_SESSION['email'];
 		$messageDetails['session_username'] =$userDetails['display_name'];
+		$messageDetails['emojiId']= $emojiId;
+		$messageDetails['emoji_email']=$reactionStatus['user_email'];
 	if($messageDetails['has_thread']==1)
 	{
 		$threadSql = "SELECT * FROM `threaded_messages` join users on users.email=threaded_messages.user_email WHERE message_id=$messageId";
@@ -742,6 +839,7 @@ if(isset($_POST['reactions']))
 	$insertReaction="";
 	$likeStr='';
 	$dislikeStr='';
+	
 	if ($result->num_rows > 0) {
 		if($checkReactionQueryArray['emoji_id']==$emoji_id){
 			$deleteReaction = "DELETE FROM channel_message_reaction where message_id='$msg_id' and user_email ='$user_email'";
@@ -779,8 +877,16 @@ if(isset($_POST['reactions']))
 				}
 			
 			}
-
-			echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount'],$likeStr,$dislikeStr]);
+			$reactionStatusQuery ="SELECT * FROM `channel_message_reaction` where channel_message_reaction.message_id=".$msg_id." and channel_message_reaction.user_email='".$_SESSION['email']."'";
+			$reactionStatusResult = mysqli_query($conn,$reactionStatusQuery);
+			$reactionCnt = $reactionStatusResult->num_rows;//finding reaction exist or not.
+			if($reactionCnt>0){
+				$reactionStatus = mysqli_fetch_assoc($reactionStatusResult);
+				$emojiId = intval($reactionStatus['emoji_id']);
+			}else{
+				$emojiId=0;
+			}
+			echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount'],$likeStr,$dislikeStr,$emojiId]);
 		}else{
 			$updateReaction = "UPDATE channel_message_reaction SET emoji_id='$emoji_id' where message_id='$msg_id' and user_email ='$user_email'";
 			mysqli_query($conn,$updateReaction);
@@ -815,8 +921,16 @@ if(isset($_POST['reactions']))
 				}
 			
 			}
-			
-			echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount'],$likeStr,$dislikeStr]);
+			$reactionStatusQuery ="SELECT * FROM `channel_message_reaction` where channel_message_reaction.message_id=".$msg_id." and channel_message_reaction.user_email='".$_SESSION['email']."'";
+			$reactionStatusResult = mysqli_query($conn,$reactionStatusQuery);
+			$reactionCnt = $reactionStatusResult->num_rows;//finding reaction exist or not.
+			if($reactionCnt>0){
+				$reactionStatus = mysqli_fetch_assoc($reactionStatusResult);
+				$emojiId = intval($reactionStatus['emoji_id']);
+			}else{
+				$emojiId=0;
+			}
+			echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount'],$likeStr,$dislikeStr,$emojiId]);
 			// echo "update",$checkReactionQueryArray['emoji_id'];
 		}
 	}
@@ -854,7 +968,16 @@ if(isset($_POST['reactions']))
 				}
 			
 			}
-		echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount'],$likeStr,$dislikeStr]);
+			$reactionStatusQuery ="SELECT * FROM `channel_message_reaction` where channel_message_reaction.message_id=".$msg_id." and channel_message_reaction.user_email='".$_SESSION['email']."'";
+			$reactionStatusResult = mysqli_query($conn,$reactionStatusQuery);
+			$reactionCnt = $reactionStatusResult->num_rows;//finding reaction exist or not.
+			if($reactionCnt>0){
+				$reactionStatus = mysqli_fetch_assoc($reactionStatusResult);
+				$emojiId = intval($reactionStatus['emoji_id']);
+			}else{
+				$emojiId=0;
+			}
+		echo json_encode([$likeCount['likeCount'],$dislikeCount['dislikeCount'],$likeStr,$dislikeStr,$emojiId]);
 		//echo "insert";
 	}
 	
