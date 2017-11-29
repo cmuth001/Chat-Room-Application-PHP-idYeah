@@ -810,6 +810,10 @@ var readURL = function(input) {
 
 
 });
+
+function reCaptchad(){
+		document.getElementById("myButton").disabled = false;
+}
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function userMenu() {
