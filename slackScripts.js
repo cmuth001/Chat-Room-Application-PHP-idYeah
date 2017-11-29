@@ -579,6 +579,24 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		$('#profilPicUpdate').show();
 		console.log("picUpdate");
 	});
+	$(document).on('click','.selectGravatar',function(e){
+		var email = e.currentTarget.id;
+		$.ajax({
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'selectGravatar':email},
+	        dataType: 'text',
+	        success: function (data) {
+	        	console.log(data);
+	        	var url = "./index.php?channel="+id;
+	            window.location.href = url;
+	        }
+	    });
+
+
+		console.log(email);
+	});
+	
 	$(document).on('click','.channelArchive',function(e){
 
 		console.log(e.currentTarget.id);

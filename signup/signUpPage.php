@@ -38,8 +38,9 @@ if(isset($_POST['submit']))
      */
     function get_gravatar( $email, $s = 40, $d = 'mm', $r = 'g', $img = false) {
         $url = 'https://www.gravatar.com/avatar/';
-        $url .= md5( strtolower( trim( $email ) ) );
-        $url .= "?s=$s&d=$d&r=$r";
+        $url .= strtolower(md5( strtolower( trim( $email ) ) ));
+
+        $url .= "?s=$s&r=$r";
         if ( $img ) {
             $url = '<img src="' . $url . '"';
             foreach ( $atts as $key => $val )
@@ -75,12 +76,14 @@ if(isset($_POST['submit']))
             }else{
                 if($psw==$pswRepeat){
 
-                    $sql = "INSERT INTO `users` VALUES('$email','$userName','$userName',DEFAULT,DEFAULT,'$gravatarUrl',DEFAULT,'$psw',DEFAULT,DEFAULT,CURRENT_TIMESTAMP)";
+                    $sql = "INSERT INTO `users` VALUES('$email','$userName','$userName',DEFAULT,DEFAULT,DEFAULT,DEFAULT,'$psw',DEFAULT,DEFAULT,CURRENT_TIMESTAMP)";
                     if (mysqli_query($conn, $sql)) {
                         $sql1 = "INSERT INTO `userChannels` VALUES('$email',1,CURRENT_TIMESTAMP,DEFAULT)";
                         $sql2 = "INSERT INTO `userChannels` VALUES('$email',2,CURRENT_TIMESTAMP,DEFAULT)";
+                        $sql3 = "INSERT INTO `gravatar` VALUES(DEFAULT,'$email','$gravatarUrl',CURRENT_TIMESTAMP)";
                         $sqlResult1 = mysqli_query($conn, $sql1);
                         $sqlResult2 = mysqli_query($conn, $sql2);
+                        $sqlResult3 = mysqli_query($conn, $sql3);
                         // echo "<br><br><p style='text-align:center;color:green;'>**** Registered successfully ***</p>";
                        // header("location: ../login/login.php");
                         if(in_array($_SESSION['email'], $admin)){
@@ -116,6 +119,9 @@ function test_input($data) {
 <!DOCTYPE html>
 <html>
     <head>
+        <title>SignUpPage</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <meta charset='utf-8'>
         <link rel="stylesheet" type="text/css" href="signUpPage.css">
 
     </head>
@@ -125,9 +131,9 @@ function test_input($data) {
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" style="border-top:2px solid #e0ebe1">
               <div class="container">
                 <label><b>Email</b></label><span class="error">* <?php echo $emailErr;?></span>
-                <input type="text" class = "inputfield"placeholder="Enter Email" name="email" autofocus required>
+                <input type="text" class = "inputfield" placeholder="Enter Email" name="email" autofocus required>
                 <label><b>User Name</b></label><span class="error">* <?php echo $nameErr;?></span>
-                <input type="text" class = "inputfield"placeholder="Enter User Name" name="userName"  required>
+                <input type="text" class = "inputfield" placeholder="Enter User Name" name="userName"  required>
                 <label><b>Password</b></label><span class="error">* <?php echo $pswErr;?></span><br>
                 <input type="password" class = "inputfield" placeholder="Enter Password" name="psw" required>               
                 <label><b>Repeat Password</b></label><span class="error">*</span><br>

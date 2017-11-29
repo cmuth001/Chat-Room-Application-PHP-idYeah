@@ -11,12 +11,12 @@
 		<link rel="stylesheet" type="text/css" href="login.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		
-	     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-	      <script type='text/javascript'>
- 	function reCaptchad(){
-		document.getElementById("myButton").disabled = false;
-	}
-     </script>
+	    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	    <script type='text/javascript'>
+			function reCaptchad(){
+				document.getElementById("myButton").disabled = false;
+			}
+	 	</script>
 	</head>
 	<body>
 		<div class = "container1">
@@ -26,13 +26,14 @@
 			<h3>Slack Login Page</h3>
 			<div class ="loginform">
 				<form method="post" action="login.php">
-
-					<label class = "label1" for="email">Email</label>
+					<p style='text-align:center;color:red;'><?php echo $Err;?></p>
+					<label class = "label1" >Email</label>
 					<input class="inputfield" type="text" name="email"  autofocus required/>
 					<br/>
-					<label class = "label1" for="password">Password</label>
+					<label class = "label1" >Password</label>
 					<input class="inputfield" type="password" name="password" />
 					<br/>
+
 					<div class="g-recaptcha" data-sitekey="6Le0vAgUAAAAAH_ZWM8tw3It6jkrqLHkFFTMOW-J" data-callback="reCaptchad"></div>
       				<br/>
 					<input class = "btn1" id="myButton" type="submit" value="login" disabled />

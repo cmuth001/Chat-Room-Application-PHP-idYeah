@@ -84,7 +84,13 @@ if(!$_SESSION['loggedIn']){
 								    	?>
 								    </div>
 								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" class = 'userMenuLink'><span class = 'fa fa-user userMenuList'></span> View Profile</a>
-								    <a class = 'userMenuLink picUpdate' style='cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Update Profile Pic</a>
+								    <!-- <a class = 'userMenuLink picUpdate' style='cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Update Profile Pic</a> -->
+								    <a href='#UpdatePic' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-bars userMenuList'></span>Update Pic</a>
+								    <div id='UpdatePic' class='collapse' >
+								    	<a  class='picUpdate' style='margin-left: 10%; text-decoration:none;'><span class = 'fa fa-camera userMenuList'></span>Local Image</a>
+								    	<a class='selectGravatar' id ="<?php echo $_SESSION['email']?>" style='margin-left: 10%; text-decoration:none;'><span class = 'fa fa-picture-o userMenuList'></span>Use Gravatar</a>
+								    </div>
+								    
 								    <a href='#contact' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-phone userMenuList'></span>Contact</a>
 								    <div id='contact' class='collapse' ><a href='' style='margin-left: 10%; text-decoration:none;'><span class ='fa fa-mobile userMenuList' ></span><?php echo "123-546-7890" ?></a></div>
 								    <a href="./signOut.php" class = 'userMenuLink'>

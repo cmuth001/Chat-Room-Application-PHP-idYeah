@@ -8,6 +8,8 @@
     <head>
         
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="UTF-8">
+		<title>Invite members to Channel</title>
 		<link rel="stylesheet" type="text/css" href="index.css">
 		<link rel="stylesheet" type="text/css" href="messages/messages.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -24,14 +26,10 @@
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
 		<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 		<!-- multi select -->
-		
-		
 		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
-		<link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css">
-		
+		<!-- <link rel="stylesheet" type="text/css" href="css/tags/bootstrap-tokenfield.css"> -->
 		    <!-- multi select -->
 		<script type="text/javascript" src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"></script>
-	</head>
     </head>
     <body>
     	<div class = 'formDiv'>
@@ -41,17 +39,17 @@
 	        </div>
 	        <form id= "inviteChannelForm" method = "post">
 		        <div class='container' style = 'height:100%; width:95%;padding-bottom: 11%'>
-		        	<div><label>Select Channel :<label>
+		        	<div><label>Select Channel :</label>
 			    		<?php  				                 				 
 		                	$result =channelList($_SESSION['email']);
 		                	echo $result;
 		                ?>
 	                </div><br>
 	                <div id="framework_form">
-						  		<label for="recipient-name" class="form-control-label">Users List:</label>
+						  		<label  class="form-control-label">Users List:</label>
 							    <input type="text" class="form-control" id="tokenfield2" value="" />
 							   
-							<br>
+							<br/>
 							
 					 </div>	
 				

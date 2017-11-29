@@ -107,6 +107,14 @@ function admin(){
 	}
 	return $admin;
 }
+function gravatar($email){
+	global $conn;
+	$sql = "SELECT * FROM `gravatar` where email='$email'";
+	$result = mysqli_query($conn, $sql);
+	while(($row = mysqli_fetch_assoc($result))){
+		return($row['path']);
+	}
+}
 function getImage($email){
 	global $conn;
 	$sql = "SELECT * FROM `users` where users.email='$email'";
@@ -115,10 +123,18 @@ function getImage($email){
 		if($row['display_pic']==1){
 			return "./assets/images/".$email.".png" ;
 		}else{
-			return $row['display_pic'] ;
+			return gravatar($email);
 		}
 	}
 	
+}
+if(isset($_POST['selectGravatar'])){
+	$email = $_POST['selectGravatar'];
+
+	$sql = "UPDATE users SET display_pic=0 where email='$email'";
+	$result = mysqli_query($conn, $sql);
+	echo $email;
+
 }
 function channelMembers($channelId){
 	global $conn;
@@ -313,15 +329,10 @@ function getDirectMessages($toEmail,$start){
 		$time = date_format($date, 'Y-m-d l g:ia');
 		$message = htmlspecialchars($row['direct_message']);
 		$textOrCode = $row['textOrCode'];
-		$contactImg = "./assets/images/";
+		$contactImg = getImage($row['from_email']);
 		$msgId = $row['directmsg_id'];	
     	$string=$string."<div class='col-xs-12 right right$msgId '>";
-    						if($row['display_pic']==1){
-    							$string=$string."<img src=".$contactImg.$row['from_email'].".png"." alt='Contact_Img' class='contact_Img'>";
-    						}else{
-    							$string=$string."<img src='".$row['display_pic']."' alt='Contact_Img' class='contact_Img'>";
-    						}
-    						
+    						$string=$string."<img src=".$contactImg." alt='Contact_Img' class='contact_Img'>";
     						$string=$string."<a href= ''>".$row['user_name']."</a>
     						<label class = 'timeStamp'>".$time."</label>  					
     						<div class= 'textMessage'>";
@@ -436,16 +447,12 @@ function getChannelMessages($channel_id,$start){
 		$codeForm = "threadCodeForm".$row['cmessage_id'];
 		$modalClose = "modalClose".$row['cmessage_id'];
 		$myThreadModal = "myThreadModal".$row['cmessage_id'];
-		$contactImg = "./assets/images/";
+		$contactImg = getImage($row['email']);
 		$msgId = $row['cmessage_id'];
 		
 		$messageThreadCount=messageThreadCount($msgId);
     	$string=$string."<div class='col-xs-12 right right$msgId '>";
-    						if($row['display_pic']==1){
-    							$string=$string."<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>";
-    						}else{
-    							$string=$string."<img src='".$row['display_pic']."' alt='Contact_Img' class='contact_Img'>";
-    						}
+    						$string=$string."<img src=".$contactImg." alt='Contact_Img' class='contact_Img'>";
     						$string=$string."<a href= ''>".$row['display_name']."</a>
     						<label class = 'timeStamp'>".$time."</label>  					
     						<div class= 'textMessage'>";

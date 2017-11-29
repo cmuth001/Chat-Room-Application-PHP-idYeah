@@ -24,10 +24,10 @@
      exit();
     session_write_close();
   }elseif($_POST) {
-    echo "<br><br><p style='text-align:center;color:red;'>*** Entered email / password is incorrect ***</p>";
+    $Err= "*** Entered email / password is incorrect ***";
     
   }else {
-    echo "<br><br><p style='text-align:center;color:red;'>**** You're not logged in ***</p>";
+    $Err= "**** You're not logged in ***";
     
   }
  

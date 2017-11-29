@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Homepage</title>
-		 
+		 <meta charset="UTF-8">
+		
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="index.css">
 		<link rel="stylesheet" type="text/css" href="messages/messages.css">
@@ -39,11 +41,11 @@
 					</div>
 					<div class = 'channelFormDiv'>
 				  	<div class="form-group">
-				    	<label for="recipient-name" class="form-control-label">Name:</label>
+				    	<label  class="form-control-label">Name:</label>
 				    	<input type="text" class="form-control" name = "channelName" id="channelName" placeholder= "Name of the channel" autofocus required>
 				  	</div>
 				  	<div class="form-group">
-				    	<label for="message-text" class="form-control-label">Purpose</label>
+				    	<label  class="form-control-label">Purpose</label>
 				    	<textarea class="form-control" name = "purpose" id="purpose" placeholder= "Purpose of the channel"></textarea>
 				  	</div>
 				  	<div class="form-group">
@@ -51,7 +53,7 @@
 				  		<input type="radio" name="colors" id="public" checked="checked">Public
 				  	</div>
 				  	<div id="framework_form">
-					  		<label for="recipient-name" class="form-control-label">Users List:</label>
+					  		<label class="form-control-label">Users List:</label>
 						    <input type="text" class="form-control" id="tokenfield1" value="" />
 						    <!-- <input type="submit" class="btn btn-primary"> -->
 						<br>
