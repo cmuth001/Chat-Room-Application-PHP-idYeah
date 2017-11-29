@@ -1,5 +1,12 @@
 <?php
 session_start();
+include_once "./login/connect.php"; 
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD,DB_NAME)
+    OR die ('Could not connect to MySQL: '.mysql_error());
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 $channel = htmlspecialchars($_POST['channel']);
 echo $channel;
 $target_dir = "./assets/images/";
@@ -36,7 +43,14 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+        $sql = "UPDATE users SET display_pic=1 where  email ='".$_SESSION['email']."'";
+        if (mysqli_query($conn, $sql)) {
+            
+            echo "error updating into user table";
+        }else{
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+        //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
         header('location: index.php?channel='.$channel.'#scrollBottom');
     } else {
         echo "Sorry, there was an error uploading your file.";

@@ -107,6 +107,19 @@ function admin(){
 	}
 	return $admin;
 }
+function getImage($email){
+	global $conn;
+	$sql = "SELECT * FROM `users` where users.email='$email'";
+	$result = mysqli_query($conn, $sql);
+	while(($row = mysqli_fetch_assoc($result))){
+		if($row['display_pic']==1){
+			return "./assets/images/".$email.".png" ;
+		}else{
+			return $row['display_pic'] ;
+		}
+	}
+	
+}
 function channelMembers($channelId){
 	global $conn;
 	$sql = "SELECT userChannels.user_email, users.user_name FROM `userChannels` join users on userChannels.user_email=users.email where userChannels.channel_id=$channelId";
@@ -302,9 +315,14 @@ function getDirectMessages($toEmail,$start){
 		$textOrCode = $row['textOrCode'];
 		$contactImg = "./assets/images/";
 		$msgId = $row['directmsg_id'];	
-    	$string=$string."<div class='col-xs-12 right right$msgId '>
-    						<img src=".$contactImg.$row['from_email'].".png"." alt='Contact_Img' class='contact_Img'>
-    						<a href= ''>".$row['user_name']."</a>
+    	$string=$string."<div class='col-xs-12 right right$msgId '>";
+    						if($row['display_pic']==1){
+    							$string=$string."<img src=".$contactImg.$row['from_email'].".png"." alt='Contact_Img' class='contact_Img'>";
+    						}else{
+    							$string=$string."<img src='".$row['display_pic']."' alt='Contact_Img' class='contact_Img'>";
+    						}
+    						
+    						$string=$string."<a href= ''>".$row['user_name']."</a>
     						<label class = 'timeStamp'>".$time."</label>  					
     						<div class= 'textMessage'>";
 	    						if($textOrCode==0){
@@ -422,9 +440,13 @@ function getChannelMessages($channel_id,$start){
 		$msgId = $row['cmessage_id'];
 		
 		$messageThreadCount=messageThreadCount($msgId);
-    	$string=$string."<div class='col-xs-12 right right$msgId '>
-    						<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>
-    						<a href= ''>".$row['display_name']."</a>
+    	$string=$string."<div class='col-xs-12 right right$msgId '>";
+    						if($row['display_pic']==1){
+    							$string=$string."<img src=".$contactImg.$row['email'].".png"." alt='Contact_Img' class='contact_Img'>";
+    						}else{
+    							$string=$string."<img src='".$row['display_pic']."' alt='Contact_Img' class='contact_Img'>";
+    						}
+    						$string=$string."<a href= ''>".$row['display_name']."</a>
     						<label class = 'timeStamp'>".$time."</label>  					
     						<div class= 'textMessage'>";
 	    						if($textOrCode==0){

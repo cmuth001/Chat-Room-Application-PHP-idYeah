@@ -22,15 +22,34 @@ if(isset($_POST['submit']))
 
     
     
-    // //Username validation
-    // if(empty($userName)) {
-    //     $nameErr = "UserName is required";
-    // }else{
-    //     $userName = test_input($userName);
-    //     if (!preg_match("/^[a-zA-Z ]*$/",$userName)) {
-    //         $nameErr = "Only letters and white space allowed"; 
-    //     }
-    // }
+   //Gravatar
+
+    /**
+     * Get either a Gravatar URL or complete image tag for a specified email address.
+     *
+     * @param string $email The email address
+     * @param string $s Size in pixels, defaults to 80px [ 1 - 2048 ]
+     * @param string $d Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
+     * @param string $r Maximum rating (inclusive) [ g | pg | r | x ]
+     * @param boole $img True to return a complete IMG tag False for just the URL
+     * @param array $atts Optional, additional key/value attributes to include in the IMG tag
+     * @return String containing either just a URL or a complete image tag
+     * @source https://gravatar.com/site/implement/images/php/
+     */
+    function get_gravatar( $email, $s = 40, $d = 'mm', $r = 'g', $img = false) {
+        $url = 'https://www.gravatar.com/avatar/';
+        $url .= md5( strtolower( trim( $email ) ) );
+        $url .= "?s=$s&d=$d&r=$r";
+        if ( $img ) {
+            $url = '<img src="' . $url . '"';
+            foreach ( $atts as $key => $val )
+                $url .= ' ' . $key . '="' . $val . '"';
+            $url .= ' />';
+        }
+        return $url;
+    }
+    $gravatarUrl = get_gravatar($email);
+    ////end of gravatar
     
     if(empty($psw) && empty($pswRepeat) ) {
         $pswErr = "Password is required";
@@ -56,10 +75,10 @@ if(isset($_POST['submit']))
             }else{
                 if($psw==$pswRepeat){
 
-                    $sql = "INSERT INTO `users` VALUES('$email','$userName','$userName',DEFAULT,DEFAULT,DEFAULT,DEFAULT,'$psw',DEFAULT,DEFAULT,CURRENT_TIMESTAMP)";
+                    $sql = "INSERT INTO `users` VALUES('$email','$userName','$userName',DEFAULT,DEFAULT,'$gravatarUrl',DEFAULT,'$psw',DEFAULT,DEFAULT,CURRENT_TIMESTAMP)";
                     if (mysqli_query($conn, $sql)) {
-                        $sql1 = "INSERT INTO `userChannels` VALUES('$email',1,DEFAULT,DEFAULT,CURRENT_TIMESTAMP,DEFAULT)";
-                        $sql2 = "INSERT INTO `userChannels` VALUES('$email',2,DEFAULT,DEFAULT,CURRENT_TIMESTAMP,DEFAULT)";
+                        $sql1 = "INSERT INTO `userChannels` VALUES('$email',1,CURRENT_TIMESTAMP,DEFAULT)";
+                        $sql2 = "INSERT INTO `userChannels` VALUES('$email',2,CURRENT_TIMESTAMP,DEFAULT)";
                         $sqlResult1 = mysqli_query($conn, $sql1);
                         $sqlResult2 = mysqli_query($conn, $sql2);
                         // echo "<br><br><p style='text-align:center;color:green;'>**** Registered successfully ***</p>";
@@ -70,7 +89,8 @@ if(isset($_POST['submit']))
                             header("location: ../login/login.php");
                         }
                     }else{
-                        echo "<br><br><p style='text-align:center;color:red;'>**** failed registering ***</p>";
+                        // echo "<br><br><p style='text-align:center;color:red;'>**** failed registering ***</p>";
+                        echo $sql;
                     }
         
                 }else{

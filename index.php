@@ -23,10 +23,11 @@ if(!$_SESSION['loggedIn']){
 
 ?>
 
-
+<!-- <!DOCTYPE html> -->
 <html>
 	<head>
 		<title>Homepage</title>
+		<link rel="icon" type="image/png" href="./favicon1.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="index.css">
 		<link rel="stylesheet" type="text/css" href="messages/messages.css">
@@ -71,7 +72,7 @@ if(!$_SESSION['loggedIn']){
 							<div class="dropdown">
 								<button onclick="userMenu()" class="dropbtn"><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name'];?><i class="fa fa-angle-down"></i></button>
 								  <div id="myDropdown" class="dropdown-content userProfile">
-								    <div style = 'color:black;'><img src=<?php echo "./assets/images/".$_SESSION['email'].".png" ?> alt='Contact_Img' class='contact_Img'>
+								    <div style = 'color:black;'><img src=<?php echo getImage($_SESSION['email']); ?> alt='Contact_Img' class='contact_Img'>
 								    	<?php 
 								    	$result = getUserDetails($_SESSION['email']);
 								    	$admin = admin();
@@ -415,6 +416,7 @@ if(!$_SESSION['loggedIn']){
 	                    		</div>
 		                    </li>
 		                	 <li class="divider"></li>
+
 
 
 		                </ul>

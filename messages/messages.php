@@ -1,6 +1,9 @@
 <?php 
 include_once "../login/connect.php";
 include_once "../sqlQueries.php";
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD,DB_NAME)
         OR die ('Could not connect to MySQL: '.mysql_error());
 
@@ -19,6 +22,16 @@ $fromEmail = $fromEmail['email'];
 $user = $user['email'];
 $imageFormats = ['png','jpeg','jpg','gif','tiff','tif'];
 $image = end(explode('.',$message));
+
+
+
+
+
+// $finfo = finfo_open(FILEINFO_MIME_TYPE);
+// echo $message;
+// echo finfo_file($finfo, $message);
+// finfo_close($finfo);
+// echo "hello";
 if(isset($_POST['toEmail']))
 {
 	if(intval($textOrCode)==2)
