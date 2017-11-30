@@ -111,9 +111,15 @@ function gravatar($email){
 	global $conn;
 	$sql = "SELECT * FROM `gravatar` where email='$email'";
 	$result = mysqli_query($conn, $sql);
-	while(($row = mysqli_fetch_assoc($result))){
-		return($row['path']);
+	$Cnt = $result->num_rows;
+	if($Cnt>0){
+		while(($row = mysqli_fetch_assoc($result))){
+			return($row['path']);
+		}
+	}else{
+		return('https://www.gravatar.com/avatar/0000000000000000000000?s=40&d=mm&r=g');
 	}
+	
 }
 function getImage($email){
 	global $conn;
@@ -122,8 +128,10 @@ function getImage($email){
 	while(($row = mysqli_fetch_assoc($result))){
 		if($row['display_pic']==1){
 			return "./assets/images/".$email.".png" ;
-		}else{
+		}else if($row['display_pic']==0){
 			return gravatar($email);
+		}else{
+			return('https://www.gravatar.com/avatar/0000000000000000000000?s=40&d=mm&r=g');
 		}
 	}
 	
@@ -132,6 +140,14 @@ if(isset($_POST['selectGravatar'])){
 	$email = $_POST['selectGravatar'];
 
 	$sql = "UPDATE users SET display_pic=0 where email='$email'";
+	$result = mysqli_query($conn, $sql);
+	echo $email;
+
+}
+if(isset($_POST['defaultPhoto'])){
+	$email = $_POST['defaultPhoto'];
+
+	$sql = "UPDATE users SET display_pic=2 where email='$email'";
 	$result = mysqli_query($conn, $sql);
 	echo $email;
 
@@ -349,7 +365,7 @@ function getDirectMessages($toEmail,$start){
 	    						}
     							
     						$string=$string."</div>";
-    					$string=$string."</div>";//right
+    					$string=$string."</div></div>";//right
     						
     					
     		
@@ -515,11 +531,12 @@ function getChannelMessages($channel_id,$start){
 			
 			while(($threadrow = mysqli_fetch_assoc($threadResult))) 
 			{ 
+				$threadContactImage = getImage($threadrow['email']);
 				$ThreadDate = date_create($threadrow['createdon']);
 				$threadTime = date_format($ThreadDate, 'Y-m-d l g:ia');
 				$threadMessage = htmlspecialchars($threadrow['message']);
 				$stringThread=$stringThread."<div id =".$row['cmessage_id']." class='thread'>
-												<img src=".$contactImg.$threadrow['email'].".png"." alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>";					
+												<img src=".$threadContactImage." alt='Contact_Img' class='contact_Img'><a href= ''>".$threadrow['display_name']."</a><label class = 'timeStamp'>".$threadTime."</label>";					
 						    					if($threadrow['textOrCode']==0)
 						    					{
 						    						$stringThread=$stringThread."<div class= 'textMessage'><span>".$threadMessage."</span></div>		
@@ -749,6 +766,7 @@ if(isset($_POST['getmessages']))
 				$time = date_format($date, 'Y-m-d l g:ia');
 				$rowThread['createdon'] = $time;
 				$rowThread['message'] = htmlspecialchars($rowThread['message']);
+				$row['threadMsgUserImg'] = getImage($row['user_email']);
 				array_push($threadMessages,$rowThread);
 			}
 		}
@@ -795,6 +813,7 @@ if(isset($_POST['threadContainerMessages']))
 		$messageDetails['disLikeCount'] = $dislikeCount['dislikeCount'];
 		$messageDetails['isArchive'] = $channelArray['isArchive'];
 		$messageDetails['session_email'] = $_SESSION['email'];
+		$messageDetails['replyMsgContactImg'] = getImage($_SESSION['email']);
 		$messageDetails['session_username'] =$userDetails['display_name'];
 		$messageDetails['emojiId']= $emojiId;
 		$messageDetails['emoji_email']=$reactionStatus['user_email'];
@@ -809,6 +828,7 @@ if(isset($_POST['threadContainerMessages']))
 			$time = date_format($date, 'Y-m-d l g:ia');
 			$row['createdon'] = $time;
 			$row['message'] = htmlspecialchars($row['message']);
+			$row['threadMsgUserImg'] = getImage($row['user_email']);
 			array_push($threadArray, $row);
 
 		}
@@ -850,6 +870,7 @@ if(isset($_POST['thread']))
 	$date = date_create($lastThreadDetails['createdon']);
 	$time = date_format($date, 'Y-m-d l g:ia');
 	$lastThreadDetails['createdon'] = $time;
+	$lastThreadDetails['imgPath'] = getImage($user_email);
 	$lastThreadDetails['message'] = htmlspecialchars($lastThreadDetails['message']);
     $messageThreadCount=messageThreadCount($msgId);
     echo json_encode([$messageThreadCount,$lastThreadDetails]);

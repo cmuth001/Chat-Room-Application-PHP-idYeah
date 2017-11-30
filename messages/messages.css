@@ -25,6 +25,13 @@ border-radius: 15%;
 border: 1px solid#ddd;
 
 }
+.replyMsgContactImg{
+width: 40px;
+height: 40px; 
+/*border-radius: 15%;*/
+border: 1px solid#ddd;
+float:left;
+}
 .textMessage{
   margin-left: 55px;
   font-family: "Comic Sans MS", cursive, sans-serif;

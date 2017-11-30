@@ -166,7 +166,7 @@ ui{
 }
 .textinput1{
 	position: absolute !important;
-    margin-left: 18px;
+    /*margin-left: 18px;*/
     width: 100%;
     margin-top: 0px;
     bottom: 0px;
@@ -301,12 +301,12 @@ width: 4%;
     margin-left: 1%;
 }
 .replyButton{
-	padding: 9px !important;
+	padding: 12px !important;
     border-bottom-left-radius: 0 !important;
     border-top-left-radius: 0 !important;
     border-top-right-radius: -41px;
-    border-top-right-radius: 10px !important;
-    border-bottom-right-radius: 10px !important;
+    /*border-top-right-radius: 10px !important;*/
+    /*border-bottom-right-radius: 10px !important;*/
 }
 
 .emptyChannel{

@@ -471,7 +471,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 			    		  		for (j = 0; j < data[1].length; j++) {   
 			    		  			if(data[1][j]['message_id']==data[0]['cmessage_id']){
 			    		  				stringThread+="<div id ='"+messageId+"' class='thread'>";
-			    		  						stringThread+="<img src='"+imagePath+data[1][j]['email']+".png' alt='Contact_Img' class='contact_Img'><a href= ''>"+data[1][j]['display_name']+"</a><label class = 'timeStamp'>"+data[1][j]['createdon']+"</label>";
+			    		  						stringThread+="<img src='"+data[1][j]['threadMsgUserImg']+"' alt='Contact_Img' class='contact_Img'><a href= ''>"+data[1][j]['display_name']+"</a><label class = 'timeStamp'>"+data[1][j]['createdon']+"</label>";
 			    		  						if(data[1][j]['textOrCode']==0){
 			    		  							stringThread+="<div class= 'textMessage'><span>"+data[1][j]['message']+"</span></div>";
 			    		  						}else{
@@ -489,9 +489,12 @@ $( ".inviteChannelButton" ).on("click",function(e) {
     		  						string+="<input type='hidden' name='channel' id='channel' value='"+channelId+"'>";
     		  						string+="<input type='hidden' name='text' value='0'>";
     		  						string+="<input type='hidden' name='display_name' id='display_name' value='"+data[0]['session_username']+"'>";
-    		  						string+="<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 85%;border: 2px solid #bfc4bd;border-bottom-left-radius: 10px;border-top-left-radius: 10px;' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>";
-    		  						string+="<button type='submit' id = '"+messageId+"' class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>";
-		  							string+="<button id = '"+messageId+"' class='btn  btn-sm  threadCodeButton' title='Insert Code'><i class='fa fa-code postingOptionMenu' aria-hidden='true'>Code</i></button>"
+    		  						string+="<div>";
+	    		  						string+="<img src='"+data[0]['replyMsgContactImg']+"' alt='replyMsgContactImg' class='replyMsgContactImg'/>";
+	    		  						string+="<input type='text' id='txt' class='form-control' name = 'message' style  = 'width: 79%;border: 2px solid #bfc4bd;height: 40px' placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required>";
+	    		  						string+="<button type='submit' id = '"+messageId+"' class='btn btn-info btn-md replyButton'><span class='glyphicon glyphicon-send'></span> </button>";
+			  							string+="<button id = '"+messageId+"' class='btn  btn-sm  threadCodeButton' title='Insert Code'><i class='fa fa-code postingOptionMenu' aria-hidden='true'>Code</i></button>"
+		  							string+="</div>";
 		  						string+="</form>";
 		  					string+="</div>";//Thread modal start
 		  					string+="<div class='modal fade' id='"+myThreadModal+"' role='dialog'>";
@@ -588,7 +591,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        dataType: 'text',
 	        success: function (data) {
 	        	console.log(data);
-	        	var url = "./index.php?channel="+id;
+	        	var url = "./index.php";
 	            window.location.href = url;
 	        }
 	    });
@@ -596,7 +599,23 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 
 		console.log(email);
 	});
-	
+	$(document).on('click','.defaultPhoto',function(e){
+		var email = e.currentTarget.id;
+		$.ajax({
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'defaultPhoto':email},
+	        dataType: 'text',
+	        success: function (data) {
+	        	console.log(data);
+	        	var url = "./index.php";
+	            window.location.href = url;
+	        }
+	    });
+
+
+		console.log(email);
+	});
 	$(document).on('click','.channelArchive',function(e){
 
 		console.log(e.currentTarget.id);
@@ -711,13 +730,13 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        dataType: 'json',
 	        success: function (data) {
 	        	var msgId = data[1]['message_id'];
-	        	var image = data[1]['user_email'];
+	        	var image = data[1]['imgPath'];
 	        	var user = convertedJSON['display_name'];
 	        	var channelId = convertedJSON['channel_id'];
 	        	var message = data[1]['message'];
 	        	var textOrCode = data[1]['textOrCode'];
 	        	var  timeStamp = data[1]['createdon'];
-	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='./assets/images/"+image+".png'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'>"+timeStamp+"</label>";
+	        	var threadDiv = "<div id ='"+msgId+"' class='thread'><img src='"+image+"'"+" alt='Contact_Img' class='contact_Img'><a href= ''>"+user+"</a><label class = 'timeStamp'>"+timeStamp+"</label>";
 	        	if(textOrCode==0){
 	        		threadDiv+="<div class= 'textMessage'><span>"+message+"</span></div></div>";
 	        	}else{

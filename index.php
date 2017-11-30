@@ -85,10 +85,11 @@ if(!$_SESSION['loggedIn']){
 								    </div>
 								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" class = 'userMenuLink'><span class = 'fa fa-user userMenuList'></span> View Profile</a>
 								    <!-- <a class = 'userMenuLink picUpdate' style='cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Update Profile Pic</a> -->
-								    <a href='#UpdatePic' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-bars userMenuList'></span>Update Pic</a>
+								    <a href='#UpdatePic' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-bars userMenuList'></span>Update Photo</a>
 								    <div id='UpdatePic' class='collapse' >
-								    	<a  class='picUpdate' style='margin-left: 10%; text-decoration:none;'><span class = 'fa fa-camera userMenuList'></span>Local Image</a>
-								    	<a class='selectGravatar' id ="<?php echo $_SESSION['email']?>" style='margin-left: 10%; text-decoration:none;'><span class = 'fa fa-picture-o userMenuList'></span>Use Gravatar</a>
+								    	<a  class='defaultPhoto' id ="<?php echo $_SESSION['email']?>" style='margin-left: 10%; text-decoration:none;cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Default </a>
+								    	<a  class='picUpdate' style='margin-left: 10%; text-decoration:none;cursor:pointer;'><span class = 'fa fa-camera userMenuList'></span>Gallery</a>
+								    	<a class='selectGravatar' id ="<?php echo $_SESSION['email']?>" style='margin-left: 10%; text-decoration:none;cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Use Gravatar</a>
 								    </div>
 								    
 								    <a href='#contact' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-phone userMenuList'></span>Contact</a>
@@ -501,7 +502,7 @@ if(!$_SESSION['loggedIn']){
 											$string = $string."<input type='text' class='form-control message' name = 'message'  placeholder= 'Type Some message ....' aria-describedby='sizing-addon1' autofocus required><input type='hidden' name='text' value='0'>";
 										$string = $string."</div></div>";
 									$string = $string."</div>";
-								$string = $string."</form>";
+								$string = $string."</form></div>";
 							echo $string;
 							
 						}
