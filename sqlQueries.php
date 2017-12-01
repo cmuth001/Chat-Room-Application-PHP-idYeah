@@ -365,7 +365,7 @@ function getDirectMessages($toEmail,$start){
 	    						}
     							
     						$string=$string."</div>";
-    					$string=$string."</div></div>";//right
+    					$string=$string."</div>";//right
     						
     					
     		

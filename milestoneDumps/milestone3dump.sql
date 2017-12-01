@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 31, 2017 at 12:19 PM
+-- Generation Time: Nov 21, 2017 at 12:28 AM
 -- Server version: 10.0.19-MariaDB-1~trusty-log
 -- PHP Version: 5.5.9-1ubuntu4.9
 
@@ -25,26 +25,51 @@ USE `web_programming_db`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin`
+--
+
+CREATE TABLE IF NOT EXISTS `admin` (
+  `email` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
+  `display_name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`email`, `password`, `user_name`, `display_name`) VALUES
+('cmuth001@odu.edu', '@cmuth001', 'chandu_muthyala', 'chandu_muthyala'),
+('npabb001@odu.edu', 'Neutral@123', 'vamsi', 'vamsi'),
+('skand001@odu.edu', 'She3ple!', 'yashkandukuri', 'whaike');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `channels`
 --
 
 CREATE TABLE IF NOT EXISTS `channels` (
   `channel_id` int(20) NOT NULL,
-  `channel_name` varchar(20) NOT NULL,
-  `purpose` varchar(50) NOT NULL,
-  `created_by_user_email` varchar(20) NOT NULL,
+  `channel_name` varchar(200) NOT NULL,
+  `purpose` varchar(500) NOT NULL,
+  `created_by_user_email` varchar(50) NOT NULL,
   `createdon` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `access_specifiers` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
+  `access_specifiers` tinyint(1) NOT NULL DEFAULT '0',
+  `isArchive` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `channels`
 --
 
-INSERT INTO `channels` (`channel_id`, `channel_name`, `purpose`, `created_by_user_email`, `createdon`, `access_specifiers`) VALUES
-(1, 'general', 'all general messages', 'cmuth001@odu.edu', '2017-10-26 07:51:30', 0),
-(2, 'random', 'random messages', 'cmuth001@odu.edu', '2017-10-29 06:12:42', 0),
-(64, 'privateChannel', 'testing....', 'cmuth001@odu.edu', '2017-10-31 06:42:25', 1);
+INSERT INTO `channels` (`channel_id`, `channel_name`, `purpose`, `created_by_user_email`, `createdon`, `access_specifiers`, `isArchive`) VALUES
+(1, 'general', 'all general messages', 'cmuth001@odu.edu', '2017-11-21 04:31:26', 0, 0),
+(2, 'random', 'random messages', 'cmuth001@odu.edu', '2017-11-21 04:42:32', 0, 0),
+(64, 'privateChannel', 'testing....', 'cmuth001@odu.edu', '2017-11-20 21:10:56', 1, 0),
+(66, 'public channel testi', 'testing 1', 'npabb001@odu.edu', '2017-11-02 11:23:54', 0, 0),
+(67, 'new private channel-2', 'testing new private channel-2', 'mater@rsprings.gov', '2017-11-05 08:12:20', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -58,17 +83,55 @@ CREATE TABLE IF NOT EXISTS `channel_messages` (
   `cuser_email` varchar(20) CHARACTER SET latin1 NOT NULL,
   `channel_message` text CHARACTER SET latin1 NOT NULL,
   `has_thread` tinyint(4) NOT NULL DEFAULT '0',
+  `textOrCode` tinyint(1) NOT NULL DEFAULT '0',
   `cmsg_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=305 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `channel_messages`
 --
 
-INSERT INTO `channel_messages` (`cmessage_id`, `channel_id`, `cuser_email`, `channel_message`, `has_thread`, `cmsg_timestamp`) VALUES
-(15, 1, 'cmuth001@odu.edu', 'hey buddy', 1, '2017-10-31 15:44:07'),
-(16, 1, 'cmuth001@odu.edu', ' "how do you html?"', 1, '2017-10-31 15:45:23'),
-(17, 64, 'mater@rsprings.gov', 'hi folks this is our private channel', 1, '2017-10-31 16:17:35');
+INSERT INTO `channel_messages` (`cmessage_id`, `channel_id`, `cuser_email`, `channel_message`, `has_thread`, `textOrCode`, `cmsg_timestamp`) VALUES
+(253, 1, 'cmuth001@odu.edu', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Icons8_flat_businessman.svg/1024px-Icons8_flat_businessman.svg.png', 1, 2, '2017-11-18 16:32:35'),
+(254, 1, 'cmuth001@odu.edu', '', 0, 3, '2017-11-18 16:43:33'),
+(255, 1, 'cmuth001@odu.edu', 'aad\\', 0, 0, '2017-11-18 20:40:43'),
+(256, 1, 'cmuth001@odu.edu', 'dasd', 0, 0, '2017-11-18 20:40:45'),
+(257, 1, 'cmuth001@odu.edu', 'asdas', 0, 0, '2017-11-18 20:40:46'),
+(259, 1, 'cmuth001@odu.edu', 'asd', 0, 0, '2017-11-18 20:40:48'),
+(263, 1, 'cmuth001@odu.edu', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Icons8_flat_businessman.svg/1024px-Icons8_flat_businessman.svg.png', 0, 2, '2017-11-18 21:47:34'),
+(264, 1, 'cmuth001@odu.edu', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Icons8_flat_businessman.svg/1024px-Icons8_flat_businessman.svg', 0, 0, '2017-11-18 21:47:47'),
+(265, 1, 'cmuth001@odu.edu', 'https://vignette2.wikia.nocookie.net/disney/images/1/1e/Chick_Hicks.png/revision/latest?cb=20151222135632', 0, 0, '2017-11-18 21:48:35'),
+(266, 1, 'cmuth001@odu.edu', 'https://files.slack.com/files-pri/T5T5XF45R-F7U6C9YG0/chick.png', 0, 2, '2017-11-18 21:50:01'),
+(267, 1, 'cmuth001@odu.edu', 'if(isset($_POST[''deleteMessage'']))\r\n{\r\n	$messageId = intval($_POST[''deleteMessage'']);\r\n	echo $messageId;\r\n	$threadMessageSql = "DELETE FROM threaded_messages WHERE message_id=''$messageId''";\r\n	$channekMessageDeleteSql = "DELETE FROM channel_messages WHERE cmessage_id=''$messageId''";\r\n	if (mysqli_query($conn, $threadMessageSql)) {       \r\n        echo "''$threadMessageSql''thread messages deleted !!!";\r\n    }else{\r\n        echo "failed deleting thread messages !!!";\r\n    }\r\n    if (mysqli_query($conn, $channekMessageDeleteSql)) {       \r\n        echo "''$threadMessageSql''channel  message deleted !!!";\r\n    }else{\r\n        echo "failed deleting channel message !!!";\r\n    }\r\n}', 0, 1, '2017-11-18 21:58:40'),
+(268, 1, 'cmuth001@odu.edu', '', 1, 3, '2017-11-19 20:02:32'),
+(270, 64, 'cmuth001@odu.edu', 'test1', 0, 0, '2017-11-19 20:45:09'),
+(271, 1, 'cmuth001@odu.edu', 'Testing', 0, 0, '2017-11-19 20:48:33'),
+(272, 1, 'cmuth001@odu.edu', 'Something all of us must remember always.', 0, 3, '2017-11-19 20:50:31'),
+(273, 1, 'cmuth001@odu.edu', 'for all of us! let your swords stay sharp!', 0, 3, '2017-11-19 20:51:55'),
+(274, 2, 'cmuth001@odu.edu', 'test1', 0, 0, '2017-11-19 21:09:03'),
+(275, 1, 'cmuth001@odu.edu', 'who is chatting  with my login :P ', 0, 0, '2017-11-19 21:17:37'),
+(276, 1, 'cmuth001@odu.edu', 'if possible test everything ', 0, 0, '2017-11-19 21:18:18'),
+(277, 1, 'cmuth001@odu.edu', '', 0, 3, '2017-11-19 21:23:56'),
+(278, 1, 'cmuth001@odu.edu', '', 0, 3, '2017-11-19 21:24:10'),
+(279, 1, 'cmuth001@odu.edu', 'var x = 5;      // Declare x, give it the value of 5\r\nvar y = x + 2;', 1, 1, '2017-11-19 22:28:38'),
+(280, 1, 'npabb001@odu.edu', 'http://qav2.cs.odu.edu/chandu/web-programming/index.php?channel=1#scrollBottom', 1, 0, '2017-11-20 07:07:09'),
+(282, 1, 'mater@rsprings.gov', '', 0, 3, '2017-11-20 05:43:10'),
+(283, 1, 'mater@rsprings.gov', 'http://www.gettyimages.in/gi-resources/images/Homepage/Hero/US/MAR2016/prestige-587705839_full.jpg', 0, 2, '2017-11-20 05:55:10'),
+(284, 1, 'mater@rsprings.gov', 'https://media.giphy.com/channel_assets/reactions/k2ybPvSfRQuK.gif', 0, 2, '2017-11-20 05:55:51'),
+(285, 1, 'mater@rsprings.gov', 'hello', 1, 0, '2017-11-20 05:58:13'),
+(286, 1, 'mater@rsprings.gov', 'https://m.popkey.co/e55307/ygwM0.gif', 1, 2, '2017-11-20 16:43:51'),
+(291, 2, 'mater@rsprings.gov', 'hello testing for rating', 0, 0, '2017-11-20 08:41:15'),
+(292, 2, 'mater@rsprings.gov', 'okay', 0, 0, '2017-11-20 08:41:40'),
+(293, 1, 'mater@rsprings.gov', 'let me comment', 0, 0, '2017-11-20 16:55:55'),
+(294, 1, 'mater@rsprings.gov', 'sdfsd', 0, 0, '2017-11-20 16:56:08'),
+(295, 1, 'chinga@cars.com', 'my first message for rating :P', 0, 0, '2017-11-20 16:58:41'),
+(297, 1, 'chinga@cars.com', '', 0, 3, '2017-11-20 16:59:34'),
+(298, 2, 'chinga@cars.com', '', 0, 3, '2017-11-20 17:00:28'),
+(299, 1, 'mater@rsprings.gov', 'https://m.popkey.co/e55307/ygwM0.gif', 0, 2, '2017-11-20 19:32:15'),
+(300, 1, 'mater@rsprings.gov', '# Python 3: Fibonacci series up to n\r\n>>> def fib(n):\r\n>>>     a, b = 0, 1\r\n>>>     while a < n:\r\n>>>         print(a, end='' '')\r\n>>>         a, b = b, a+b\r\n>>>     print()\r\n>>> fib(1000)', 0, 1, '2017-11-20 19:45:03'),
+(301, 1, 'mater@rsprings.gov', 'def fib(n):\r\n>>>     a, b = 0, 1\r\n>>>     while a < n:\r\n>>>         print(a, end='' '')\r\n>>>         a, b = b, a+b\r\n>>>     print()', 1, 1, '2017-11-20 21:50:14'),
+(302, 1, 'mater@rsprings.gov', '9615*5961946594', 1, 1, '2017-11-20 21:24:24'),
+(304, 2, 'cmuth001@odu.edu', 'https://m.popkey.co/e55307/ygw <!-- M0.gif', 0, 2, '2017-11-20 21:31:42');
 
 -- --------------------------------------------------------
 
@@ -82,18 +145,42 @@ CREATE TABLE IF NOT EXISTS `channel_message_reaction` (
   `user_email` varchar(200) NOT NULL,
   `emoji_id` bigint(100) NOT NULL DEFAULT '0',
   `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=296 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `channel_message_reaction`
 --
 
 INSERT INTO `channel_message_reaction` (`id`, `message_id`, `user_email`, `emoji_id`, `createdon`) VALUES
-(143, 15, 'cmuth001@odu.edu', 2, '2017-10-31 15:44:10'),
-(144, 17, 'mater@rsprings.gov', 2, '2017-10-31 16:15:21'),
-(145, 16, 'mater@rsprings.gov', 1, '2017-10-31 16:16:02'),
-(146, 17, 'cmuth001@odu.edu', 1, '2017-10-31 16:17:46'),
-(147, 16, 'cmuth001@odu.edu', 1, '2017-10-31 16:18:34');
+(264, 267, 'skand001@odu.edu', 1, '2017-11-19 19:17:46'),
+(266, 269, 'skand001@odu.edu', 2, '2017-11-19 19:23:02'),
+(267, 270, 'cmuth001@odu.edu', 2, '2017-11-19 20:45:23'),
+(268, 273, 'skand001@odu.edu', 1, '2017-11-19 20:52:36'),
+(270, 279, 'cmuth001@odu.edu', 1, '2017-11-20 06:37:43'),
+(271, 280, 'npabb001@odu.edu', 1, '2017-11-20 06:37:45'),
+(272, 282, 'mater@rsprings.gov', 1, '2017-11-20 06:37:46'),
+(274, 280, 'mater@rsprings.gov', 1, '2017-11-20 06:38:33'),
+(275, 283, 'mater@rsprings.gov', 1, '2017-11-20 06:38:40'),
+(276, 280, 'cmuth001@odu.edu', 1, '2017-11-20 06:57:03'),
+(277, 282, 'cmuth001@odu.edu', 1, '2017-11-20 06:57:04'),
+(278, 283, 'cmuth001@odu.edu', 1, '2017-11-20 06:57:07'),
+(279, 271, 'cmuth001@odu.edu', 1, '2017-11-20 07:08:44'),
+(280, 272, 'cmuth001@odu.edu', 1, '2017-11-20 07:08:46'),
+(281, 273, 'cmuth001@odu.edu', 2, '2017-11-20 07:08:48'),
+(282, 275, 'cmuth001@odu.edu', 2, '2017-11-20 07:08:50'),
+(283, 276, 'cmuth001@odu.edu', 2, '2017-11-20 07:08:52'),
+(284, 277, 'cmuth001@odu.edu', 1, '2017-11-20 07:08:55'),
+(285, 286, 'mater@rsprings.gov', 1, '2017-11-20 16:43:34'),
+(286, 284, 'mater@rsprings.gov', 1, '2017-11-20 16:55:12'),
+(287, 294, 'chinga@cars.com', 1, '2017-11-20 16:59:50'),
+(288, 293, 'chinga@cars.com', 2, '2017-11-20 16:59:51'),
+(289, 274, 'chinga@cars.com', 1, '2017-11-20 17:00:38'),
+(290, 291, 'chinga@cars.com', 1, '2017-11-20 17:00:40'),
+(291, 292, 'chinga@cars.com', 1, '2017-11-20 17:00:41'),
+(292, 297, 'cmuth001@odu.edu', 1, '2017-11-20 19:46:47'),
+(293, 302, 'mater@rsprings.gov', 1, '2017-11-20 21:42:57'),
+(294, 300, 'mater@rsprings.gov', 1, '2017-11-21 03:01:44'),
+(295, 299, 'mater@rsprings.gov', 2, '2017-11-21 03:01:50');
 
 -- --------------------------------------------------------
 
@@ -179,35 +266,6 @@ CREATE TABLE IF NOT EXISTS `modes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `register`
---
-
-CREATE TABLE IF NOT EXISTS `register` (
-  `email` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `user_name` varchar(20) NOT NULL,
-  `display_name` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `register`
---
-
-INSERT INTO `register` (`email`, `password`, `user_name`, `display_name`) VALUES
-('mater@rsprings.gov', '@mater', 'Tow Mater', 'Tow Mater'),
-('porsche@rsprings.gov', '@sally', 'Sally Carrera', 'Sally Carrera'),
-('hornet@rsprings.gov', '@doc', 'Doc Hudson', 'Doc Hudson'),
-('topsecret@agent.org', '@mcmissile', 'Finn McMissile', 'Finn McMissile'),
-('kachow@rusteze.com', '@mcqueen', 'Lightning McQueen', 'Lightning McQueen'),
-('chinga@cars.com', '@chick', 'Chick Hicks', 'Chick Hicks'),
-('cmuth001@odu.edu', '@cmuth001', 'chandu_muthyala', 'chandu_muthyala'),
-('npabb001@odu.edu', 'Neutral@123', 'vamsi', 'vamsi'),
-('skand001@odu.edu', 'She3ple!', 'yashkandukuri', 'whaike'),
-('mkuku002@odu.edu', 'asdf', 'mahesh', 'mahesh');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `status`
 --
 
@@ -228,22 +286,34 @@ CREATE TABLE IF NOT EXISTS `threaded_messages` (
   `message_id` int(100) NOT NULL,
   `user_email` varchar(50) NOT NULL,
   `message` text NOT NULL,
+  `textOrCode` tinyint(1) NOT NULL DEFAULT '0',
   `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=443 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `threaded_messages`
 --
 
-INSERT INTO `threaded_messages` (`thread_id`, `message_id`, `user_email`, `message`, `createdon`) VALUES
-(30, 15, 'cmuth001@odu.edu', 'checking thread', '2017-10-31 15:44:07'),
-(31, 16, 'cmuth001@odu.edu', '"what does <!-- mean"', '2017-10-31 15:45:23'),
-(32, 16, 'cmuth001@odu.edu', '"what happens when I ~!@#$%^&*()_+_)(*&^%$#@!~}{:"><??:{}+}|}{P{}|-/*?"', '2017-10-31 15:45:50'),
-(33, 16, 'cmuth001@odu.edu', '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. "', '2017-10-31 15:46:04'),
-(34, 15, 'mater@rsprings.gov', 'ha ha ha', '2017-10-31 16:15:38'),
-(35, 16, 'mater@rsprings.gov', 'I can also Comment :P', '2017-10-31 16:15:53'),
-(36, 17, 'cmuth001@odu.edu', 'yes I only created for us', '2017-10-31 16:17:35'),
-(37, 15, 'cmuth001@odu.edu', 'awesome bro ...', '2017-10-31 16:18:21');
+INSERT INTO `threaded_messages` (`thread_id`, `message_id`, `user_email`, `message`, `textOrCode`, `createdon`) VALUES
+(422, 253, 'cmuth001@odu.edu', 'gjhgjk', 0, '2017-11-18 16:32:35'),
+(425, 268, 'cmuth001@odu.edu', 'asdsadfsdf', 0, '2017-11-19 20:02:32'),
+(426, 279, 'cmuth001@odu.edu', 'var x = 5;      // Declare x, give it the value of 5\r\nvar y = x + 2;\r\n', 1, '2017-11-19 22:28:38'),
+(427, 279, 'npabb001@odu.edu', 'hello', 0, '2017-11-20 00:37:46'),
+(428, 279, 'npabb001@odu.edu', 'http://qav2.cs.odu.edu/chandu/web-programming/index.php?channel=1#scrollBottom', 0, '2017-11-20 00:38:03'),
+(429, 285, 'mater@rsprings.gov', 'sadfsfsdf', 0, '2017-11-20 05:58:13'),
+(430, 280, 'cmuth001@odu.edu', '1', 0, '2017-11-20 07:07:09'),
+(431, 280, 'cmuth001@odu.edu', '2', 0, '2017-11-20 07:07:12'),
+(432, 280, 'cmuth001@odu.edu', '3', 0, '2017-11-20 07:07:18'),
+(433, 280, 'cmuth001@odu.edu', '4', 0, '2017-11-20 07:07:25'),
+(434, 280, 'cmuth001@odu.edu', '5', 0, '2017-11-20 07:07:28'),
+(435, 280, 'cmuth001@odu.edu', '6', 0, '2017-11-20 07:07:31'),
+(436, 280, 'cmuth001@odu.edu', '7', 0, '2017-11-20 07:07:35'),
+(437, 286, 'mater@rsprings.gov', 'He is amazing', 0, '2017-11-20 16:43:51'),
+(438, 285, 'mater@rsprings.gov', 'checking rating ....', 0, '2017-11-20 16:55:41'),
+(439, 302, 'mater@rsprings.gov', '', 1, '2017-11-20 21:24:24'),
+(440, 301, 'cmuth001@odu.edu', '', 1, '2017-11-20 21:50:14'),
+(441, 301, 'cmuth001@odu.edu', 'dadsad', 0, '2017-11-20 21:57:32'),
+(442, 301, 'cmuth001@odu.edu', 'asdada', 1, '2017-11-20 21:57:53');
 
 -- --------------------------------------------------------
 
@@ -252,9 +322,9 @@ INSERT INTO `threaded_messages` (`thread_id`, `message_id`, `user_email`, `messa
 --
 
 CREATE TABLE IF NOT EXISTS `userChannels` (
-  `user_email` varchar(20) NOT NULL,
+  `user_email` varchar(50) NOT NULL,
   `channel_id` int(10) NOT NULL,
-  `channel_name` varchar(20) NOT NULL DEFAULT 'empty',
+  `channel_name` varchar(200) NOT NULL DEFAULT 'empty',
   `isPublic` tinyint(1) NOT NULL DEFAULT '0',
   `join_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `starred` tinyint(1) NOT NULL DEFAULT '0'
@@ -268,6 +338,8 @@ INSERT INTO `userChannels` (`user_email`, `channel_id`, `channel_name`, `isPubli
 ('chinga@cars.com', 1, 'general', 0, '2017-10-27 01:36:18', 0),
 ('chinga@cars.com', 2, 'random', 0, '2017-10-27 01:36:18', 0),
 ('chinga@cars.com', 64, 'privateChannel', 1, '2017-10-31 06:42:25', 0),
+('chinga@cars.com', 66, 'public channel testi', 0, '2017-11-02 11:23:54', 0),
+('chinga@cars.com', 67, 'empty', 0, '2017-11-05 08:12:59', 0),
 ('cmuth001@odu.edu', 1, 'general', 0, '2017-10-31 01:48:07', 0),
 ('cmuth001@odu.edu', 2, 'random', 0, '2017-10-31 01:48:07', 0),
 ('cmuth001@odu.edu', 64, 'privateChannel', 1, '2017-10-31 06:42:25', 0),
@@ -280,8 +352,10 @@ INSERT INTO `userChannels` (`user_email`, `channel_id`, `channel_name`, `isPubli
 ('mater@rsprings.gov', 1, 'general', 0, '2017-10-27 01:37:41', 0),
 ('mater@rsprings.gov', 2, 'random', 0, '2017-10-27 01:37:41', 0),
 ('mater@rsprings.gov', 64, 'empty', 0, '2017-10-31 15:27:04', 0),
+('mater@rsprings.gov', 67, 'new private channel-2', 1, '2017-11-05 08:12:20', 0),
 ('npabb001@odu.edu', 1, 'general', 0, '2017-10-27 01:38:00', 0),
 ('npabb001@odu.edu', 2, 'random', 0, '2017-10-27 01:38:00', 0),
+('npabb001@odu.edu', 66, 'public channel testi', 0, '2017-11-02 11:23:54', 0),
 ('porsche@rsprings.gov', 1, 'general', 0, '2017-10-27 01:38:22', 0),
 ('porsche@rsprings.gov', 2, 'random', 0, '2017-10-27 01:38:22', 0),
 ('skand001@odu.edu', 1, 'general', 0, '2017-10-27 01:38:42', 0),
@@ -304,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `display_pic` varchar(50) NOT NULL DEFAULT 'no pic',
   `description` varchar(200) NOT NULL DEFAULT 'bio',
   `password` varchar(20) NOT NULL,
-  `phone_no` int(13) DEFAULT NULL,
+  `phone_no` int(13) NOT NULL DEFAULT '1234567890',
   `skype_id` varchar(20) NOT NULL DEFAULT 'skype id',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -319,7 +393,7 @@ INSERT INTO `users` (`email`, `user_name`, `display_name`, `status`, `mode_id`, 
 ('hornet@rsprings.gov', 'Doc Hudson', 'Doc Hudson', 'Available', 0, '', '', '@doc', 0, '', '2017-10-29 23:05:07'),
 ('kachow@rusteze.com', 'Lightning McQueen', 'Lightning McQueen', 'Available', 0, '', '', '@mcqueen', 0, '', '2017-10-29 23:05:07'),
 ('mater@rsprings.gov', 'Tow Mater', 'Tow Mater', 'Available', 0, '', '', '@mater', 0, '', '2017-10-29 23:05:07'),
-('mchandrasekharreddym@gmail.com', 'chandu', 'chandu', 'Available', 0, 'no pic', 'bio', 'asdf', NULL, 'skype id', '2017-10-29 23:05:07'),
+('mchandrasekharreddym@gmail.com', 'chandu', 'chandu', 'Available', 0, 'no pic', 'bio', 'asdf', 0, 'skype id', '2017-10-29 23:05:07'),
 ('npabb001@odu.edu', 'Vamsi', 'Vamsi', 'Available', 0, '', '', 'Neutral@123', 0, '', '2017-10-29 23:05:07'),
 ('porsche@rsprings.gov', 'Sally Carrera', 'Sally Carrera', 'Available', 0, '', '', '@sally', 0, '', '2017-10-29 23:05:07'),
 ('skand001@odu.edu', 'yashkandukuri', 'whaike', 'Available', 0, '', '', 'She3ple!', 0, '', '2017-10-29 23:05:07'),
@@ -340,6 +414,12 @@ CREATE TABLE IF NOT EXISTS `workspace` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`email`);
 
 --
 -- Indexes for table `channels`
@@ -407,12 +487,6 @@ ALTER TABLE `modes`
   ADD KEY `mode_id` (`mode_id`);
 
 --
--- Indexes for table `register`
---
-ALTER TABLE `register`
-  ADD PRIMARY KEY (`email`);
-
---
 -- Indexes for table `status`
 --
 ALTER TABLE `status`
@@ -466,17 +540,17 @@ ALTER TABLE `workspace`
 -- AUTO_INCREMENT for table `channels`
 --
 ALTER TABLE `channels`
-  MODIFY `channel_id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=65;
+  MODIFY `channel_id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=68;
 --
 -- AUTO_INCREMENT for table `channel_messages`
 --
 ALTER TABLE `channel_messages`
-  MODIFY `cmessage_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+  MODIFY `cmessage_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=305;
 --
 -- AUTO_INCREMENT for table `channel_message_reaction`
 --
 ALTER TABLE `channel_message_reaction`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=148;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=296;
 --
 -- AUTO_INCREMENT for table `emojis`
 --
@@ -496,7 +570,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `threaded_messages`
 --
 ALTER TABLE `threaded_messages`
-  MODIFY `thread_id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
+  MODIFY `thread_id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=443;
 --
 -- Constraints for dumped tables
 --
