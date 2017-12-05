@@ -333,7 +333,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 				        	
 				        	var divHide = "right"+messageId;
 				        	//$('.'+divHide).hide();
-				        	var url = "./index.php?channel="+channelId;
+				        	var url = "./index.php"+url_string;
 				        	console.log(channelId);
 				         	window.location.href = url;
 				        }
@@ -367,7 +367,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 				        success: function (data) {
 				        	console.log(data);
 				        	
-				        	var url = "./index.php?channel="+channelId;
+				        	var url = "./index.php"+url_string;
 				         	window.location.href = url;
 				        }
 				    });
@@ -591,7 +591,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        dataType: 'text',
 	        success: function (data) {
 	        	console.log(data);
-	        	var url = "./index.php";
+	        	var url = "./index.php"+url_string;
 	            window.location.href = url;
 	        }
 	    });
@@ -608,7 +608,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        dataType: 'text',
 	        success: function (data) {
 	        	console.log(data);
-	        	var url = "./index.php";
+	        	var url = "./index.php"+url_string;
 	            window.location.href = url;
 	        }
 	    });
@@ -627,7 +627,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	        dataType: 'text',
 	        success: function (data) {
 	        	console.log(data);
-	        	var url = "./index.php?channel="+channelId;
+	        	var url = "./index.php"+url_string;
 	             window.location.href = url;
 	        }
 	    });
@@ -707,9 +707,29 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	// 	//$('#profileSearchInputField').val('');
 		
 	// });
+	var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic1').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 	$(document).on('click','.container',function(e){	
 		$('.listOfProfileSearch').hide();
 		$('#profileSearchInputField').val('');
+	});
+	$(".imageSelect").on('change', function(){
+        readURL(this);
+    });
+	$('.profile-pic1').on('click', function() {	
+		
+		$('.imageSelect').trigger('click');
+		// readURL(this);
+
 	});
 	$(document).on('click','.replyButton',function(e){	
 		e.preventDefault();
@@ -815,17 +835,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 
 // image upload into channel
 
-var readURL = function(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('.profile-pic1').attr('src', e.target.result);
-            }
-    
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
     
 
     $(".file-upload").on('change', function(){

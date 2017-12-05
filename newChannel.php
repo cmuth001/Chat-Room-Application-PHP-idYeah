@@ -1,3 +1,11 @@
+<?php 
+	session_start();
+	
+if(!$_SESSION['loggedIn']){
+	header("location: ./login/login.php");
+	die();
+}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -35,7 +43,7 @@
 				<div id = 'errorMsg'></div>
 				<form id= "channelForm" method = "post">
 					<div class = 'channelHeading'>
-			            <a href ='index.php'><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' ></i></a>
+			            <a href =<?php echo "\"".$_SESSION['url']."\""; ?>><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' ></i></a>
 			            
 			            <h2 style = 'margin-top: -2%;'>Create Channel</h2>
 					</div>

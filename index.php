@@ -1,11 +1,12 @@
 <?php
 
+
 // session_start();// session already started in sqlQueries.php
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 include_once "sqlQueries.php";	
-
+$_SESSION['url']=basename($_SERVER['REQUEST_URI']);
 // mysqli_close($conn);
 // if($_GET && $_GET['action'] && $_GET['action']=="logout"){
 // 	unset($_SESSION['loggedIn']);
@@ -184,7 +185,7 @@ if(!$_SESSION['loggedIn']){
 							<!-- search profile field -->
 							<div class="input-group input-group-lg profileSearchField">
 							  <span class="input-group-addon" id="sizing-addon1" style='padding: 3% 4%;'>@</span>
-							  <input type="text" class="form-control" class ='profileSearchInputField' id ='profileSearchInputField' placeholder="Username" aria-label="Username" aria-describedby="sizing-addon1">
+							  <input type="text" class="form-control" class ='profileSearchInputField' id ='profileSearchInputField' placeholder="Search User profile" aria-label="Username" aria-describedby="sizing-addon1">
 							</div>
 							<div class ='listOfProfileSearch'>
 							</div>
@@ -522,17 +523,17 @@ if(!$_SESSION['loggedIn']){
       					</div>
 		        	</div>
 		        	<!-- profile pic update -->
-		        	<div id='profilPicUpdate' class ='col-xs-3 noPadding panel panel-primary' style='display:none;'>
-		        		<div class="panel-heading UpdateProfilePicture">Update Profile Picture <button type="button" class="close threadClose" >&times;</button></div>
+		        	<div id='profilPicUpdate' class ='col-xs-3 noPadding panel panel-primary' style='display:none;  height: 90%;border-color: #cccccc !important;'>
+		        		<div class="panel-heading UpdateProfilePicture threadHeading">Update Profile Picture <button type="button" class="close threadClose" >&times;</button></div>
       					<div class="panel-body " id='UpdateProfilePictureBody'>
 
       						<form action="./uploadImage.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
 			     
 		                        <!-- <div style="background-color: #404040;color: white;padding-left:9% !important;font-size: 1.7vh;"><label>Select image to upload:</label></div> -->
-		                        <img class="profile-pic1" src=<?php echo "./assets/images/".$_SESSION['email'].".png" ?> />
+		                        <img class="profile-pic1" src=<?php echo getImage($_SESSION['email']); ?> />
 						        <div class="upload-button" style='display:none'>Select Image</div>
-		                        <input class = 'imageSelect' type="file" name="fileToUpload" id="fileToUpload">
-		                        <input type="submit" value="Upload Image" name="submit">
+		                        <input class = 'imageSelect ' type="file" name="fileToUpload" id="fileToUpload" style='display:none;'>
+		                        <input class ='imageUploadBtn' type="submit" value="Upload Image" name="submit">
 		                        <input type="hidden" name="channel" value=<?php echo '"'.$_GET["channel"].'"';?> >
 			                </form>
       			

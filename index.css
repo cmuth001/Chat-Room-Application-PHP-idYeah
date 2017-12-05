@@ -411,16 +411,37 @@ width: 4%;
     display: block;
     float: left;
 }
-
+.imageUploadBtn{
+	
+    border: 1px solid black;
+    border-radius: 5px; 
+    margin-top: 1%;
+    margin-left: 37%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    background-color: white;
+    font-weight: 600;
+}
+.imageUploadBtn:hover{
+	color: #3595de;
+}
 .profile-pic {
     max-width: 200px;
     max-height: 200px;
     display: block;
 }
 .profile-pic1 {
-    max-width: 200px;
-    max-height: 200px;
+    height: 41%;
+    width: 101%;
+    border-radius: 2%;
     display: block;
+    border: 6px !important;
+    border: 3px solid #cccccc !important;
+    cursor:pointer;
+}
+.profile-pic1:hover{
+	opacity: 0.3;
 }
 .file-upload {
     display: none;
@@ -443,6 +464,7 @@ width: 4%;
 
 #threadContainer{
 	border-radius: 0px;
+	border-color: #cccccc !important;
 }
 .threadHeading{
 	border-radius: 0px !important;
@@ -459,6 +481,16 @@ width: 4%;
   background-color: white;
   /*border-radius: 10px;*/
     
+}
+.threadClose{
+	color: rgb(255, 255, 255) !important;
+	font-weight: 100 !important;
+	    opacity: 1 !important;
+}
+.threadClose:hover{
+	color: rgb(255, 255, 255) !important;
+	font-weight: 100!important;
+	opacity: 1 !important;
 }
 #threadContainerBody{
 	padding: 0px;

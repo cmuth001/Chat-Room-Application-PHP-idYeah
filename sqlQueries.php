@@ -74,14 +74,14 @@ function getChannelName($channel_id,$user_email){
 	else{
 		if (in_array($user_email, $admin)){
 			if($row['isArchive']==0){
-				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #706c6c;cursor:pointer' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
 			}else{
-				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #d05252;cursor:pointer' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
+				$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label><i style='font-size: 150%;padding-right: 1%;padding-left: 5%;color: #d05252;cursor:pointer' class='fa fa-archive channelArchive' id = '$channel_id'></i>";
 			}
 
 			
 		}else{
-			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock-alt'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
+			$string = "<div><i style='font-size: 170%;padding-right: 1%;color: #706c6c;' class='fa fa-unlock'></i><label class = 'channel_title'><b>".$row['channel_name']."</b></label>";
 		}
 	}
 	echo $string;
@@ -265,7 +265,7 @@ function getAllChannels($email){
 			if(intval($row['isArchive'])==1){
 				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."><i style='font-size: 100%;padding-right: 3%;' class='fa fa-archive'></i>".$row['channel_name']."</a></li>";
 			}else{
-				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."><i style='font-size: 126%;padding-right: 3%;' class='fa fa-unlock-alt'></i>".$row['channel_name']."</a></li>";
+				$string=$string."<li ><a class= 'listbg' href=index.php?channel=".$row['channel_id']."><i style='font-size: 126%;padding-right: 3%;' class='fa fa-unlock'></i>".$row['channel_name']."</a></li>";
 			}
 			
 		}	

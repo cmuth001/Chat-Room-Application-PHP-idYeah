@@ -51,7 +51,7 @@ if ($uploadOk == 0) {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
         //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        header('location: index.php?channel='.$channel.'#scrollBottom');
+        header('location: index.php?channel='.$channel);
     } else {
         echo "Sorry, there was an error uploading your file.";
     }

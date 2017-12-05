@@ -23,20 +23,13 @@ $user = $user['email'];
 $imageFormats = ['png','jpeg','jpg','gif','tiff','tif'];
 $image = end(explode('.',$message));
 
-
-
-
-
-// $finfo = finfo_open(FILEINFO_MIME_TYPE);
-// echo $message;
-// echo finfo_file($finfo, $message);
-// finfo_close($finfo);
-// echo "hello";
+$type = get_headers($message, 1)["Content-Type"];
+$imgType=explode("/",$type)[1];
 if(isset($_POST['toEmail']))
 {
 	if(intval($textOrCode)==2)
 	{	//if (in_array($_GET["channel"], $userChannels))
-		if($message != "" && in_array($image,$imageFormats) )
+		if($message != "" && in_array($imgType,$imageFormats) )
 		{	
 		 	$sql = "INSERT INTO `direct_message` VALUES(DEFAULT,'$fromEmail','$toEmail','$message','$textOrCode',CURRENT_TIMESTAMP)";
 		 	if (mysqli_query($conn, $sql)) {
@@ -80,7 +73,7 @@ else
 {	
 	if(intval($textOrCode)==2)
 	{	//if (in_array($_GET["channel"], $userChannels))
-		if($message != "" && in_array($image,$imageFormats) )
+		if($message != "" && in_array($imgType,$imageFormats) )
 		{	
 		 	$sql = "INSERT INTO `channel_messages` VALUES(DEFAULT,'$channel_id','$user','$message',DEFAULT,'$textOrCode',CURRENT_TIMESTAMP)";
 		 	if (mysqli_query($conn, $sql)) {

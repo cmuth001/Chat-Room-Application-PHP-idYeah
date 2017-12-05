@@ -1,6 +1,10 @@
 <?php
 session_start();
 include_once "sqlQueries.php";
+if(!$_SESSION['loggedIn']){
+    header("location: ./login/login.php");
+    die();
+}
 ?>
 
 <!DOCTYPE html>

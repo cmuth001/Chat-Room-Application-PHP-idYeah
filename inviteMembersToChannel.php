@@ -1,6 +1,11 @@
 <?php 
 	session_start();
 	include_once "sqlQueries.php";
+	if(!$_SESSION['loggedIn']){
+	header("location: ./login/login.php");
+	die();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +39,7 @@
     <body>
     	<div class = 'formDiv'>
 			<div class =''>
-	        	<a href ='index.php'><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' ></i></a>
+	        	<a href =<?php echo "\"".$_SESSION['url']."\""; ?>><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' ></i></a>
 	        	<h2 style ='margin-top:-1%;'>Invite members to Channel </h2>
 	        </div>
 	        <form id= "inviteChannelForm" method = "post">

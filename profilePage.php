@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 include_once "sqlQueries.php";
-$image_url = "./assets/images/".$_GET['email'].'.png';
+$image_url = getImage($_GET['email']);
 $result = getUserDetails(mysqli_real_escape_string($conn,$_GET['email']));
 $count = existOrNot(mysqli_real_escape_string($conn,$_GET['email']));
 // echo $count;
@@ -44,7 +44,7 @@ $profile = "<!DOCTYPE html>
         $profile = $profile. "
 								<div class = 'formDiv'>
 												<div class =''>
-									            	<a href ='index.php?channel=1'><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' style = 'margin-top: 3%;'></i></a>
+									            	<a href ='".$_SESSION['url']."'><i class='fa fa-arrow-left arrowLeft' aria-hidden='true' style = 'margin-top: 3%;'></i></a>
 									            	<h2 style='margin-top: -3%;'>Profile Page</h2>
 									            </div>
 								                <div class='container' style = 'height:100%; width:95%;'>
