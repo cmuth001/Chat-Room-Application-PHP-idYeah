@@ -36,10 +36,10 @@
 					<!-- <input type="checkbox" checked="checked"> Remember me -->
 					<div class="g-recaptcha" data-sitekey="6Le0vAgUAAAAAH_ZWM8tw3It6jkrqLHkFFTMOW-J" data-callback="reCaptchad"></div>
       				<br/>
-					<div><input class = "btn1" id="myButton" type="submit" value="login" disabled /></div>
-					
-					<div class = 'gitBtn'>
-						<button type="button" class="btn btn-primary"><i class="fa fa-github" aria-hidden="true"></i>GITHUB Login </button>
+					<!-- <div><input class = "btn1" id="myButton" type="submit" value="login" disabled /></div> -->
+					<div class = 'login'>
+						<button type="submit" id="myButton" class="btn btn-primary " style='padding-right: 19%;padding-left: 19%;' disabled>Login </button>
+						<button type="button" class="btn btn-primary " style='padding-right: 5%;padding-left: 5%;'><i class="fa fa-github" aria-hidden="true"></i>GITHUB Login </button>
 					</div>
 				</form>
 
