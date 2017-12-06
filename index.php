@@ -524,7 +524,7 @@ if(!$_SESSION['loggedIn']){
       					</div>
 		        	</div>
 		        	<!-- profile pic update -->
-		        	<div id='profilPicUpdate' class ='col-xs-3 noPadding panel panel-primary' style='display:none;  height: 90%;border-color: #cccccc !important;'>
+		        	<div id='profilPicUpdate' class ='col-xs-3 noPadding panel panel-primary' style='display:none;  height: 92%;border-color: #cccccc !important;'>
 		        		<div class="panel-heading UpdateProfilePicture threadHeading">Update Profile Picture <button type="button" class="close threadClose" >&times;</button></div>
       					<div class="panel-body " id='UpdateProfilePictureBody'>
 
@@ -545,7 +545,7 @@ if(!$_SESSION['loggedIn']){
 		</div>
 		<footer>
 			<div class="copyRight col-md-12">
-				<span>Web-programming Project(CS518)</span><span> © Developed by Chandu Muthyala,Vamsi Krishna,Yasaswy Kandukuri - 2017</span>
+				<span>Web-programming Project(CS518)</span><span> © Developed by Chandu Muthyala, Vamsi Krishna, Yasaswy Kandukuri - 2017</span>
 			</div>
 		</footer>
 

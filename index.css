@@ -494,7 +494,7 @@ width: 4%;
 }
 #threadContainerBody{
 	padding: 0px;
-	height: 83%;
+	height: 85%;
 	overflow-y: auto;
 	overflow-x:hidden; 
 }
@@ -507,5 +507,6 @@ width: 4%;
     /*background-color: #404040;*/
     color: black;
     padding-top: 1em;
+    padding-bottom: 0.4em;
     font-family: "Comic Sans MS", cursive, sans-serif;
 }
