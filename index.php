@@ -107,6 +107,7 @@ if(!$_SESSION['loggedIn']){
 							</div>
 							<!-- <label></label> -->
 						</div>
+						
 				</div>
 
 				<div class="col-xs-10 nopadding" style="    z-index: 100; height: 74px;background-color: white;padding-left: 2% !important;padding-top: 14px !important;">	
@@ -310,7 +311,7 @@ if(!$_SESSION['loggedIn']){
 								          <h4 class="modal-title"><i class='fa fa-picture-o postingOptionMenu' aria-hidden='true'></i>Image Upload</h4>
 								        </div>
 								        <div class="modal-body">
-								
+											
 											<form action="./uploadImageInToChannel.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
 						     						
 						                       	<img class="profile-pic1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Icons8_flat_businessman.svg/1024px-Icons8_flat_businessman.svg.png" />
@@ -530,7 +531,7 @@ if(!$_SESSION['loggedIn']){
       						<form action="./uploadImage.php"  id = 'imgForm' method="post" enctype="multipart/form-data">
 			     
 		                        <!-- <div style="background-color: #404040;color: white;padding-left:9% !important;font-size: 1.7vh;"><label>Select image to upload:</label></div> -->
-		                        <img class="profile-pic1" src=<?php echo getImage($_SESSION['email']); ?> />
+		                        <img class="profile-pic1 updatePic" src=<?php echo getImage($_SESSION['email']); ?> />
 						        <div class="upload-button" style='display:none'>Select Image</div>
 		                        <input class = 'imageSelect ' type="file" name="fileToUpload" id="fileToUpload" style='display:none;'>
 		                        <input class ='imageUploadBtn' type="submit" value="Upload Image" name="submit">
@@ -541,8 +542,12 @@ if(!$_SESSION['loggedIn']){
 		        	</div>
 
 			</div>
-	</div>
+		</div>
+		<footer>
+			<div class="copyRight col-md-12">
+				<span>Web-programming Project(CS518)</span><span> © Developed by Chandu Muthyala,Vamsi Krishna,Yasaswy Kandukuri - 2017</span>
+			</div>
+		</footer>
 
-	
 	</body>
 </html>

@@ -440,7 +440,7 @@ width: 4%;
     border: 3px solid #cccccc !important;
     cursor:pointer;
 }
-.profile-pic1:hover{
+.updatePic:hover{
 	opacity: 0.3;
 }
 .file-upload {
@@ -497,4 +497,15 @@ width: 4%;
 	height: 83%;
 	overflow-y: auto;
 	overflow-x:hidden; 
+}
+.copyRight{
+	position: fixed !important;
+    bottom: 0px;
+    z-index: 100;
+    font-size: 1vh;
+    text-align: center;
+    /*background-color: #404040;*/
+    color: black;
+    padding-top: 1em;
+    font-family: "Comic Sans MS", cursive, sans-serif;
 }

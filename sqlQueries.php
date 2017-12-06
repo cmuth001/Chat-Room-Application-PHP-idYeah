@@ -360,7 +360,7 @@ function getDirectMessages($toEmail,$start){
 	    							$string=$string."<a href='$message' target='_blank'>$message</a><a href='#imageCollapse".$msgId."' data-toggle='collapse' ><i class='fa fa-caret-down' aria-hidden='true' style='cursor:pointer;'></i></a>";
 	    							$string=$string."<img id ='imageCollapse".$msgId."' class='profile-pic collapse in' src='$message' />";
 	    						}else{
-	    							$string=$string."<img  class='profile-pic' src='./assets/channelImages/".$msgId.".png' />";
+	    							$string=$string."<img  class='profile-pic' src='./assets/DirectMessageImages/".$msgId.".png' />";
 	    							$string=$string."<span>".$message."</span>";
 	    						}
     							

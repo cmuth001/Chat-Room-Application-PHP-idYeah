@@ -725,7 +725,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	$(".imageSelect").on('change', function(){
         readURL(this);
     });
-	$('.profile-pic1').on('click', function() {	
+	$('.updatePic').on('click', function() {	
 		
 		$('.imageSelect').trigger('click');
 		// readURL(this);
