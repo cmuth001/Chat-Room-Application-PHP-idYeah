@@ -32,9 +32,9 @@
 					<br/>
 					<label class = "label1" >Password</label>
 					<input class="inputfield" type="password" name="password" />
-					<br/>
+					<br /><br />
 					<!-- <input type="checkbox" checked="checked"> Remember me -->
-					<div class="g-recaptcha" data-sitekey="6Le0vAgUAAAAAH_ZWM8tw3It6jkrqLHkFFTMOW-J" data-callback="reCaptchad"></div>
+					<div class="g-recaptcha" data-sitekey="6Le0vAgUAAAAAH_ZWM8tw3It6jkrqLHkFFTMOW-J" data-callback="reCaptchad" style='padding-left: 7%;padding-right: 7%;'></div>
       				<br/>
 					<!-- <div><input class = "btn1" id="myButton" type="submit" value="login" disabled /></div> -->
 					<div class = 'login'>
