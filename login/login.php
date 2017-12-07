@@ -44,6 +44,7 @@
 				</form>
 
 				<div class = "newAccount">
+					<br />
 					<a href= "../signup/signUpPage.php">Create New Account</a>
 				</div>
 
