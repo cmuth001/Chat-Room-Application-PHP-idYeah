@@ -582,6 +582,16 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		$('#profilPicUpdate').show();
 		console.log("picUpdate");
 	});
+	$(document).on('click','.loginActibityGraph',function(e){
+		$('#message_container').removeClass('col-xs-10');
+		$('#message_container').addClass('col-xs-7');
+		$('#footer').removeClass('col-xs-12');
+		$('#footer').addClass('col-xs-7');
+		$('#threadContainer').hide();
+		$('#profilPicUpdate').hide();
+		$('#logInActivity').show();
+		console.log("LogInActivity");
+	});
 	$(document).on('click','.selectGravatar',function(e){
 		var email = e.currentTarget.id;
 		$.ajax({
@@ -853,6 +863,115 @@ $( ".inviteChannelButton" ).on("click",function(e) {
     	$('#imageURLModal input[type=submit]').trigger('click');
 	});
     //image upload code end
+
+
+    // LoginActivity starts
+    // Set the dimensions of the canvas / graph
+	var margin = {top: 30, right: 20, bottom: 30, left: 50},
+	    width = 400 - margin.left - margin.right,
+	    height = 300 - margin.top - margin.bottom;
+
+	// Parse the date / time
+	var parseDate = d3.time.format("%d-%b-%y").parse;
+
+	// Set the ranges
+	var x = d3.time.scale().range([0, width]);
+	var y = d3.scale.linear().range([height, 0]);
+
+	// Define the axes
+	var xAxis = d3.svg.axis().scale(x)
+	    .orient("bottom").ticks(5);
+
+	var yAxis = d3.svg.axis().scale(y)
+	    .orient("left").ticks(5);
+
+
+	// Define the line
+	var valueline = d3.svg.line()
+	    .x(function(d) { return x(d.date); })
+	    .y(function(d) { return y(d.count); });
+	    
+	// Adds the svg canvas
+	var svg = d3.select("#logInActivityBody")
+	    .append("svg")
+	        .attr("width", width + margin.left + margin.right)
+	        .attr("height", height + margin.top + margin.bottom)
+	    .append("g")
+	        .attr("transform", 
+	              "translate(" + margin.left + "," + margin.top + ")");
+
+	// Get the data
+		$.ajax({
+				async:false,
+		        url: 'sqlQueries.php',
+		        type: 'post',
+		        data: {'loginActivityLog':0},
+		        dataType: 'json',
+		        success: function (data) {	
+	    		  	data.forEach(function(d) {
+	    		  			d.date = parseDate(d['time'].split(" ")[0]);
+			        		d.count = +d['count'];
+			        		console.log(d);
+	    		  		});
+				    // Scale the range of the data
+	    x.domain(d3.extent(data, function(d) { return d.date; }));
+	    y.domain([0, d3.max(data, function(d) { return d.count; })]);
+
+	    var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-10, 0])
+		.html(function(d) {
+		 		  return "<strong  style='font-size: 10px'>Login Day: </strong> <span style='font-size:10px;font-style: italic;color:red'>" + d.time+ "</span><br><strong style='font-size: 10px'>No.of Times:</strong><span style='font-size:10px;font-style: italic;color:red'>"+d.count+"</span>";
+		});
+		svg.call(tip);
+	    // Add the valueline path.
+	    svg.append("path")
+	        .attr("class", "line")
+	        .attr("d", valueline(data));
+
+	    // Add the scatterplot
+	    svg.selectAll("dot")
+	        .data(data)
+	      	.enter().append("circle")
+	        .attr("r", 2.5)
+	        .attr("cx", function(d) { return x(d.date); })
+	        .attr("cy", function(d) { return y(d.count); })
+	        .style("cursor", "pointer")
+	        .on("mouseover",tip.show)
+	 		.on('mouseout', tip.hide);
+	    // Add the X Axis
+	    svg.append("g")
+	        .attr("class", "x axis")
+	        .style("font-size", "1vh")
+	        .attr("transform", "translate(0," + height + ")")
+	        .call(xAxis);
+	    // text label for the x axis
+  		svg.append("text")             
+	      .attr("transform",
+	            "translate(" + (width/2) + " ," + 
+	                           (height + margin.top-2) + ")")
+	      .style("text-anchor", "middle")
+	      .style("font-size", "1vh")
+	      .text("Time stamp");
+	    // text label for the y axis
+	    svg.append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 0 - margin.left)
+	      .attr("x",0 - (height / 2))
+	      .attr("dy", "1em")
+	      .style("font-size", "1vh")
+	      .style("text-anchor", "middle")
+	      .text("Number of times User Login"); 
+	    // Add the Y Axis
+	    svg.append("g")
+	        .attr("class", "y axis")
+	        .style("font-size", "1vh")
+	        .call(yAxis);
+
+				}
+		        
+		});
+		//end of LoginActivity
 
 
 

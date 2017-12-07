@@ -14,12 +14,16 @@
     $row = $result->fetch_assoc();
     return($row['email']==$u && $row['password']==$p); 
   }
+   
+
   $email = htmlspecialchars($_POST['email']);
   $password = htmlspecialchars($_POST['password']);
   if($_POST && check_login($email,$password)){
      $_SESSION['email'] = $email;
-    // echo "session value:".$_SESSION['email'];
-     $_SESSION['loggedIn'] = True; 
+     $_SESSION['loggedIn'] = True;
+     $logInAcitvitySql = "INSERT INTO `loginActivityLog` VALUES(DEFAULT,'$email',CURRENT_TIMESTAMP)";
+     $result = $conn->query($logInAcitvitySql);
+
      header("location: ../index.php");
      exit();
     session_write_close();

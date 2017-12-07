@@ -1,10 +1,12 @@
 <?php 
 session_start();
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 include_once "../login/connect.php"; 
 include_once "../sqlQueries.php";
+include_once '../assets/php/class.phpmailer.php';
+require_once '../assets/php/class.smtp.php';
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD,DB_NAME)
     OR die ('Could not connect to MySQL: '.mysql_error());
 
@@ -13,6 +15,44 @@ if ($conn->connect_error) {
 }
 $emailErr = $nameErr= $pswErr ="";
 $admin = admin();
+function sendMailForNewUser($email,$userName){
+    echo "hello world";
+    $return_arrfinal = array();
+    $status_array['status'] = '1';
+    $mail = new PHPMailer();
+    $toarraymail="cmuth001@odu.edu";
+    $mail->SMTPDebug = false;                               // Enable verbose debug output
+    $mail->Port = '587';
+    $mail->isSMTP();                                      // Set mailer to use SMTP // Specify main and backup SMTP servers                                    // Set mailer to use SMTP
+    $mail->Host = gethostbyname('smtp.gmail.com');  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true; // Authentication must be disabled
+
+    $mail->Username = "mchandrasekharreddym@gmail.com";
+    $mail->Password = "muthyala1234";
+    $mail->SMTPSecure= 'tls';
+
+
+    $mail->setFrom("mchandrasekharreddym@gmail.com","SlackChatRoom");
+    $mail->AddAddress($toarraymail);     // Add a recipient
+  // Optional name
+    $mail->isHTML(true);                                  // Set email format to HTML
+
+    $mail->Subject = ' Welcome For SlackChatRoom';
+    $mail->Body    =" Hi $userName, <br /> welcome to  SlackChatRoom.
+                    <br /><br />
+                    Regards,<br />
+                     SlackChatRoom Team.";
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    if(!$mail->Send()){
+        return false;
+    }else{
+        return true;
+    }
+    echo "Sending email";
+    die();
+}
+
 if(isset($_POST['submit']))
 {
     $email = mysqli_real_escape_string($conn,$_POST['email']);
@@ -78,19 +118,23 @@ if(isset($_POST['submit']))
 
                     $sql = "INSERT INTO `users` VALUES('$email','$userName','$userName',DEFAULT,DEFAULT,DEFAULT,DEFAULT,'$psw',DEFAULT,DEFAULT,CURRENT_TIMESTAMP)";
                     if (mysqli_query($conn, $sql)) {
-                        $sql1 = "INSERT INTO `userChannels` VALUES('$email',1,CURRENT_TIMESTAMP,DEFAULT)";
-                        $sql2 = "INSERT INTO `userChannels` VALUES('$email',2,CURRENT_TIMESTAMP,DEFAULT)";
-                        $sql3 = "INSERT INTO `gravatar` VALUES(DEFAULT,'$email','$gravatarUrl',CURRENT_TIMESTAMP)";
-                        $sqlResult1 = mysqli_query($conn, $sql1);
-                        $sqlResult2 = mysqli_query($conn, $sql2);
-                        $sqlResult3 = mysqli_query($conn, $sql3);
-                        // echo "<br><br><p style='text-align:center;color:green;'>**** Registered successfully ***</p>";
-                       // header("location: ../login/login.php");
-                        if(in_array($_SESSION['email'], $admin)){
-                            header("location: ../index.php");
-                        }else{
-                            header("location: ../login/login.php");
-                        }
+                        sendMailForNewUser($email,$userName);
+                        echo $email; 
+                        die();
+
+                       //  $sql1 = "INSERT INTO `userChannels` VALUES('$email',1,CURRENT_TIMESTAMP,DEFAULT)";
+                       //  $sql2 = "INSERT INTO `userChannels` VALUES('$email',2,CURRENT_TIMESTAMP,DEFAULT)";
+                       //  $sql3 = "INSERT INTO `gravatar` VALUES(DEFAULT,'$email','$gravatarUrl',CURRENT_TIMESTAMP)";
+                       //  $sqlResult1 = mysqli_query($conn, $sql1);
+                       //  $sqlResult2 = mysqli_query($conn, $sql2);
+                       //  $sqlResult3 = mysqli_query($conn, $sql3);
+                       //  // echo "<br><br><p style='text-align:center;color:green;'>**** Registered successfully ***</p>";
+                       // // header("location: ../login/login.php");
+                       //  if(in_array($_SESSION['email'], $admin)){
+                       //      header("location: ../index.php");
+                       //  }else{
+                       //      header("location: ../login/login.php");
+                       //  }
                     }else{
                         // echo "<br><br><p style='text-align:center;color:red;'>**** failed registering ***</p>";
                         echo $sql;

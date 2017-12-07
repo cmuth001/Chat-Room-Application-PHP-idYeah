@@ -713,6 +713,20 @@ if(isset($_POST['loadMore']))
 	echo $str;
 
 }
+if(isset($_POST['loginActivityLog'])){
+	$email = $_SESSION['email'];
+	$sql = "SELECT LogInTime  as time, COUNT(*) as count FROM `loginActivityLog` where logEmail='$email' GROUP BY CAST(LogInTime AS DATE)";
+	$Result = mysqli_query($conn,$sql);
+	while(($row = mysqli_fetch_assoc($Result))) 
+	{
+		$date=date_create($row['time']);
+		$row['time']=date_format($date,"d-M-y");
+
+		$array[]=array_map('utf8_encode',$row);
+	}
+	echo json_encode($array);
+
+}
 if(isset($_POST['loadMoreDirectMessages'])){
 	$toEmail = $_POST['loadMoreDirectMessages']['toEmail'];
 	$start = $_POST['loadMoreDirectMessages']['start'];

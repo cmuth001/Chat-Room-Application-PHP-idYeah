@@ -59,7 +59,10 @@ if(!$_SESSION['loggedIn']){
 		 <!-- // <script src="typeahead.min.js"></script> -->
 		<!-- end of type head  -->
 
-
+		<!-- logIn start Activity -->
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+		<!-- logIn end Activity -->
 	</head>
 	<body>
 		<div class="container nopadding col-xs-12" >
@@ -89,10 +92,10 @@ if(!$_SESSION['loggedIn']){
 								    <a href='#UpdatePic' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-bars userMenuList'></span>Update Photo</a>
 								    <div id='UpdatePic' class='collapse' >
 								    	<a  class='defaultPhoto' id ="<?php echo $_SESSION['email']?>" style='margin-left: 10%; text-decoration:none;cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Default </a>
-								    	<a  class='picUpdate' style='margin-left: 10%; text-decoration:none;cursor:pointer;'><span class = 'fa fa-camera userMenuList'></span>Gallery</a>
+								    	<a  class='picUpdate' style='margin-left: 10%; text-decoration:none;cursor:pointer;'><span class = 'fa fa-camera'></span>Gallery</a>
 								    	<a class='selectGravatar' id ="<?php echo $_SESSION['email']?>" style='margin-left: 10%; text-decoration:none;cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Use Gravatar</a>
 								    </div>
-								    
+								    <a  class='loginActibityGraph' style=' text-decoration:none;cursor:pointer;'><span class = 'fa fa-line-chart userMenuList'></span>User Graph</a>
 								    <a href='#contact' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-phone userMenuList'></span>Contact</a>
 								    <div id='contact' class='collapse' ><a href='' style='margin-left: 10%; text-decoration:none;'><span class ='fa fa-mobile userMenuList' ></span><?php echo "123-546-7890" ?></a></div>
 								    <a href="./signOut.php" class = 'userMenuLink'>
@@ -518,6 +521,20 @@ if(!$_SESSION['loggedIn']){
 		        	<div id='threadContainer' class ='col-xs-3 noPadding panel panel-primary' style='display:none;'>
 		        		<div class="panel-heading threadHeading">Thread <button type="button" class="close threadClose" >&times;</button></div>
       					<div class="panel-body " id='threadContainerBody'>
+
+
+      			
+      					</div>
+		        	</div>
+		        	<div id='logInActivity' class ='col-xs-3 noPadding panel panel-primary' style='display:none;'>
+		        		<div class="panel-heading threadHeading">logIn Activity
+		        			<?php 
+					    		$result = getUserDetails($_SESSION['email']);
+					    		echo "(".$result['display_name'].")";
+					    	?><button type="button" class="close threadClose" >&times;</button></div>
+      					
+
+      					<div class="panel-body " id='logInActivityBody'>
 
 
       			
