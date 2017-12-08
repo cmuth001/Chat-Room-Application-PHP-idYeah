@@ -62,7 +62,7 @@ if(!$_SESSION['loggedIn']){
 		<!-- logIn start Activity -->
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-		<!-- logIn end Activity -->
+		
 	</head>
 	<body>
 		<div class="container nopadding col-xs-12" >
@@ -95,7 +95,7 @@ if(!$_SESSION['loggedIn']){
 								    	<a  class='picUpdate' style='margin-left: 10%; text-decoration:none;cursor:pointer;'><span class = 'fa fa-camera'></span>Gallery</a>
 								    	<a class='selectGravatar' id ="<?php echo $_SESSION['email']?>" style='margin-left: 10%; text-decoration:none;cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Use Gravatar</a>
 								    </div>
-								    <a  class='loginActibityGraph' style=' text-decoration:none;cursor:pointer;'><span class = 'fa fa-line-chart userMenuList'></span>User Graph</a>
+								    <a  class='loginActivityGraph' style=' text-decoration:none;cursor:pointer;'><span class = 'fa fa-line-chart userMenuList'></span>User Graph</a>
 								    <a href='#contact' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-phone userMenuList'></span>Contact</a>
 								    <div id='contact' class='collapse' ><a href='' style='margin-left: 10%; text-decoration:none;'><span class ='fa fa-mobile userMenuList' ></span><?php echo "123-546-7890" ?></a></div>
 								    <a href="./signOut.php" class = 'userMenuLink'>
@@ -534,11 +534,14 @@ if(!$_SESSION['loggedIn']){
 					    	?><button type="button" class="close threadClose" >&times;</button></div>
       					
 
-      					<div class="panel-body " id='logInActivityBody'>
+      					<div class="panel-body " >
+      						<div id='logInActivityLineChart'></div>
+      						<div  id='logInActivityPieChart' style='margin-top: 15%;margin-left: 23%;'></div>
 
 
-      			
       					</div>
+      			
+      					
 		        	</div>
 		        	<!-- profile pic update -->
 		        	<div id='profilPicUpdate' class ='col-xs-3 noPadding panel panel-primary' style='display:none;  height: 92%;border-color: #cccccc !important;'>

@@ -530,3 +530,8 @@ path {
     stroke-width: 1;
     shape-rendering: crispEdges;
 }
+/*pie chart*/
+.slice text {
+            font-size: 16pt;
+            font-family: Arial;
+        }   

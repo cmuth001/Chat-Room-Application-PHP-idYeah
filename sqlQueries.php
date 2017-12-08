@@ -727,6 +727,32 @@ if(isset($_POST['loginActivityLog'])){
 	echo json_encode($array);
 
 }
+if(isset($_POST['loginActivityPieChart'])){
+	$email = $_SESSION['email'];
+	$usersMessagesCountQuery = "SELECT count(*) as userChannelMessagesCount FROM `channel_messages` where cuser_email='$email'";
+	$usersMessagesCountResult = mysqli_query($conn,$usersMessagesCountQuery);
+	$usersMessagesCount = mysqli_fetch_assoc($usersMessagesCountResult);
+	$usersMessagesCount = intval($usersMessagesCount['userChannelMessagesCount']);
+
+	$userThreadMessagesCountQuery ="SELECT count(*) as userThreadMessagesCount FROM `threaded_messages` where user_email='$email'";
+	$userThreadMessagesCountResult = mysqli_query($conn,$userThreadMessagesCountQuery);
+	$userThreadMessagesCount = mysqli_fetch_assoc($userThreadMessagesCountResult);
+	$userThreadMessagesCount = intval($userThreadMessagesCount['userThreadMessagesCount']);
+
+	$userReactionCountQuery = "SELECT count(*) as usersReactionCount FROM `channel_message_reaction` where user_email='$email'";
+	$userReactionCountResult = mysqli_query($conn,$userReactionCountQuery);
+	$userReactionCount =mysqli_fetch_assoc($userReactionCountResult);
+	$userReactionCount = intval($userReactionCount['usersReactionCount']);
+
+	$total = $usersMessagesCount+$userThreadMessagesCount+$userReactionCount;
+	$messages = round((($usersMessagesCount/$total)*100),1);
+	$threads = round((($userThreadMessagesCount/$total)*100),1);
+	$reactions = round((($userReactionCount/$total)*100),1);
+
+	echo json_encode([$messages,$threads,$reactions]);
+
+}
+
 if(isset($_POST['loadMoreDirectMessages'])){
 	$toEmail = $_POST['loadMoreDirectMessages']['toEmail'];
 	$start = $_POST['loadMoreDirectMessages']['start'];
