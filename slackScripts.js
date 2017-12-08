@@ -589,6 +589,10 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		$('#footer').addClass('col-xs-7');
 		$('#threadContainer').hide();
 		$('#profilPicUpdate').hide();
+		$('#logInActivityLineChart').text('');
+		$('#logInActivityPieChart').text('');
+		logInActivityPieChart();
+		logInActivityLineChart();
 		$('#logInActivity').show();
 		console.log("LogInActivity");
 	});
@@ -866,7 +870,8 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 
 
     // LoginActivity starts
-    // Set the dimensions of the canvas / graph
+    function logInActivityLineChart(){
+    	// Set the dimensions of the canvas / graph
 	var margin = {top: 30, right: 20, bottom: 30, left: 50},
 	    width = 400 - margin.left - margin.right,
 	    height = 300 - margin.top - margin.bottom;
@@ -973,7 +978,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		        
 		});
 		//end of LoginActivity
-logInActivityPieChart();
+    }
 
 
 });
