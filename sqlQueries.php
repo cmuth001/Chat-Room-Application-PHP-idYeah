@@ -117,7 +117,7 @@ function gravatar($email){
 			return($row['path']);
 		}
 	}else{
-		return('https://www.gravatar.com/avatar/0000000000000000000000?s=40&d=mm&r=g');
+		return('https://www.gravatar.com/avatar/0000000000000000000000?s=40');
 	}
 	
 }
@@ -359,6 +359,9 @@ function getDirectMessages($toEmail,$start){
 	    						}else if($textOrCode==2){
 	    							$string=$string."<a href='$message' target='_blank'>$message</a><a href='#imageCollapse".$msgId."' data-toggle='collapse' ><i class='fa fa-caret-down' aria-hidden='true' style='cursor:pointer;'></i></a>";
 	    							$string=$string."<img id ='imageCollapse".$msgId."' class='profile-pic collapse in' src='$message' />";
+	    						}else if($textOrCode==4){
+	    							$string=$string."<a href='./assets/upload/$msgId"."_"."$message' title='File' target='_blank' download><i class='fa fa-file-text' aria-hidden='true' style='cursor:pointer;'></i>$message</a>";
+
 	    						}else{
 	    							$string=$string."<img  class='profile-pic' src='./assets/DirectMessageImages/".$msgId.".png' />";
 	    							$string=$string."<span>".$message."</span>";
@@ -479,6 +482,9 @@ function getChannelMessages($channel_id,$start){
 	    						}else if($textOrCode==2){
 	    							$string=$string."<a href='$message' target='_blank'>$message</a><a href='#imageCollapse".$row['cmessage_id']."' data-toggle='collapse' ><i class='fa fa-caret-down' aria-hidden='true' style='cursor:pointer;'></i></a>";
 	    							$string=$string."<img id ='imageCollapse".$row['cmessage_id']."' class='profile-pic collapse in' src='$message' />";
+	    						}else if($textOrCode==4){
+	    							$string=$string."<a href='./assets/upload/$msgId"."_"."$message' title='File' target='_blank' download><i class='fa fa-file-text' aria-hidden='true' style='cursor:pointer;'></i>$message</a>";
+
 	    						}else{
 	    							$string=$string."<img  class='profile-pic' src='./assets/channelImages/".$row['cmessage_id'].".png' />";
 	    							$string=$string."<span>".$message."</span>";

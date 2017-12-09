@@ -411,6 +411,13 @@ width: 4%;
     display: block;
     float: left;
 }
+.upload-document {
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: block;
+    float: left;
+}
 .imageUploadBtn{
 	
     border: 1px solid black;

@@ -27,8 +27,8 @@ if(!$_SESSION['loggedIn']){
 <!-- <!DOCTYPE html> -->
 <html>
 	<head>
-		<title>Homepage</title>
-		<link rel="icon" type="image/png" href="./favicon1.png">
+		<title>idYeah!HomePage</title>
+		<link rel="icon" type="image/png" href="./favicon_IY_bg.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="index.css">
 		<link rel="stylesheet" type="text/css" href="messages/messages.css">
@@ -72,7 +72,7 @@ if(!$_SESSION['loggedIn']){
 					
 					
 						<div>
-							<div><label style='font-size: 1.7vh;'>ODUCS518F17</label></div>
+							<div><label style='font-size: 2.7vh;'>idYeah!</label></div>
 							<div class="dropdown">
 								<button onclick="userMenu()" class="dropbtn"><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name'];?><i class="fa fa-angle-down"></i></button>
 								  <div id="myDropdown" class="dropdown-content userProfile">
@@ -349,6 +349,50 @@ if(!$_SESSION['loggedIn']){
 								</div>
 								<!-- end of Img Model -->
 
+
+								<!-- File UpLoad Modal -->
+								<div class="modal fade" id="documentUpLoadModal" role="dialog">
+								    <div class="modal-dialog">
+								    
+								      <!-- Modal content-->
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								          <h4 class="modal-title"><i class='fa fa-file-text postingOptionMenu' aria-hidden='true'></i>File Upload</h4>
+								        </div>
+								        <div class="modal-body">
+											
+											<form action="./upLoadDocument.php"enctype="multipart/form-data" method="post"> 
+						                        <?php 
+
+						                        	$string='';
+						                        	if (isset($_GET['channel'])){
+						                        		$string = $string."<input type='hidden' name='email' value='".$_SESSION['email']."'>";
+						                        		$string = $string."<input type='hidden' name='channel' value='".$_GET["channel"]."'>";
+						                        	}else{
+						                        		$string = $string."<input type='hidden' name='toEmail'  value=".htmlspecialchars($_GET['email']).">";
+														$string = $string."<input type='hidden' name='fromEmail' value=".$_SESSION['email'].">";
+						                        	}
+						                        	echo $string;
+						                        ?>
+						                        <input class="upload-document" name="uploaded" type="file" /><br /> 
+												<input type="submit" name="submit" value="Upload" style='display:none'/>
+						                    	
+						                    </form>
+
+								        </div>
+								    	</br>
+								        <div class="modal-footer">
+								          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								          <button type="submit" name="submit" value="Upload Image" class="btn btn-success documentSubmit">submit</button>
+								        </div>
+								      </div>
+								      
+								    </div>
+								</div>
+								<!-- end of File UpLoad Modal -->
+
+
 								<!-- Img URL  Modal -->
 								<div class="modal fade" id="imageURLModal" role="dialog">
 								    <div class="modal-dialog">
@@ -453,7 +497,7 @@ if(!$_SESSION['loggedIn']){
 				        		
 				        	}else{
 				        		
-				        		$result ="<h1 class ='emptyChannel'>Please select channel</h1>";
+				        		$result ="<h1 class ='emptyChannel'>Please select channel</h1></div>";
 				        	}
 			        		echo $result; 
 			        		
@@ -474,6 +518,7 @@ if(!$_SESSION['loggedIn']){
 												$string=$string."<div class='col-xs-1  dropup nopadding'><span class='multipleOptions input-group-addon dropdown-toggle' data-toggle='dropdown' id='sizing-addon1'><a style='text-decoration: none;font-size:32px; ' href=''>+</a></span>";
 													$string = $string."<ul class='dropdown-menu'>";
 														$string = $string."<li><a class ='codeButton' data-toggle='modal' data-target='#myModal' href=''><i class='fa fa-code postingOptionMenu' aria-hidden='true'></i>Code </a></li>";
+														$string = $string."<li><a href='' data-toggle='modal' data-target='#documentUpLoadModal' ><i class='fa fa-file-text postingOptionMenu' aria-hidden='true'></i>Document Upload</a></li>";
 														$string = $string."<li><a href='' data-toggle='modal' data-target='#imageUpLoadModal' ><i class='fa fa-picture-o postingOptionMenu' aria-hidden='true'></i>Image Upload</a></li>";
 														$string = $string."<li><a href='' data-toggle='modal' data-target='#imageURLModal'><i class='fa fa-link postingOptionMenu ' aria-hidden='true'></i> Upload Image URL</a></li>";
 														$string = $string."</ul>";
@@ -497,6 +542,7 @@ if(!$_SESSION['loggedIn']){
 										$string=$string."<div class='col-xs-1  dropup nopadding'><span class='multipleOptions input-group-addon dropdown-toggle' data-toggle='dropdown' id='sizing-addon1'><a style='text-decoration: none;font-size:32px; ' href=''>+</a></span>";
 											$string = $string."<ul class='dropdown-menu'>";
 												$string = $string."<li><a class ='codeButton' data-toggle='modal' data-target='#myModal' href=''><i class='fa fa-code postingOptionMenu' aria-hidden='true'></i>Code </a></li>";
+												$string = $string."<li><a href='' data-toggle='modal' data-target='#documentUpLoadModal' ><i class='fa fa-file-text postingOptionMenu' aria-hidden='true'></i>Document Upload</a></li>";
 												$string = $string."<li><a href='' data-toggle='modal' data-target='#imageUpLoadModal' ><i class='fa fa-picture-o postingOptionMenu' aria-hidden='true'></i>Image Upload</a></li>";
 												$string = $string."<li><a href='' data-toggle='modal' data-target='#imageURLModal'><i class='fa fa-link postingOptionMenu ' aria-hidden='true'></i> Upload Image URL</a></li>";
 												$string = $string."</ul>";
@@ -518,7 +564,7 @@ if(!$_SESSION['loggedIn']){
 
 		        	</div>
 
-		        	<div id='threadContainer' class ='col-xs-3 noPadding panel panel-primary' style='display:none;'>
+		        	<div id='threadContainer' class ='col-xs-3 noPadding panel panel-primary' style='display:none;height: 92%;    border-color: rgb(204, 204, 204) !important;'>
 		        		<div class="panel-heading threadHeading">Thread <button type="button" class="close threadClose" >&times;</button></div>
       					<div class="panel-body " id='threadContainerBody'>
 
@@ -526,7 +572,7 @@ if(!$_SESSION['loggedIn']){
       			
       					</div>
 		        	</div>
-		        	<div id='logInActivity' class ='col-xs-3 noPadding panel panel-primary' style='display:none;'>
+		        	<div id='logInActivity' class ='col-xs-3 noPadding panel panel-primary' style='display:none;height: 92%;    border-color: rgb(204, 204, 204) !important;'>
 		        		<div class="panel-heading threadHeading">logIn Activity
 		        			<?php 
 					    		$result = getUserDetails($_SESSION['email']);

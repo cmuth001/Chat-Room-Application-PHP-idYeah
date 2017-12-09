@@ -429,7 +429,10 @@ $( ".inviteChannelButton" ).on("click",function(e) {
     		  					}else if(textOrCode==2){
     		  						string+="<a href='"+channelMessage+"' target='_blank'>"+channelMessage+"</a><a href='#imageCollapse"+messageId+"' data-toggle='collapse' ><i class='fa fa-caret-down' aria-hidden='true' style='cursor:pointer;'></i></a>";
     		  						string+="<img id ='imageCollapse"+messageId+"' class='profile-pic collapse in' src='"+channelMessage+"'  /></div>"
-    		  					}else{
+    		  					}else if(textOrCode==4){
+	    							string+="<a href='./assets/upload/"+messageId+"_"+channelMessage+"' title='File' target='_blank' download><i class='fa fa-file-text' aria-hidden='true' style='cursor:pointer;'></i>"+channelMessage+"</a></div>";
+
+	    						}else{
     		  						string+="<img class='profile-pic' src='./assets/channelImages/"+messageId+".png' />"
     		  						string+="<span>"+channelMessage+"</span></div>";
     		  					}
@@ -579,6 +582,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		$('#footer').removeClass('col-xs-12');
 		$('#footer').addClass('col-xs-7');
 		$('#threadContainer').hide();
+		$('#logInActivity').hide();
 		$('#profilPicUpdate').show();
 		console.log("picUpdate");
 	});
@@ -865,6 +869,9 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 	});
 	$('.imageURLSubmit').on('click', function() {
     	$('#imageURLModal input[type=submit]').trigger('click');
+	});
+	$('.documentSubmit').on('click', function() {
+    	$('#documentUpLoadModal input[type=submit]').trigger('click');
 	});
     //image upload code end
 

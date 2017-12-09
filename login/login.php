@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Login Page</title>
+		<title>idYeah! Login Page</title>
 		<link rel="stylesheet" type="text/css" href="login.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -23,7 +23,7 @@
 			<div class="imgcontainer">
 				<img src="img_avatar4.png" alt="Avatar" class="avatar">
 			</div>
-			<h3>Slack Login Page</h3>
+			<h3>idYeah! Login Page</h3>
 			<div class ="loginform">
 				<form method="post" action="login.php">
 					<p style='text-align:center;color:red;'><?php echo $Err;?></p>
