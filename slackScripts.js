@@ -418,7 +418,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
     		  		var displayName = data[0]['display_name'];
     		  		var imagePath = "./assets/images/";
     		  		string+="<div class = 'rightThread right"+messageId+"'>";
-    		  				string+="<img src='"+imagePath+user+".png'  alt='Contact_Img' class='contact_Img'>";
+    		  				string+="<img src='"+data[0]['messageContactImg']+"'  alt='Contact_Img' class='contact_Img'>";
     		  				string+="<a href=''>"+displayName+"</a>";
     		  				string+="<label class = 'timeStamp'>"+messageTimeStamp+"</label>";
     		  				string+="<div class = 'textMessage'>";

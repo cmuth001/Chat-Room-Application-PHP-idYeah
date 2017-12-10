@@ -860,6 +860,7 @@ if(isset($_POST['threadContainerMessages']))
 		$messageDetails['isArchive'] = $channelArray['isArchive'];
 		$messageDetails['session_email'] = $_SESSION['email'];
 		$messageDetails['replyMsgContactImg'] = getImage($_SESSION['email']);
+		$messageDetails['messageContactImg'] = getImage($messageDetails['cuser_email']);
 		$messageDetails['session_username'] =$userDetails['display_name'];
 		$messageDetails['emojiId']= $emojiId;
 		$messageDetails['emoji_email']=$reactionStatus['user_email'];
