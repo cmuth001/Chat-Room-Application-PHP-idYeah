@@ -121,6 +121,20 @@ function gravatar($email){
 	}
 	
 }
+function gitUser($email){
+	global $conn;
+	$sql = "SELECT * FROM `gitUser` where email='$email'";
+	$result = mysqli_query($conn, $sql);
+	$Cnt = $result->num_rows;
+	if($Cnt>0){
+		while(($row = mysqli_fetch_assoc($result))){
+			return($row['path']);
+		}
+	}else{
+		return('https://www.gravatar.com/avatar/0000000000000000000000?s=40');
+	}
+	
+}
 function getImage($email){
 	global $conn;
 	$sql = "SELECT * FROM `users` where users.email='$email'";
@@ -130,7 +144,10 @@ function getImage($email){
 			return "./assets/images/".$email.".png" ;
 		}else if($row['display_pic']==0){
 			return gravatar($email);
-		}else{
+		}else if($row['display_pic']==2){
+			return gitUser($email);
+		}
+		else{
 			return('https://www.gravatar.com/avatar/0000000000000000000000?s=40&d=mm&r=g');
 		}
 	}

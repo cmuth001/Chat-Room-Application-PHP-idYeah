@@ -39,7 +39,8 @@
 					<!-- <div><input class = "btn1" id="myButton" type="submit" value="login" disabled /></div> -->
 					<div class = 'login'>
 						<button type="submit" id="myButton" class="btn btn-primary " style='padding-right: 19%;padding-left: 19%;' disabled>Login </button>
-						<button type="button" class="btn btn-primary " style='padding-right: 5%;padding-left: 5%;'><i class="fa fa-github" aria-hidden="true"></i>GITHUB Login </button>
+						<button type="button" class="btn btn-primary " style='padding-right: 5%;padding-left: 5%;'><i class="fa fa-github" aria-hidden="true"></i><a href="https://github.com/login/oauth/authorize?client_id=c4e99274015ff24bfc56&redirect_uri=http://qav2.cs.odu.edu/chandu/web-programming/login/gitLogin.php&scope=user:email/" style='color:white;text-decoration:none;'>GITHUB Login</a></button>
+						<!-- <a href="https://github.com/login/oauth/authorize?client_id=c4e99274015ff24bfc56&redirect_uri=http://qav2.cs.odu.edu/chandu/web-programming/login/gitLogin.php&scope=user:email/"><i class="fa fa-github" aria-hidden="true"></i></a> -->
 					</div>
 				</form>
 

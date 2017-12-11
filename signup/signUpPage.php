@@ -119,22 +119,19 @@ if(isset($_POST['submit']))
                     $sql = "INSERT INTO `users` VALUES('$email','$userName','$userName',DEFAULT,DEFAULT,DEFAULT,DEFAULT,'$psw',DEFAULT,DEFAULT,CURRENT_TIMESTAMP)";
                     if (mysqli_query($conn, $sql)) {
                         sendMailForNewUser($email,$userName);
-                        echo $email; 
-                        die();
-
-                       //  $sql1 = "INSERT INTO `userChannels` VALUES('$email',1,CURRENT_TIMESTAMP,DEFAULT)";
-                       //  $sql2 = "INSERT INTO `userChannels` VALUES('$email',2,CURRENT_TIMESTAMP,DEFAULT)";
-                       //  $sql3 = "INSERT INTO `gravatar` VALUES(DEFAULT,'$email','$gravatarUrl',CURRENT_TIMESTAMP)";
-                       //  $sqlResult1 = mysqli_query($conn, $sql1);
-                       //  $sqlResult2 = mysqli_query($conn, $sql2);
-                       //  $sqlResult3 = mysqli_query($conn, $sql3);
-                       //  // echo "<br><br><p style='text-align:center;color:green;'>**** Registered successfully ***</p>";
-                       // // header("location: ../login/login.php");
-                       //  if(in_array($_SESSION['email'], $admin)){
-                       //      header("location: ../index.php");
-                       //  }else{
-                       //      header("location: ../login/login.php");
-                       //  }
+                        $sql1 = "INSERT INTO `userChannels` VALUES('$email',1,CURRENT_TIMESTAMP,DEFAULT)";
+                        $sql2 = "INSERT INTO `userChannels` VALUES('$email',2,CURRENT_TIMESTAMP,DEFAULT)";
+                        $sql3 = "INSERT INTO `gravatar` VALUES(DEFAULT,'$email','$gravatarUrl',CURRENT_TIMESTAMP)";
+                        $sqlResult1 = mysqli_query($conn, $sql1);
+                        $sqlResult2 = mysqli_query($conn, $sql2);
+                        $sqlResult3 = mysqli_query($conn, $sql3);
+                        // echo "<br><br><p style='text-align:center;color:green;'>**** Registered successfully ***</p>";
+                       // header("location: ../login/login.php");
+                        if(in_array($_SESSION['email'], $admin)){
+                            header("location: ../index.php");
+                        }else{
+                            header("location: ../login/login.php");
+                        }
                     }else{
                         // echo "<br><br><p style='text-align:center;color:red;'>**** failed registering ***</p>";
                         echo $sql;
