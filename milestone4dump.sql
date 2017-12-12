@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2017 at 01:54 AM
+-- Generation Time: Dec 12, 2017 at 11:55 AM
 -- Server version: 10.0.19-MariaDB-1~trusty-log
 -- PHP Version: 5.5.9-1ubuntu4.9
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `channels` (
 --
 
 INSERT INTO `channels` (`channel_id`, `channel_name`, `purpose`, `created_by_user_email`, `createdon`, `access_specifiers`, `isArchive`) VALUES
-(1, 'general', 'all general messages', 'cmuth001@odu.edu', '2017-12-09 01:56:45', 0, 0),
+(1, 'general', 'all general messages', 'cmuth001@odu.edu', '2017-12-12 16:54:47', 0, 0),
 (2, 'random', 'random messages', 'cmuth001@odu.edu', '2017-11-24 19:49:27', 0, 0);
 
 -- --------------------------------------------------------
@@ -81,7 +81,16 @@ CREATE TABLE IF NOT EXISTS `channel_messages` (
   `has_thread` tinyint(4) NOT NULL DEFAULT '0',
   `textOrCode` tinyint(1) NOT NULL DEFAULT '0',
   `cmsg_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `channel_messages`
+--
+
+INSERT INTO `channel_messages` (`cmessage_id`, `channel_id`, `cuser_email`, `channel_message`, `has_thread`, `textOrCode`, `cmsg_timestamp`) VALUES
+(124, 1, 'cmuth001@odu.edu', ' https://vignette.wikia.nocookie.net/disney/images/c/c0/Mack.png/revision/latest?cb=20151213154902', 1, 0, '2017-12-12 16:32:55'),
+(125, 1, 'cmuth001@odu.edu', 'https://vignette.wikia.nocookie.net/disney/images/c/c0/Mack.png/revision/latest?cb=20151213154902', 0, 2, '2017-12-12 08:13:06'),
+(126, 1, 'cmuth001@odu.edu', 'https://vignette.wikia.nocookie.net/disney/images/c/c0/Mack.png/revision/latest?cb=20151213154902', 0, 2, '2017-12-12 08:14:05');
 
 -- --------------------------------------------------------
 
@@ -95,7 +104,15 @@ CREATE TABLE IF NOT EXISTS `channel_message_reaction` (
   `user_email` varchar(200) NOT NULL,
   `emoji_id` bigint(100) NOT NULL DEFAULT '0',
   `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=569 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=587 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `channel_message_reaction`
+--
+
+INSERT INTO `channel_message_reaction` (`id`, `message_id`, `user_email`, `emoji_id`, `createdon`) VALUES
+(585, 124, 'cmuth001@odu.edu', 2, '2017-12-12 16:48:20'),
+(586, 125, 'cmuth001@odu.edu', 2, '2017-12-12 16:48:58');
 
 -- --------------------------------------------------------
 
@@ -110,7 +127,14 @@ CREATE TABLE IF NOT EXISTS `direct_message` (
   `direct_message` varchar(2000) NOT NULL,
   `textOrCode` tinyint(1) NOT NULL DEFAULT '0',
   `dm_timestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `direct_message`
+--
+
+INSERT INTO `direct_message` (`directmsg_id`, `from_email`, `to_email`, `direct_message`, `textOrCode`, `dm_timestamp`) VALUES
+(117, 'cmuth001@odu.edu', 'chinga@cars.com', 'https://vignette.wikia.nocookie.net/disney/images/c/c0/Mack.png/revision/latest?cb=20151213154902', 2, '2017-12-12 08:14:24');
 
 -- --------------------------------------------------------
 
@@ -122,6 +146,14 @@ CREATE TABLE IF NOT EXISTS `emojis` (
   `emoji_id` bigint(100) NOT NULL,
   `unicode` varchar(50) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `emojis`
+--
+
+INSERT INTO `emojis` (`emoji_id`, `unicode`) VALUES
+(1, 'like'),
+(2, 'dislike');
 
 -- --------------------------------------------------------
 
@@ -189,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `loginActivityLog` (
   `logId` bigint(255) NOT NULL,
   `logEmail` varchar(50) NOT NULL,
   `LogInTime` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `loginActivityLog`
@@ -281,7 +313,11 @@ INSERT INTO `loginActivityLog` (`logId`, `logEmail`, `LogInTime`) VALUES
 (84, '', '2017-12-12 01:26:57'),
 (85, '', '2017-12-12 01:30:24'),
 (86, '', '2017-12-12 01:31:44'),
-(87, 'cmuth001@odu.edu', '2017-12-12 01:50:55');
+(87, 'cmuth001@odu.edu', '2017-12-12 01:50:55'),
+(88, 'cmuth001@odu.edu', '2017-12-12 02:07:31'),
+(89, 'npabb001@odu.edu', '2017-12-12 02:23:13'),
+(90, 'cmuth001@odu.edu', '2017-12-12 03:07:12'),
+(91, 'cmuth001@odu.edu', '2017-12-12 11:32:32');
 
 -- --------------------------------------------------------
 
@@ -331,7 +367,16 @@ CREATE TABLE IF NOT EXISTS `threaded_messages` (
   `message` text NOT NULL,
   `textOrCode` tinyint(1) NOT NULL DEFAULT '0',
   `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=556 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=559 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `threaded_messages`
+--
+
+INSERT INTO `threaded_messages` (`thread_id`, `message_id`, `user_email`, `message`, `textOrCode`, `createdon`) VALUES
+(556, 124, 'cmuth001@odu.edu', 'ads', 0, '2017-12-12 16:32:55'),
+(557, 124, 'cmuth001@odu.edu', 'adas', 0, '2017-12-12 16:32:58'),
+(558, 124, 'cmuth001@odu.edu', 'asdas', 0, '2017-12-12 16:32:59');
 
 -- --------------------------------------------------------
 
@@ -388,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`email`, `user_name`, `display_name`, `status`, `mode_id`, `display_pic`, `description`, `password`, `phone_no`, `isSecure`, `timestamp`) VALUES
 ('chinga@cars.com', 'Chick Hicks', 'Chick Hicks', 'Available', 0, '0', '', '@chick', 0, 0, '2017-11-30 15:27:59'),
-('cmuth001@odu.edu', 'chandu muthyala', 'cmuth001', 'Interested in web-programming', 0, '0', '', '@cmuth001', 0, 0, '2017-12-12 05:31:35'),
+('cmuth001@odu.edu', 'chandu muthyala', 'cmuth001', 'Interested in web-programming', 0, '0', '', '@cmuth001', 0, 0, '2017-12-12 08:52:35'),
 ('mater@rsprings.gov', 'Tow Mater', 'Tow Mater', 'Available', 0, '0', '', '@mater', 0, 1, '2017-12-12 06:39:52'),
 ('npabb001@odu.edu', 'Vamsi', 'Vamsi', 'Available', 0, '0', '', 'Neutral@123', 0, 0, '2017-12-01 18:25:43'),
 ('skand001@odu.edu', 'Chosen 1', 'Chosen 1', 'Available', 0, '0', 'bio', 'asdf', 1234567890, 0, '2017-12-12 06:05:17');
@@ -558,17 +603,17 @@ ALTER TABLE `channels`
 -- AUTO_INCREMENT for table `channel_messages`
 --
 ALTER TABLE `channel_messages`
-  MODIFY `cmessage_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=118;
+  MODIFY `cmessage_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=127;
 --
 -- AUTO_INCREMENT for table `channel_message_reaction`
 --
 ALTER TABLE `channel_message_reaction`
-  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=569;
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=587;
 --
 -- AUTO_INCREMENT for table `direct_message`
 --
 ALTER TABLE `direct_message`
-  MODIFY `directmsg_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=117;
+  MODIFY `directmsg_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=118;
 --
 -- AUTO_INCREMENT for table `emojis`
 --
@@ -588,7 +633,7 @@ ALTER TABLE `invite_user`
 -- AUTO_INCREMENT for table `loginActivityLog`
 --
 ALTER TABLE `loginActivityLog`
-  MODIFY `logId` bigint(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
+  MODIFY `logId` bigint(255) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT for table `messages`
 --
@@ -598,7 +643,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `threaded_messages`
 --
 ALTER TABLE `threaded_messages`
-  MODIFY `thread_id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=556;
+  MODIFY `thread_id` bigint(100) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=559;
 --
 -- Constraints for dumped tables
 --
