@@ -6,9 +6,12 @@ include_once "connect.php";
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
-
-define('clientID', 'c4e99274015ff24bfc56');
-define('clientSecret', 'f58c2400067713fff734eb001595445823e9f9e4');
+//qav2
+// define('clientID', 'c4e99274015ff24bfc56');
+// define('clientSecret', 'f58c2400067713fff734eb001595445823e9f9e4');
+  // docker
+    define('clientID', '402caad5d00ff3bead83');
+    define('clientSecret', '14a76d915f85136faf09e3381cfdecb6fdfd6b19');
 define('appName', 'idYeah!');
 
 $url = 'https://github.com/login/oauth/access_token';
