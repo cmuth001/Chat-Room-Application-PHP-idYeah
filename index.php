@@ -617,7 +617,7 @@ if(!$_SESSION['loggedIn']){
 		</div>
 		<footer>
 			<div class="copyRight col-md-12">
-				<span>Web-programming Project(CS518)</span><span> © Developed by Chandu Muthyala, Vamsi Krishna, Yasaswy Kandukuri - 2017</span>
+				<span>Web-programming Project(CS518)</span><span>© Developed by Chandu Muthyala, Vamsi Krishna, Yasaswy Kandukuri - 2017</span>
 			</div>
 		</footer>
 
