@@ -75,7 +75,7 @@ if(!$_SESSION['loggedIn']){
 					
 					
 						<div>
-							<div><label style='font-size: 2.7vh;'>idYeah!</label></div>
+							<div><label style='font-size: 2.7vh;'>idYeah! </label></div>
 							<div class="dropdown">
 								<button onclick="userMenu()" class="dropbtn"><?php $result = getUserDetails($_SESSION['email']); echo $result['display_name'];?><i class="fa fa-angle-down"></i></button>
 								  <div id="myDropdown" class="dropdown-content userProfile">
