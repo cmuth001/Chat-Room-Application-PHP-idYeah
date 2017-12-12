@@ -576,6 +576,22 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		$('.textinput').show();
 		console.log("modalClose");		
 	});
+	$(document).on('change','.toggle-event',function(e){
+		var email = e.currentTarget.id;
+		var isSecure = $('.toggle-event').prop('checked')==true?1:0;
+		$.ajax({
+	        url: 'sqlQueries.php',
+	        type: 'post',
+	        data: {'isSecureOption': {'email': email, 'isSecure': isSecure}},
+	        dataType: 'text',
+	        success: function (data) {
+	        	
+	        }
+	    });
+	});
+	// $( "#toggle-event" ).change(function() {
+ //  		alert( "Handler for .change() called." );
+	// });
 	$(document).on('click','.picUpdate',function(e){
 		$('#message_container').removeClass('col-xs-10');
 		$('#message_container').addClass('col-xs-7');
@@ -586,6 +602,7 @@ $( ".inviteChannelButton" ).on("click",function(e) {
 		$('#profilPicUpdate').show();
 		console.log("picUpdate");
 	});
+	
 	$(document).on('click','.loginActivityGraph',function(e){
 		$('#message_container').removeClass('col-xs-10');
 		$('#message_container').addClass('col-xs-7');
@@ -1047,6 +1064,7 @@ var w = 300,                        //width
     });
 
 }
+
 function reCaptchad(){
 		document.getElementById("myButton").disabled = false;
 }

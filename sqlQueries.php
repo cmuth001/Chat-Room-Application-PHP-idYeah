@@ -161,6 +161,13 @@ if(isset($_POST['selectGravatar'])){
 	echo $email;
 
 }
+if(isset($_POST['isSecureOption'])){
+	$email = $_POST['isSecureOption']['email'];
+	$isSecure = $_POST['isSecureOption']['isSecure'];
+	$sql = "UPDATE users SET isSecure=$isSecure where email='$email'";
+	$result = mysqli_query($conn, $sql);
+}
+
 if(isset($_POST['defaultPhoto'])){
 	$email = $_POST['defaultPhoto'];
 

@@ -62,7 +62,10 @@ if(!$_SESSION['loggedIn']){
 		<!-- logIn start Activity -->
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-		
+		<!-- toggle button -->
+		<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+		<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+		<!--end toggle button -->
 	</head>
 	<body>
 		<div class="container nopadding col-xs-12" >
@@ -86,7 +89,9 @@ if(!$_SESSION['loggedIn']){
 								    		echo $result['display_name'];
 								    	}
 								    	?>
+								   
 								    </div>
+								    <a class = 'userMenuLink '><span class = 'fa fa-shield userMenuList'></span>More Security<input class="toggle-event" id=<?php echo "'".$_SESSION['email']."'"?> type="checkbox" data-toggle="toggle"></a>
 								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" class = 'userMenuLink'><span class = 'fa fa-user userMenuList'></span> View Profile</a>
 								    <!-- <a class = 'userMenuLink picUpdate' style='cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Update Profile Pic</a> -->
 								    <a href='#UpdatePic' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-bars userMenuList'></span>Update Photo</a>

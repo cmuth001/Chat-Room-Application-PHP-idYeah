@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include_once "../login/connect.php"; 
 include_once "../sqlQueries.php";
-include_once '../assets/php/class.phpmailer.php';
+include './../assets/php/class.phpmailer.php';
 require_once '../assets/php/class.smtp.php';
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD,DB_NAME)
     OR die ('Could not connect to MySQL: '.mysql_error());
@@ -16,41 +16,40 @@ if ($conn->connect_error) {
 $emailErr = $nameErr= $pswErr ="";
 $admin = admin();
 function sendMailForNewUser($email,$userName){
-    echo "hello world";
     $return_arrfinal = array();
-    $status_array['status'] = '1';
-    $mail = new PHPMailer();
-    $toarraymail="cmuth001@odu.edu";
-    $mail->SMTPDebug = false;                               // Enable verbose debug output
-    $mail->Port = '587';
-    $mail->isSMTP();                                      // Set mailer to use SMTP // Specify main and backup SMTP servers                                    // Set mailer to use SMTP
-    $mail->Host = gethostbyname('smtp.gmail.com');  // Specify main and backup SMTP servers
-    $mail->SMTPAuth = true; // Authentication must be disabled
+      $status_array['status'] = '1';
+      $mail = new PHPMailer();
+      $toarraymail="cmuth001@odu.edu";
+      $mail->SMTPDebug = 1;                              // Enable verbose debug output
+      $mail->Port = '587';
+      $mail->isSMTP();                                      // Set mailer to use SMTP // Specify main and backup SMTP servers                                    // Set mailer to use SMTP
+      $mail->Host = gethostbyname('smtp.gmail.com');  // Specify main and backup SMTP servers
+      $mail->SMTPAuth = true; // Authentication must be disabled
 
-    $mail->Username = "mchandrasekharreddym@gmail.com";
-    $mail->Password = "muthyala1234";
-    $mail->SMTPSecure= 'tls';
+      $mail->Username = 'mchandrasekharreddym@gmail.com';
+      $mail->Password = 'muthyala1234';
+      $mail->SMTPSecure= 'tls';
 
 
-    $mail->setFrom("mchandrasekharreddym@gmail.com","SlackChatRoom");
-    $mail->AddAddress($toarraymail);     // Add a recipient
-  // Optional name
-    $mail->isHTML(true);                                  // Set email format to HTML
+      $mail->setFrom("mchandrasekharreddym@gmail.com","idYeah!");
+      $mail->AddAddress($toarraymail);     // Add a recipient
+      // Optional name
+      $mail->isHTML(true);                                  // Set email format to HTML
 
-    $mail->Subject = ' Welcome For SlackChatRoom';
-    $mail->Body    =" Hi $userName, <br /> welcome to  SlackChatRoom.
-                    <br /><br />
-                    Regards,<br />
-                     SlackChatRoom Team.";
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+      $mail->Subject = 'New User Registration For idYeah!';
+      $mail->Body    =" Hi, <br> New User ,$userName";
+      $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-    if(!$mail->Send()){
+      if(!$mail->Send()){
+        echo "false";
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
         return false;
-    }else{
+      }else{
+        echo "Sending email";
         return true;
-    }
-    echo "Sending email";
-    die();
+      }
+      echo "Sending email";
+
 }
 
 if(isset($_POST['submit']))
