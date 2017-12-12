@@ -364,9 +364,10 @@ if(!$_SESSION['loggedIn']){
 								        <div class="modal-header">
 								          <button type="button" class="close" data-dismiss="modal">&times;</button>
 								          <h4 class="modal-title"><i class='fa fa-file-text postingOptionMenu' aria-hidden='true'></i>File Upload</h4>
+								          <span style='color:red'>* Images are not allowed here</span>
 								        </div>
 								        <div class="modal-body">
-											
+											<p style='color:red'></p>
 											<form action="./upLoadDocument.php"enctype="multipart/form-data" method="post"> 
 						                        <?php 
 
