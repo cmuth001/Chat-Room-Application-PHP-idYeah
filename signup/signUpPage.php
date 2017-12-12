@@ -1,8 +1,8 @@
 <?php 
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include_once "../login/connect.php"; 
 include_once "../sqlQueries.php";
 include './../assets/php/class.phpmailer.php';
@@ -19,7 +19,7 @@ function sendMailForNewUser($email,$userName){
     $return_arrfinal = array();
       $status_array['status'] = '1';
       $mail = new PHPMailer();
-      $toarraymail="cmuth001@odu.edu";
+      $toarraymail=$email;
       $mail->SMTPDebug = 1;                              // Enable verbose debug output
       $mail->Port = '587';
       $mail->isSMTP();                                      // Set mailer to use SMTP // Specify main and backup SMTP servers                                    // Set mailer to use SMTP
@@ -37,8 +37,18 @@ function sendMailForNewUser($email,$userName){
       $mail->isHTML(true);                                  // Set email format to HTML
 
       $mail->Subject = 'New User Registration For idYeah!';
-      $mail->Body    =" Hi, <br> New User ,$userName";
+      $mail->Body    =" Hello $userName, <br>
+                        Thank you for signing up on idYeah! Here are your account details-<br />
+                        Email: $email,<br />
+                        User name: $userName,<br />
+                        Here is the link for logging in - <a href ='http://qav2.cs.odu.edu/chandu/web-programming/login/login.php'>Login Page</a> <br />
+                        idYeah! is a wonderful platform for collaborations. We are happy to have you. We look forward to your active participation.<br />
+                        Thanks,<br />
+                        idYeah! Team.";
       $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+
+
 
       if(!$mail->Send()){
         echo "false";

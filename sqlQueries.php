@@ -167,6 +167,17 @@ if(isset($_POST['isSecureOption'])){
 	$sql = "UPDATE users SET isSecure=$isSecure where email='$email'";
 	$result = mysqli_query($conn, $sql);
 }
+function getIsSecureOption($email){
+	global $conn;
+	$sql = "select isSecure from users where email='$email'";
+	$result = mysqli_query($conn, $sql);
+	while(($row = mysqli_fetch_assoc($result))){
+		if($row['isSecure']==1){
+			return "checked";
+		}
+	}
+
+}
 
 if(isset($_POST['defaultPhoto'])){
 	$email = $_POST['defaultPhoto'];

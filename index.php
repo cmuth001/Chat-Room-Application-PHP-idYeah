@@ -91,7 +91,7 @@ if(!$_SESSION['loggedIn']){
 								    	?>
 								   
 								    </div>
-								    <a class = 'userMenuLink '><span class = 'fa fa-shield userMenuList'></span>More Security<input class="toggle-event" id=<?php echo "'".$_SESSION['email']."'"?> type="checkbox" data-toggle="toggle"></a>
+								    <a class = 'userMenuLink '><span class = 'fa fa-shield userMenuList'></span>More Security<input class="toggle-event" id=<?php echo "'".$_SESSION['email']."'"?> type="checkbox" data-toggle="toggle" <?php echo getIsSecureOption($_SESSION['email']) ?>></a>
 								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" class = 'userMenuLink'><span class = 'fa fa-user userMenuList'></span> View Profile</a>
 								    <!-- <a class = 'userMenuLink picUpdate' style='cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Update Profile Pic</a> -->
 								    <a href='#UpdatePic' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-bars userMenuList'></span>Update Photo</a>
