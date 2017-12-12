@@ -182,7 +182,7 @@ function getIsSecureOption($email){
 if(isset($_POST['defaultPhoto'])){
 	$email = $_POST['defaultPhoto'];
 
-	$sql = "UPDATE users SET display_pic=2 where email='$email'";
+	$sql = "UPDATE users SET display_pic=3 where email='$email'";
 	$result = mysqli_query($conn, $sql);
 	echo $email;
 

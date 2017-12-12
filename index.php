@@ -91,7 +91,7 @@ if(!$_SESSION['loggedIn']){
 								    	?>
 								   
 								    </div>
-								    <a class = 'userMenuLink '><span class = 'fa fa-shield userMenuList'></span>More Security<input class="toggle-event" id=<?php echo "'".$_SESSION['email']."'"?> type="checkbox" data-toggle="toggle" <?php echo getIsSecureOption($_SESSION['email']) ?>></a>
+								    <a class = 'userMenuLink '><span class = 'fa fa-shield userMenuList'></span>Account Security<input class="toggle-event" id=<?php echo "'".$_SESSION['email']."'"?> type="checkbox" data-toggle="toggle" <?php echo getIsSecureOption($_SESSION['email']) ?>></a>
 								    <a href= "profilePage.php?email=<?php echo $_SESSION['email']; ?>" class = 'userMenuLink'><span class = 'fa fa-user userMenuList'></span> View Profile</a>
 								    <!-- <a class = 'userMenuLink picUpdate' style='cursor:pointer;'><span class = 'fa fa-picture-o userMenuList'></span>Update Profile Pic</a> -->
 								    <a href='#UpdatePic' class = 'userMenuLink' data-toggle='collapse'><span class = 'fa fa-bars userMenuList'></span>Update Photo</a>
@@ -193,7 +193,7 @@ if(!$_SESSION['loggedIn']){
 						<div class ="col-xs-11 nopadding ">
 							<!-- search profile field -->
 							<div class="input-group input-group-lg profileSearchField">
-							  <span class="input-group-addon" id="sizing-addon1" style='padding: 3% 4%;'>@</span>
+							  <span class="input-group-addon" id="sizing-addon1" style='padding: 3% 4%;display:none;'>@</span>
 							  <input type="text" class="form-control" class ='profileSearchInputField' id ='profileSearchInputField' placeholder="Search User profile" aria-label="Username" aria-describedby="sizing-addon1">
 							</div>
 							<div class ='listOfProfileSearch'>

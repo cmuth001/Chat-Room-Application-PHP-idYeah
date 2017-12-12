@@ -21,6 +21,9 @@
     position: relative;
    
 }
+#profileSearchInputField{
+	border-radius: 5px;
+}
 .leftSideMenu{
 	background-color: #404040;
 	/*width:13% !important;*/
