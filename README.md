@@ -34,7 +34,7 @@
 |:---:|:---:|
 | 2FA OFF | 2FA ON | 
  ### GITHUB Integration
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Users have an option of logging in to our website using **GITHUB** credentials. This is achieved by using the services provided by the GITHUB. Once the user clicks on the Login with “GITHUB” option, the user is taken to a new page where he is prompted to enter his credentials and is authenticated by GITHUB. GITHUB checks his credentials and sends a response code denting a success or a failure. If the response denotes a success, the user is redirected to his home page, else he is asked to enter the correct credentials. If the response code denotes a success, along with the response user details are also sent which are used to compare with the user list in the Database and provide the user with his information.
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Users have an option of logging in to our website using **GITHUB** credentials. This is achieved by using the services provided by the GITHUB. Once the user clicks on the Login with **GITHUB** option, the user is taken to a new page where he is prompted to enter his credentials and is authenticated by GITHUB. GITHUB checks his credentials and sends a response code denting a success or a failure. If the response denotes a success, the user is redirected to his home page, else he is asked to enter the correct credentials. If the response code denotes a success, along with the response user details are also sent which are used to compare with the user list in the Database and provide the user with his information.
  
 | ![GITHUB Login](GITHUBLogin.PNG)  |
 |:---:|
