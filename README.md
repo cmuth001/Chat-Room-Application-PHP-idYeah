@@ -1,4 +1,8 @@
-## idYeah!- A messaging chat room website like Slack using a LAMP stack.
+<p align="center">
+  <b>idYeah!</b><br>
+  <b>(A messaging chat room website like Slack using a LAMP stack)</b><br />
+ </p>
+
 ### Introduction
   We took ‘Slack’ to be our model on which our website was to be based. However, we have also added few additional features in order to meet the expectations of our target audience. Slack is a chatroom which is an acronym for “Searchable Log of All Conversation and Knowledge”. As the name indicates, all the content is searchable in Slack. Basically, it is a place for collaboration that works by sending an invitation by the admin or owner to work on a specific project. However, it also has room for direct messaging between the users present in the chatroom. 
   idYeah! (platform to share and collaborate on ideas) was made for a similar purpose. However, there are ways in which both the chatrooms differ. In idYeah!, only select content is searchable. Also, users can post code snippets along with pictures and URLs as messages in any group and take feedback or suggestions for the same. Basically, the code snippet feature in our chatroom is to bring ideas to life. we have seen a number of websites accepting the credentials of one of the reputed or authentic sites used by a person. Considering this, GitHub based login was implemented. Users can also use a globally recognized avatar as their default image. Account security is a priority, so an optional two-step authentication has been provided. One additional feature is: existing users are gauged based on their participation in the channels on their profile page. Also, a graphical view of their participation is provided in the user options.
