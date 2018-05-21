@@ -1,5 +1,5 @@
 <p align="center">
-  <b font-size="36px;">idYeah!</b><br>
+  <b style="font-size:36px;">idYeah!</b><br>
   <b>(A messaging chat room website like Slack using a LAMP stack)</b><br />
  </p>
 
