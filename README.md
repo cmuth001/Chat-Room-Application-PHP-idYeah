@@ -12,14 +12,13 @@
 | 2FA OFF | 2FA ON | 
  ### GITHUB Integration
   Users have an option of logging in to our website using GITHUB credentials. This is achieved by using the services provided by the GITHUB. Once the user clicks on the Login with “GITHUB” option, the user is taken to a new page where he is prompted to enter his credentials and is authenticated by GITHUB .GITHUB checks his credentials and sends a response code denting a success or a failure. If the response denotes a success, the user is redirected to his home page, else he is asked to enter the correct credentials. If the response code denotes a success, along with the response user details are also sent which are used to compare with the user list in the Database and provide the user with his information.
-  | [![GITHUB Login](GITHUBLogin.PNG)]  | [![2FA ON](2FAon.PNG)] |
+ | [![2FA OFF](2FAoff.PNG)]  | [![2FA ON](2FAon.PNG)] |
 |:---:|:---:|
-| GITHUB Login | 2FA ON | 
+| 2FA OFF | 2FA ON | 
 
 
  ### Graphs for Metrics
   Every user’s participation is depicted by the means of a graph. A user’s messages and reaction in a channel are the parameters that are used to measure the performance metrics. The overall performance in a channel is calculated on a scale of 100 units. The metrics keep varying for every new post or reaction by a user.
-  | [![User Metrics Graphs](UserMetricsGraps.PNG)]  | [![2FA ON](2FAon.PNG)] |
-  |:---:|:---:|
-| User Metrics Graphs | 2FA ON | 
-
+ | [![2FA OFF](2FAoff.PNG)]  | [![2FA ON](2FAon.PNG)] |
+|:---:|:---:|
+| 2FA OFF | 2FA ON | 
