@@ -1,6 +1,7 @@
 
   <h1 align="center">idYeah!</h1>
   <h4 align="center">(A messaging chat room website like Slack using a LAMP stack)</h4>
+  <a align="center" href = "http://qav2.cs.odu.edu/chandu/web-programming/login/login.php"> Live Site</a>
  
 ### Introduction
   We took ‘Slack’ to be our model on which our website was to be based. However, we have also added few additional features in order to meet the expectations of our target audience. Slack is a chatroom which is an acronym for “Searchable Log of All Conversation and Knowledge”. As the name indicates, all the content is searchable in Slack. Basically, it is a place for collaboration that works by sending an invitation by the admin or owner to work on a specific project. However, it also has room for direct messaging between the users present in the chatroom. 
