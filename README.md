@@ -1,5 +1,5 @@
 
-  <h1 align="center">idYeah!</h1><br>
+  <h1 align="center">idYeah!</h1>
   <h4 align="center">(A messaging chat room website like Slack using a LAMP stack)</h4><br />
   
 ### Introduction
