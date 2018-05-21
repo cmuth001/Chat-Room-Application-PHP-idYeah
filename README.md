@@ -18,7 +18,7 @@
 - Two Factor Authentication .
 - User profile search.
 - Login with GitHub.
--Provided an option to use Gravatar image.
+- Provided an option to use Gravatar image.
 
 ### DataBase Schema Design
 
