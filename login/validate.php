@@ -37,7 +37,7 @@ function sendMailForNewUser($email,$passCode){
       $mail->SMTPAuth = true; // Authentication must be disabled
 
       $mail->Username = 'mchandrasekharreddym@gmail.com';
-      $mail->Password = 'muthyala1234';
+      $mail->Password = '';
       $mail->SMTPSecure= 'tls';
 
 
