@@ -34,7 +34,7 @@
 |:---:|:---:|
 | 2FA OFF | 2FA ON | 
 
-| ![Sample Messaging Room](like.png)  |
+| ![Sample Messaging Room](messages.png)  |
 |:---:|
 | Sample Messaging Room|  
 
